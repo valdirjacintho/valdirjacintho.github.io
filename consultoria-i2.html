@@ -4,194 +4,373 @@
   <meta charset="UTF-8" />
   <title>Consultoria i2 | Sustentação, Treinamento e Integração i2 – SEEAI</title>
 
-  <meta name="description" content="Consultoria especializada em i2 Analyst’s Notebook, sustentação, treinamento e integração i2. A SEEAI apoia operações de investigação, inteligência e antifraude." />
-
-  <meta name="keywords" content="consultoria i2, treinamento i2, sustentação i2, software i2, i2 Analyst's Notebook, investigação analítica, antifraude, inteligência investigativa" />
+  <meta name="description" content="Consultoria especializada em i2 Analyst’s Notebook, sustentação, treinamento e integração i2. A SEEAI apoia operações de investigação, inteligência e prevenção a fraudes." />
+  <meta name="keywords" content="consultoria i2, treinamento i2, sustentação i2, software i2, i2 Analyst's Notebook, investigação analítica, antifraude, inteligência investigativa, analysis hub, analysis studio, ibase, textchart" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.seeaidata.com.br/consultoria-i2.html" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Consultoria i2 | Sustentação e Treinamento i2 – SEEAI" />
   <meta property="og:description" content="Especialistas em i2 Analyst’s Notebook, sustentação operacional, treinamento e integração para investigação e antifraude." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://seeaidata.com.br/consultoria-i2.html" />
+  <meta property="og:url" content="https://www.seeaidata.com.br/consultoria-i2.html" />
+
+  <!-- (Opcional) Se você tiver uma imagem OG no futuro:
+  <meta property="og:image" content="https://www.seeaidata.com.br/img/og-seeaidata.jpg" />
+  -->
 </head>
 
 <body>
+  <!-- Fundo animado -->
+  <canvas id="network-bg"></canvas>
 
-<canvas id="network-bg"></canvas>
+  <div class="content-wrapper">
 
-<div class="content-wrapper">
+    <!-- HEADER -->
+    <header>
+      <div class="nav-inner">
 
-  <!-- HEADER (mesmo padrão do site) -->
-  <header>
-    <div class="nav-inner">
-      <a href="index.html" class="brand">
-        <img src="img/seeai-logo.png" alt="SEEAI Logo" class="logo-small">
-        <span class="brand-name">SEEAI</span>
-      </a>
+        <a href="index.html#top" class="brand">
+          <img src="img/seeai-logo.png" alt="Logotipo SEEAI" class="logo-small" />
+          <span class="brand-name">SEEAI</span>
+        </a>
 
-      <nav class="nav-desktop">
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="consultoria-i2.html" class="is-active">Consultoria i2</a></li>
-          <li><a href="datahub.html">SEEAI Data Hub</a></li>
-          <li><a href="produtos-i2.html">Produtos i2</a></li>
-          <li><a href="index.html#contato">Contato</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+        <!-- NAV DESKTOP -->
+        <nav class="nav-desktop" aria-label="Navegação principal">
+          <ul>
+            <li><a href="index.html#quem-somos">Quem somos</a></li>
+            <li><a href="index.html#servicos">Serviços</a></li>
+            <li><a href="consultoria-i2.html" class="is-active">Consultoria i2</a></li>
+            <li><a href="datahub.html">SEEAI Data Hub</a></li>
+            <li><a href="produtos-i2.html">Produtos i2</a></li>
+            <li><a href="index.html#blog">Blog</a></li>
+            <li><a href="index.html#contato">Contato</a></li>
+          </ul>
+        </nav>
 
-  <!-- HERO -->
-  <section class="section-large section-block alt1">
-    <h1 class="section-title">
-      Consultoria, Sustentação e Treinamento i2
-    </h1>
+        <!-- BOTÃO MOBILE -->
+        <button class="nav-toggle"
+                type="button"
+                aria-label="Abrir menu"
+                aria-controls="mobile-nav"
+                aria-expanded="false">
+          <span class="nav-toggle-lines" aria-hidden="true"></span>
+        </button>
 
-    <p class="section-sub">
-      A SEEAI oferece consultoria especializada em i2 Analyst’s Notebook e no ecossistema i2,
-      apoiando organizações em investigação analítica, inteligência e prevenção a fraudes.
-    </p>
-  </section>
-
-  <!-- BLOCO 1 -->
-  <section class="section-large section-block alt2">
-    <div class="two-column">
-      <div>
-        <h2 class="section-title">Busque eficiência e reduza custos</h2>
-        <p class="text-body">
-          Toda gestão busca eficiência operacional e redução de custos. Na área de TI,
-          organizações que utilizam o software i2 precisam garantir estabilidade,
-          desempenho e continuidade operacional.
-        </p>
-        <p class="text-body">
-          A SEEAI permite que sua equipe foque na atividade fim, enquanto nossos
-          consultores especializados assumem atividades de sustentação, suporte,
-          evolução e governança do ambiente i2.
-        </p>
       </div>
 
-      <div class="card">
-        <h3 class="section-title small">Diferenciais da especialização SEEAI</h3>
-        <ul class="list">
-          <li>Centralização dos níveis de atendimento i2</li>
-          <li>Processos claros de documentação e governança</li>
-          <li>Indicadores operacionais e executivos validados</li>
-          <li>Especialistas dedicados ao ecossistema i2</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+      <!-- NAV MOBILE (drawer) -->
+      <div id="mobile-nav" class="nav-mobile" aria-hidden="true">
+        <div class="nav-mobile-inner">
+          <div class="nav-mobile-top">
+            <span class="nav-mobile-title">Menu</span>
+            <button class="nav-close" type="button" aria-label="Fechar menu">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
 
-  <!-- BLOCO 2 -->
-  <section class="section-large section-block alt1">
-    <h2 class="section-title">Consultoria e Sustentação i2</h2>
-
-    <p class="section-sub">
-      A SEEAI atua na sustentação completa ou parcial de ambientes i2, cobrindo desde
-      operação assistida até atuação direta em ambientes produtivos.
-    </p>
-
-    <div class="grid-3">
-      <div class="card">
-        <h3>Operação Assistida</h3>
-        <p>
-          Acompanhamento próximo da operação do i2 Analyst’s Notebook,
-          garantindo uso correto, performance e qualidade analítica.
-        </p>
+          <a href="index.html#quem-somos" class="nav-mobile-link">Quem somos</a>
+          <a href="index.html#servicos" class="nav-mobile-link">Serviços</a>
+          <a href="consultoria-i2.html" class="nav-mobile-link is-active">Consultoria i2</a>
+          <a href="datahub.html" class="nav-mobile-link">SEEAI Data Hub</a>
+          <a href="produtos-i2.html" class="nav-mobile-link">Produtos i2</a>
+          <a href="index.html#blog" class="nav-mobile-link">Blog</a>
+          <a href="index.html#contato" class="nav-mobile-link">Contato</a>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>Outsourcing Especializado</h3>
-        <p>
-          Sustentação técnica e funcional com consultores SEEAI integrados
-          à equipe do cliente.
-        </p>
+      <div class="nav-overlay" aria-hidden="true"></div>
+    </header>
+
+    <!-- HERO -->
+    <section class="section-large section-block alt1" id="top">
+      <h1 class="section-title">Consultoria, Sustentação e Treinamento i2</h1>
+
+      <p class="section-sub">
+        A SEEAI oferece consultoria especializada em i2 Analyst’s Notebook e no ecossistema i2,
+        apoiando organizações em investigação analítica, inteligência e prevenção a fraudes.
+      </p>
+
+      <div class="hero-actions">
+        <a href="index.html#contato" class="btn btn-primary">Agendar conversa</a>
+        <a href="produtos-i2.html" class="btn btn-secondary">Ver produtos i2</a>
       </div>
 
-      <div class="card">
-        <h3>Governança e Indicadores</h3>
-        <p>
-          Gestão centralizada, SLAs, indicadores e planos de ação contínuos.
-        </p>
+      <p class="hero-meta">
+        Consultoria i2 · Sustentação · Treinamento · Integração · Antifraude · Investigação analítica · i2 Analyst’s Notebook
+      </p>
+    </section>
+
+    <!-- BLOCO 1 -->
+    <section class="section-large section-block alt2">
+      <div class="two-column">
+        <div>
+          <h2 class="section-title">Busque eficiência e reduza custos</h2>
+          <p class="text-body">
+            Toda gestão busca eficiência operacional e redução de custos. Na área de TI,
+            organizações que utilizam o software i2 precisam garantir estabilidade,
+            desempenho e continuidade operacional.
+          </p>
+          <p class="text-body">
+            A SEEAI permite que sua equipe foque na atividade fim, enquanto nossos
+            consultores especializados assumem atividades de sustentação, suporte,
+            evolução e governança do ambiente i2.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="section-title small">Diferenciais da especialização SEEAI</h3>
+          <ul class="list">
+            <li>Centralização dos níveis de atendimento i2</li>
+            <li>Processos claros de documentação e governança</li>
+            <li>Indicadores operacionais e executivos validados</li>
+            <li>Especialistas dedicados ao ecossistema i2</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- BLOCO 3 -->
-  <section class="section-large section-block alt2">
-    <h2 class="section-title">Metodologia de Sustentação SEEAI</h2>
+    <!-- BLOCO 2 -->
+    <section class="section-large section-block alt1">
+      <h2 class="section-title">Consultoria e Sustentação i2</h2>
 
-    <p class="section-sub">
-      Nossa metodologia de sustentação é aderente às boas práticas da ITIL,
-      combinada com a experiência prática em ambientes de investigação analítica.
-    </p>
+      <p class="section-sub">
+        A SEEAI atua na sustentação completa ou parcial de ambientes i2, cobrindo desde
+        operação assistida até atuação direta em ambientes produtivos.
+      </p>
 
-    <ul class="list">
-      <li>Modelo de atendimento flexível e escalável</li>
-      <li>Transição estruturada e transparente</li>
-      <li>Conhecimento do negócio do cliente</li>
-      <li>Gestão integrada de serviços e recursos</li>
-      <li>Acesso direto ao time de especialistas SEEAI</li>
-    </ul>
-  </section>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Operação Assistida</h3>
+          <p class="text-body">
+            Acompanhamento próximo da operação do i2 Analyst’s Notebook,
+            garantindo uso correto, performance e qualidade analítica.
+          </p>
+        </div>
 
-  <!-- BLOCO 4 -->
-  <section class="section-large section-block alt1">
-    <h2 class="section-title">Componentes do Serviço</h2>
+        <div class="card">
+          <h3>Outsourcing Especializado</h3>
+          <p class="text-body">
+            Sustentação técnica e funcional com consultores SEEAI integrados
+            à equipe do cliente.
+          </p>
+        </div>
 
-    <div class="grid-3">
-      <div class="card">
-        <h3>Suporte Nível 1</h3>
-        <p>Atendimento a usuários, dúvidas e orientações operacionais.</p>
+        <div class="card">
+          <h3>Governança e Indicadores</h3>
+          <p class="text-body">
+            Gestão centralizada, SLAs, indicadores e planos de ação contínuos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 3 -->
+    <section class="section-large section-block alt2">
+      <h2 class="section-title">Metodologia de Sustentação SEEAI</h2>
+
+      <p class="section-sub">
+        Nossa metodologia de sustentação é aderente às boas práticas da ITIL,
+        combinada com a experiência prática em ambientes de investigação analítica.
+      </p>
+
+      <ul class="list">
+        <li>Modelo de atendimento flexível e escalável</li>
+        <li>Transição estruturada e transparente</li>
+        <li>Conhecimento do negócio do cliente</li>
+        <li>Gestão integrada de serviços e recursos</li>
+        <li>Acesso direto ao time de especialistas SEEAI</li>
+      </ul>
+    </section>
+
+    <!-- BLOCO 4 -->
+    <section class="section-large section-block alt1">
+      <h2 class="section-title">Componentes do Serviço</h2>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Suporte Nível 1</h3>
+          <p class="text-body">Atendimento a usuários, dúvidas e orientações operacionais.</p>
+        </div>
+
+        <div class="card">
+          <h3>Suporte Nível 2</h3>
+          <p class="text-body">Correções de parametrização, cadastro e configuração.</p>
+        </div>
+
+        <div class="card">
+          <h3>Suporte Nível 3</h3>
+          <p class="text-body">
+            Atuação técnica avançada, customizações, scripts e correções
+            em ambientes i2.
+          </p>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>Suporte Nível 2</h3>
-        <p>Correções de parametrização, cadastro e configuração.</p>
+      <p class="text-body">
+        Também oferecemos plantão 24x7, gestão operacional e relatórios periódicos
+        com indicadores de desempenho.
+      </p>
+    </section>
+
+    <!-- BLOCO FINAL -->
+    <section class="section-large section-block alt3">
+      <h2 class="section-title">Uma solução personalizada para cada cliente</h2>
+
+      <p class="section-sub">
+        Cada contrato de consultoria i2 da SEEAI é desenhado sob medida,
+        respeitando o nível de maturidade, equipe e objetivos estratégicos
+        da organização.
+      </p>
+
+      <div class="hero-actions">
+        <a href="index.html#contato" class="btn btn-primary">Falar com um especialista i2</a>
+        <a href="datahub.html" class="btn btn-secondary">Conhecer o Data Hub</a>
       </div>
+    </section>
 
-      <div class="card">
-        <h3>Suporte Nível 3</h3>
-        <p>
-          Atuação técnica avançada, customizações, scripts e correções
-          em ambientes i2.
-        </p>
-      </div>
-    </div>
+    <footer>
+      © <span id="year"></span> SEEAI · Consultoria e Inteligência Investigativa
+    </footer>
 
-    <p class="text-body">
-      Também oferecemos plantão 24x7, gestão operacional e relatórios periódicos
-      com indicadores de desempenho.
-    </p>
-  </section>
+  </div>
 
-  <!-- BLOCO FINAL -->
-  <section class="section-large section-block alt3">
-    <h2 class="section-title">Uma solução personalizada para cada cliente</h2>
+  <!-- WhatsApp flutuante -->
+  <a class="whatsapp-float"
+     href="https://wa.me/5511978596000"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Fale conosco no WhatsApp">
+    <span class="whatsapp-float__ring" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.1.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"/>
+    </svg>
+  </a>
 
-    <p class="section-sub">
-      Cada contrato de consultoria i2 da SEEAI é desenhado sob medida,
-      respeitando o nível de maturidade, equipe e objetivos estratégicos
-      da organização.
-    </p>
+  <!-- SCRIPT: ano + animação + menu -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    <a href="index.html#contato" class="btn btn-primary">
-      Falar com um especialista i2
-    </a>
-  </section>
+    /* ===== Canvas network ===== */
+    const canvas = document.getElementById("network-bg");
+    const ctx = canvas.getContext("2d");
 
-  <footer>
-    © <span id="year"></span> SEEAI · Consultoria e Inteligência Investigativa
-  </footer>
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener("resize", resize);
 
-</div>
+    let nodes = [];
+    const NODE_COUNT = 90;
+    const MAX_DISTANCE = 150;
 
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+    function initNodes() {
+      nodes = [];
+      for (let i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6
+        });
+      }
+    }
+    initNodes();
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "rgba(5, 13, 31, 1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      nodes.forEach(node => {
+        node.x += node.vx;
+        node.y += node.vy;
+
+        if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+        if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = "#1ea4ff";
+        ctx.fill();
+
+        if (Math.random() < 0.003) {
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = "#e6323a";
+          ctx.fill();
+        }
+      });
+
+      for (let a = 0; a < NODE_COUNT; a++) {
+        for (let b = a + 1; b < NODE_COUNT; b++) {
+          const dx = nodes[a].x - nodes[b].x;
+          const dy = nodes[a].y - nodes[b].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < MAX_DISTANCE) {
+            ctx.strokeStyle = "rgba(30, 164, 255," + (1 - dist / MAX_DISTANCE) + ")";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(nodes[a].x, nodes[a].y);
+            ctx.lineTo(nodes[b].x, nodes[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    /* ===== Mobile nav (drawer) ===== */
+    (function () {
+      const root = document.documentElement;
+      const toggle = document.querySelector(".nav-toggle");
+      const drawer = document.getElementById("mobile-nav");
+      const overlay = document.querySelector(".nav-overlay");
+      const closeBtn = document.querySelector(".nav-close");
+      const links = document.querySelectorAll(".nav-mobile-link, .nav-mobile-sublink");
+
+      if (!toggle || !drawer || !overlay || !closeBtn) return;
+
+      function openNav() {
+        root.classList.add("nav-open");
+        toggle.setAttribute("aria-expanded", "true");
+        drawer.setAttribute("aria-hidden", "false");
+        overlay.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeNav() {
+        root.classList.remove("nav-open");
+        toggle.setAttribute("aria-expanded", "false");
+        drawer.setAttribute("aria-hidden", "true");
+        overlay.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      toggle.addEventListener("click", () => {
+        const isOpen = root.classList.contains("nav-open");
+        isOpen ? closeNav() : openNav();
+      });
+
+      closeBtn.addEventListener("click", closeNav);
+      overlay.addEventListener("click", closeNav);
+      links.forEach(a => a.addEventListener("click", closeNav));
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeNav();
+      });
+    })();
+  </script>
 
 </body>
 </html>
