@@ -29,6 +29,24 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 
+
+
+!-- Cookie Consent -->
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
+  <p>
+    Utilizamos cookies para melhorar sua experiência e analisar o tráfego do site.
+    <a href="politica-de-privacidade.html">Saiba mais</a>.
+  </p>
+  <div class="cookie-actions">
+    <button id="cookie-accept" class="btn btn-primary small-btn">Aceitar</button>
+    <button id="cookie-decline" class="btn btn-secondary small-btn">Recusar</button>
+  </div>
+</div>
+
+
+
+
+
 <body>
   <!-- Fundo animado -->
   <canvas id="network-bg"></canvas>
@@ -388,6 +406,32 @@
 
   <!-- SCRIPT: ano + animação + menu -->
   <script>
+  
+  (function () {
+    const banner = document.getElementById("cookie-banner");
+    const accept = document.getElementById("cookie-accept");
+    const decline = document.getElementById("cookie-decline");
+
+    if (!banner) return;
+
+    const consent = localStorage.getItem("cookieConsent");
+
+    if (consent) {
+      banner.style.display = "none";
+      return;
+    }
+
+    accept.addEventListener("click", () => {
+      localStorage.setItem("cookieConsent", "accepted");
+      banner.style.display = "none";
+    });
+
+    decline.addEventListener("click", () => {
+      localStorage.setItem("cookieConsent", "declined");
+      banner.style.display = "none";
+    });
+  })();
+  
     document.getElementById("year").textContent = new Date().getFullYear();
 
     /* ===== Canvas network ===== */
