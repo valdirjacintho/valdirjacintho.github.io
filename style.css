@@ -1087,20 +1087,21 @@ footer {
     bottom: calc(12px + env(safe-area-inset-bottom));
   }
 }
-
-/* ===== Header fixo no topo (somente desktop) ===== */
-@media (min-width: 900px) {
+/* =========================
+   HEADER FIXO NO DESKTOP
+   (mantém o menu sempre visível)
+   ========================= */
+@media (min-width: 901px) {
   header {
-    position: sticky;
+    position: fixed !important;
     top: 0;
-    z-index: 9999;
+    left: 0;
+    right: 0;
+    z-index: 9999 !important;
+  }
 
-    /* garante leitura sobre o fundo */
-    background: rgba(5, 13, 31, 0.88);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    /* linha sutil de separação */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  /* Compensa a altura do header fixo para não cobrir o conteúdo */
+  .content-wrapper {
+    padding-top: 86px;
   }
 }
