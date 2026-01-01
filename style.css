@@ -1087,3 +1087,20 @@ footer {
     bottom: calc(12px + env(safe-area-inset-bottom));
   }
 }
+
+/* ===== Header fixo no topo (somente desktop) ===== */
+@media (min-width: 900px) {
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+
+    /* garante leitura sobre o fundo */
+    background: rgba(5, 13, 31, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* linha sutil de separação */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
