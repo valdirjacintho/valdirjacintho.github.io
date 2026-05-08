@@ -1,305 +1,529 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<!-- SEO básico -->
-<title>SEEAI | Consultoría i2, Inteligencia Investigativa y Data Hub</title>
-<meta content="SEEAI se especializa en consultoría i2, inteligencia investigativa y Data Hub. Integración de IBM i2 Analyst’s Notebook, Analysis Hub/Studio, iBase y TextChart, con formación y soporte avanzado para operaciones antifraude." name="description"/>
-<meta content="inteligencia, investigación, consultoría i2, software i2, i2 Analyst’s Notebook, Analysis Studio, Analysis Hub, iBase, antifraude, investigación e prevención de delitos, inteligencia analítica, solução antifraude, data hub, conectores de datos, datos de pessoas físicas e jurídicas, fuentes OSINT" name="keywords"/>
-<meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
-<link href="https://seeaidata.com.br/index-es.html" rel="canonical"/>
-<!-- Google Analytics GA4 -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8H4KREJX27"></script>
-<script>
+  <meta charset="UTF-8" />
+
+  <!-- SEO básico -->
+  <title>SEEAI | Consultoría i2, Inteligencia Investigativa y Data Hub</title>
+  <meta name="description" content="SEEAI está especializada en consultoría i2, inteligencia investigativa y Data Hub, integrando IBM i2 Analyst’s Notebook, Analysis Hub/Studio, iBase y TextChart con formación y soporte para operaciones antifraude." />
+  <meta name="keywords" content="inteligencia, investigación, consultoría i2, IBM i2, Analyst’s Notebook, Analysis Studio, Analysis Hub, iBase, antifraude, data hub, conectores de datos, analítica investigativa" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="canonical" href="https://seeaidata.com.br/index-es.html" />
+
+  <!-- Google Analytics GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8H4KREJX27"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-8H4KREJX27');
   </script>
-<!-- Open Graph / LinkedIn -->
-<meta content="SEEAI | Consultoría i2, Inteligencia Investigativa y Data Hub" property="og:title"/>
-<meta content="SEEAI se especializa en consultoría i2, inteligencia investigativa y Data Hub. Integración de IBM i2 Analyst’s Notebook, Analysis Hub/Studio, iBase y TextChart, con formación y soporte avanzado para operaciones antifraude." property="og:description"/>
-<meta content="website" property="og:type"/>
-<meta content="https://seeaidata.com.br/index-es.html" property="og:url"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="style.css" rel="stylesheet"/>
-<link href="https://seeaidata.com.br/index.html" hreflang="pt-BR" rel="alternate"/>
-<link href="https://seeaidata.com.br/index-en.html" hreflang="en" rel="alternate"/>
-<link href="https://seeaidata.com.br/index-es.html" hreflang="es" rel="alternate"/>
-<link href="https://seeaidata.com.br/index.html" hreflang="x-default" rel="alternate"/>
+
+  <!-- Open Graph / LinkedIn -->
+  <meta property="og:title" content="SEEAI | Consultoría i2, Inteligencia Investigativa y Data Hub" />
+  <meta property="og:description" content="SEEAI está especializada en consultoría i2, inteligencia investigativa y Data Hub, integrando IBM i2 Analyst’s Notebook, Analysis Hub/Studio, iBase y TextChart con formación y soporte para operaciones antifraude." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://seeaidata.com.br/index-es.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+    <link rel="alternate" hreflang="pt-BR" href="https://seeaidata.com.br/index.html" />
+  <link rel="alternate" hreflang="en" href="https://seeaidata.com.br/index-en.html" />
+  <link rel="alternate" hreflang="es" href="https://seeaidata.com.br/index-es.html" />
+  <link rel="alternate" hreflang="x-default" href="https://seeaidata.com.br/index.html" />
 </head>
+
+
+
 <!-- Cookie Consent -->
-<div aria-live="polite" class="cookie-banner" id="cookie-banner" role="dialog">
-<p>Utilizamos cookies para mejorar su experiencia y analizar el tráfico del sitio.<a href="politica-de-privacidade.html">Saber más</a>.
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
+  <p>
+    Utilizamos cookies para mejorar su experiencia y analizar el tráfico del sitio.
+    <a href="politica-de-privacidade.html">Más información</a>.
   </p>
-<div class="cookie-actions">
-<button class="btn btn-primary small-btn" id="cookie-accept">Aceptar</button>
-<button class="btn btn-secondary small-btn" id="cookie-decline">Rechazar</button>
+  <div class="cookie-actions">
+    <button id="cookie-accept" class="btn btn-primary small-btn">Aceptar</button>
+    <button id="cookie-decline" class="btn btn-secondary small-btn">Rechazar</button>
+  </div>
 </div>
-</div>
+
+
+
+
+
 <body>
-<!-- Fundo animado -->
-<canvas id="network-bg"></canvas>
-<div class="content-wrapper">
-<!-- HEADER -->
-<header>
-<div class="nav-inner">
-<a class="brand" href="index-es.html#top">
-<img alt="Logotipo SEEAI" class="logo-small" src="img/seeai-logo.png"/>
-<span class="brand-name">SEEAI</span>
-</a>
-<!-- NAV DESKTOP -->
-<nav aria-label="Navegación principal" class="nav-desktop">
-<ul>
-<li><a class="is-active" href="index-es.html#quem-somos">Quiénes somos</a></li>
-<li><a href="index-es.html#servicos">Servicios</a></li>
-<li><a href="consultoria-i2-es.html">Consultoría i2</a></li>
-<li><a href="index-es.html#analise-3d">Análisis 3D View</a></li>
-<li><a href="datahub-es.html">SEEAI Data Hub</a></li>
-<li><a href="produtos-i2-es.html">Productos i2</a></li>
-<li><a href="index-es.html#blog">Blog</a></li>
-<li><a href="index-es.html#contato">Contacto</a></li>
-</ul>
-</nav>
-<!-- BOTÃO MOBILE -->
-<div aria-label="Selección de idioma" class="lang-switch"><a href="index.html" lang="pt-BR">PT</a>
+  <!-- Fundo animado -->
+  <canvas id="network-bg"></canvas>
+
+  <div class="content-wrapper">
+
+    <!-- HEADER -->
+    <header>
+      <div class="nav-inner">
+
+        <a href="index-es.html#top" class="brand">
+          <img src="img/seeai-logo.png" alt="Logotipo SEEAI" class="logo-small" />
+          <span class="brand-name">SEEAI</span>
+        </a>
+
+        <!-- NAV DESKTOP -->
+        <nav class="nav-desktop" aria-label="Navegación principal">
+          <ul>
+            <li><a href="index-es.html#quem-somos" class="is-active">Quiénes somos</a></li>
+            <li><a href="index-es.html#servicos">Servicios</a></li>
+            <li><a href="consultoria-i2-es.html">Consultoría i2</a></li>
+			<li><a href="index-es.html#analise-3d">Análisis 3D View</a></li>
+            <li><a href="datahub-es.html">SEEAI Data Hub</a></li>
+            <li><a href="produtos-i2-es.html">Productos i2</a></li>
+            <li><a href="index-es.html#blog">Blog</a></li>
+            <li><a href="index-es.html#contato">Contacto</a></li>
+          </ul>
+        </nav>
+
+        <!-- BOTÃO MOBILE -->
+                <div class="lang-switch" aria-label="Selección de idioma">
+          <a href="index.html" lang="pt-BR">PT</a>
           <a href="index-en.html" lang="en">EN</a>
-          <a class="is-active" href="index-es.html" lang="es">ES</a></div>
+          <a href="index-es.html" lang="es" class="is-active">ES</a>
+        </div>
 
-        <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Abrir menú" class="nav-toggle" type="button">
-<span aria-hidden="true" class="nav-toggle-lines"></span>
-</button>
-</div>
-<!-- NAV MOBILE (drawer) -->
-<div aria-hidden="true" class="nav-mobile" id="mobile-nav">
-<div class="nav-mobile-inner">
-<div class="nav-mobile-top">
-<span class="nav-mobile-title">Menú</span>
-<button aria-label="Cerrar menú" class="nav-close" type="button">
-<span aria-hidden="true">×</span>
-</button>
-</div>
-<a class="nav-mobile-link is-active" href="index-es.html#quem-somos">Quiénes somos</a>
-<a class="nav-mobile-link" href="index-es.html#servicos">Servicios</a>
-<a class="nav-mobile-link" href="consultoria-i2-es.html">Consultoría i2</a>
-<a class="nav-mobile-link" href="index-es.html#analise-3d">Análisis 3D View</a>
-<a class="nav-mobile-link" href="datahub-es.html">SEEAI Data Hub</a>
-<a class="nav-mobile-link" href="produtos-i2-es.html">Productos i2</a>
-<a class="nav-mobile-link" href="index-es.html#blog">Blog</a>
-<a class="nav-mobile-link" href="index-es.html#contato">Contacto</a>
+        <button class="nav-toggle"
+                type="button"
+                aria-label="Abrir menú"
+                aria-controls="mobile-nav"
+                aria-expanded="false">
+          <span class="nav-toggle-lines" aria-hidden="true"></span>
+        </button>
 
+      </div>
 
-          <div class="nav-mobile-section"><div class="nav-mobile-section-title">Idioma</div>
-            <a class="nav-mobile-sublink" href="index.html">Português</a>
-            <a class="nav-mobile-sublink" href="index-en.html">English</a>
-            <a class="nav-mobile-sublink is-active" href="index-es.html">Español</a>
+      <!-- NAV MOBILE (drawer) -->
+      <div id="mobile-nav" class="nav-mobile" aria-hidden="true">
+        <div class="nav-mobile-inner">
+          <div class="nav-mobile-top">
+            <span class="nav-mobile-title">Menu</span>
+            <button class="nav-close" type="button" aria-label="Cerrar menú">
+              <span aria-hidden="true">×</span>
+            </button>
           </div>
-</div>
-</div>
-<div aria-hidden="true" class="nav-overlay"></div>
-</header>
-<!-- HERO -->
-<section class="hero" id="top">
-<div class="hero-left">
-<img alt="Logo SEEAI" class="logo-hero" src="img/seeai-logo.png"/>
-<h1 class="hero-title">Inteligencia investigativa &amp; Data Hub<br/>
-          para quem precisa <span class="hero-highlight">ver além dos dados.</span>
-</h1>
-<p class="hero-subtitle">SEEAI integra el ecosistema i2, entrega un Data Hub completo, consultoría especializada, capacitación y soporte avanzado para entornos de investigación y prevención de fraudes.</p>
-<div class="hero-actions">
-<a class="btn btn-primary" href="#contato">Agendar una conversación</a>
-<a class="btn btn-secondary" href="consultoria-i2-es.html">Consultoría i2</a>
-<a class="btn btn-secondary" href="datahub-es.html">SEEAI Data Hub</a>
-</div>
-<p class="hero-meta">Consultoría i2 · i2 Analyst’s Notebook · Analysis Hub · Analysis Studio · iBase · TextChart · OSINT · Antifraude</p>
-</div>
-<aside class="hero-panel">
-<span class="badge">Visión SEEAI</span>
-<h2>Investigar con contexto, no solo con registros</h2>
-<p>No basta con tener datos. Hay que conectarlos en una narrativa clara, capaz de revelar vínculos, patrones, riesgos y oportunidades.</p>
-<!-- VISÃO SEEAI | VÍDEO -->
-<div class="vision-wrapper">
-<video aria-label="Visión SEEAI – Investigación analítica" autoplay="" class="vision-video" loop="" muted="" playsinline="" poster="img/seeai-logo.png" preload="metadata" src="img/Novo.mp4">
-<!-- Fallback -->
-<img alt="SEEAI - Inteligencia Investigativa" class="vision-fallback" src="img/seeai-logo.png"/>
-</video>
-</div>
-</aside>
-</section>
-<!-- ✅ FECHAMENTO DO HERO (ESTAVA FALTANDO) -->
-<!-- BLOCO 1 - QUEM SOMOS -->
-<section class="section-large section-block alt1" id="quem-somos">
-<div class="two-column">
-<div>
-<h2 class="section-title">Quiénes somos</h2>
-<p class="section-sub">SEEAI se especializa en inteligencia investigativa, integración de la suite i2 e implementación de un Data Hub para análisis de vínculos, detección de fraudes, análisis de comportamiento e investigaciones corporativas.</p>
-<p class="text-body">Consolidamos datos dispersos, estandarizamos entidades y eventos e implementamos modelos de grafos, conectores y pipelines que dan vida a investigaciones complejas.</p>
-</div>
-<div>
-<h3 class="section-title small">Misión, visión y valores</h3>
-<ul class="list">
-<li><strong>Misión:</strong>potenciar equipos de inteligencia con método y tecnología.</li>
-<li><strong>Visión:</strong>ser referencia LATAM en Data Hub integrado a i2.</li>
-<li><strong>Valores:</strong>ética, precisión, transparencia e impacto operacional.</li>
-</ul>
-</div>
-</div>
-</section>
-<!-- BLOCO 2 - SERVIÇOS -->
-<section class="section-large section-block alt2" id="servicos">
-<h2 class="section-title">Servicios</h2>
-<p class="section-sub">Integración de la suite i2, Data Hub, consultoría investigativa, formación, soporte especializado y modelado operativo.</p>
-<div class="grid-3 wide-grid">
-<article class="card tall-card">
-<h3>Integración i2</h3>
-<p class="text-body">Implementación, optimización e integración avanzada de i2 con bases corporativas, APIs, sistemas internos y fuentes externas.</p>
-</article>
-<article class="card tall-card">
-<h3>Consultoría i2</h3>
-<p class="text-body">Soporte, gobernanza, formación y asistencia avanzada para operaciones con i2 Analyst’s Notebook, Analysis Hub/Studio, iBase y TextChart, con SLAs e indicadores.</p>
-<a class="pill link-pill" href="consultoria-i2-es.html">Ver detalles</a>
-</article>
-<article class="card tall-card">
-<h3>SEEAI Data Hub</h3>
-<p class="text-body">Plataforma de ingesta continua de entidades y eventos, diseñada para investigaciones avanzadas, fraude, comportamiento y vínculos.</p>
-<a class="pill link-pill" href="datahub-es.html">Ver detalles</a>
-</article>
-<article class="card tall-card">
-<h3>Formación &amp; Soporte</h3>
-<p class="text-body">Capacitación completa para usuarios y administradores i2, soporte técnico y apoyo operativo continuo.</p>
-</article>
-</div>
-</section>
-<!-- ANÁLISE 3D VIEW -->
-<section class="section-large section-block alt2" id="analise-3d">
-<h2 class="section-title">Análisis 3D View</h2>
-<p class="section-sub">La visualización tridimensional de datos investigativos permite identificar vínculos, patrones y estructuras complejas con mucha más rapidez. En escenarios de alta complejidad, los grafos 3D amplían la percepción espacial, reducen el tiempo de análisis y aceleran decisiones.</p>
-<div style="
+
+          <a href="index-es.html#quem-somos" class="nav-mobile-link is-active">Quiénes somos</a>
+          <a href="index-es.html#servicos" class="nav-mobile-link">Servicios</a>
+          <a href="consultoria-i2-es.html" class="nav-mobile-link">Consultoría i2</a>
+		  <a href="index-es.html#analise-3d" class="nav-mobile-link">Análisis 3D View</a>
+          <a href="datahub-es.html" class="nav-mobile-link">SEEAI Data Hub</a>
+          <a href="produtos-i2-es.html" class="nav-mobile-link">Productos i2</a>
+          <a href="index-es.html#blog" class="nav-mobile-link">Blog</a>
+          <a href="index-es.html#contato" class="nav-mobile-link">Contacto</a>
+
+          <div class="nav-mobile-section">
+            <div class="nav-mobile-section-title">Idioma</div>
+            <a href="index.html" class="nav-mobile-sublink">Português</a>
+            <a href="index-en.html" class="nav-mobile-sublink">English</a>
+            <a href="index-es.html" class="nav-mobile-sublink is-active">Español</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="nav-overlay" aria-hidden="true"></div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-left">
+
+        <img src="img/seeai-logo.png" class="logo-hero" alt="SEEAI Logo">
+
+        <h1 class="hero-title">
+          Inteligencia investigativa & Data Hub<br>
+          para quien necesita <span class="hero-highlight">ver más allá de los datos.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          SEEAI integra el ecosistema i2, entrega un Data Hub completo,
+          consultoría especializada, capacitación y soporte avanzado
+          para entornos de investigación y prevención de fraudes.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contato" class="btn btn-primary">Agendar una conversación</a>
+          <a href="consultoria-i2-es.html" class="btn btn-secondary">Consultoría i2</a>
+          <a href="datahub-es.html" class="btn btn-secondary">SEEAI Data Hub</a>
+        </div>
+
+        <p class="hero-meta">
+          Consultoria i2 · i2 Analyst’s Notebook · Analysis Hub · Analysis Studio · iBase · TextChart · OSINT · Antifraude
+        </p>
+
+      </div>
+
+      <aside class="hero-panel">
+        <span class="badge">Visión SEEAI</span>
+
+        <h2>Investigar con contexto, no solo con registros</h2>
+
+        <p>
+          Los datos solos no bastan. Deben conectarse en una narrativa clara,
+          capaz de revelar vínculos, patrones, riesgos y oportunidades.
+        </p>
+
+        <!-- VISÃO SEEAI | VÍDEO -->
+        <div class="vision-wrapper">
+          <video
+            class="vision-video"
+            src="img/novo 2.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="img/seeai-logo.png"
+            aria-label="Visión SEEAI – Investigación analítica"
+          >
+            <!-- Fallback -->
+            <img
+              src="img/seeai-logo.png"
+              alt="SEEAI - Inteligencia Investigativa"
+              class="vision-fallback"
+            />
+          </video>
+        </div>
+      </aside>
+
+    </section>
+    <!-- ✅ FECHAMENTO DO HERO (ESTAVA FALTANDO) -->
+
+    <!-- BLOCO 1 - QUEM SOMOS -->
+    <section id="quem-somos" class="section-large section-block alt1">
+      <div class="two-column">
+        <div>
+          <h2 class="section-title">Quiénes somos</h2>
+          <p class="section-sub">
+            SEEAI está especializada en inteligencia investigativa, integración de la suite i2
+            e implementación de Data Hub para análisis de vínculos, detección de fraudes,
+            análisis de comportamiento e investigaciones corporativas.
+          </p>
+
+          <p class="text-body">
+            Consolidamos datos dispersos, estandarizamos entidades y eventos,
+          implementamos modelos gráficos, conectores y pipelines que dan vida
+          a investigaciones complejas.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="section-title small">Misión, visión y valores</h3>
+          <ul class="list">
+            <li><strong>Misión:</strong> potenciar equipos de inteligencia con método y tecnología.</li>
+            <li><strong>Visión:</strong> ser referencia LATAM en Data Hub integrado al i2.</li>
+            <li><strong>Valores:</strong> ética, precisión, transparencia e impacto operacional.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 2 - SERVIÇOS -->
+    <section id="servicos" class="section-large section-block alt2">
+      <h2 class="section-title">Servicios</h2>
+      <p class="section-sub">
+        Integración de la suite i2, Data Hub, consultoría investigativa, capacitación,
+        soporte especializado y modelado operacional.
+      </p>
+
+      <div class="grid-3 wide-grid">
+
+        <article class="card tall-card">
+          <h3>Integración i2</h3>
+          <p class="text-body">
+            Implantación, optimización e integración avanzada de i2 con bases corporativas,
+            APIs, sistemas internos y fuentes externas.
+          </p>
+        </article>
+
+        <article class="card tall-card">
+          <h3>Consultoría i2</h3>
+          <p class="text-body">
+            Sustentación, gobernanza, capacitación y soporte avanzado para operaciones con
+            i2 Analyst’s Notebook, Analysis Hub/Studio, iBase y TextChart, con SLAs e indicadores.
+          </p>
+          <a href="consultoria-i2-es.html" class="pill link-pill">Ver detalles</a>
+        </article>
+
+        <article class="card tall-card">
+          <h3>SEEAI Data Hub</h3>
+          <p class="text-body">
+            Plataforma de ingesta continua de entidades y eventos, diseñada para
+            investigaciones avanzadas, fraude, comportamiento y vínculos.
+          </p>
+          <a href="datahub-es.html" class="pill link-pill">Ver detalles</a>
+        </article>
+
+        <article class="card tall-card">
+          <h3>Treinamento & Suporte</h3>
+          <p class="text-body">
+            Capacitación completa para usuarios y administradores i2, soporte técnico
+            y asistencia operacional continua.
+          </p>
+        </article>
+
+      </div>
+    </section>
+	
+	<!-- ANÁLISE 3D VIEW -->
+	<section class="section-large section-block alt2" id="analise-3d">
+	  <h2 class="section-title">Análisis 3D View</h2>
+
+	  <p class="section-sub">
+		La visualización tridimensional de datos investigativos permite identificar vínculos,
+		patrones y estructuras complejas con mucha más rapidez.
+		En escenarios de alta complejidad, los grafos 3D amplían la percepción espacial,
+		reducen el tiempo de análisis y aceleran las decisiones.
+	  </p>
+
+	  <div style="
 		width: 100%;
 		height: 600px;
 		margin-top: 32px;
 		border: 1px solid rgba(255,255,255,0.08);
 		overflow: hidden;
 	  ">
-<iframe frameborder="0" height="100%" loading="lazy" referrerpolicy="no-referrer" src="https://seeaidata.com.br/new" style="background: #050d1f;" title="Análisis 3D de Vínculos" width="100%"></iframe>
-</div>
-</section>
-<!-- BLOCO 3 - BLOG -->
-<section class="section-large section-block alt1" id="blog">
-<h2 class="section-title">Blog &amp; Contenido</h2>
-<p class="section-sub">Próximamente: artículos, análisis, demostraciones e insights sobre inteligencia, Data Hub, comportamiento e investigación digital.</p>
-</section>
-<!-- BLOCO 4 - CONTATO -->
-<section class="section-large section-block alt3" id="contato">
-<h2 class="section-title">Contacto</h2>
-<p class="section-sub">Envíe su mensaje. Respondemos en hasta 1 día hábil con atención especializada.</p>
-<div class="two-column">
-<!-- FORMULÁRIO COM BACKEND GOOGLE APPS SCRIPT -->
-<form action="https://script.google.com/macros/s/AKfycbxCF6YKVuxBnIha5T504vrJXnzEMfhh_y2KzW88ejnf9VerBnwmDnGpl0Wh7CGLG7mo4g/exec" class="contact-form" method="POST">
-<label for="nome">Nombre*</label>
-<input id="nome" name="name" required="" type="text"/>
-<label for="email">Correo corporativo*</label>
-<input id="email" name="email" required="" type="email"/>
-<label for="org">Organización</label>
-<input id="org" name="organization" type="text"/>
-<label for="msg">Mensaje*</label>
-<textarea id="msg" name="message" required="" rows="6"></textarea>
-<button class="btn btn-primary full-btn" type="submit">Enviar mensaje</button>
-<p class="form-note">Normalmente respondemos en un plazo de 1 día hábil.</p>
-</form>
-<!-- CONTATOS PREMIUM + INSTITUCIONAL -->
-<div class="contact-right">
-<div class="contact-card-panel">
-<h3 class="section-title small">Contacto institucional</h3>
-<div class="contact-cards">
-<a class="contact-item" href="https://www.seeaidata.com.br" rel="noopener noreferrer" target="_blank">
-<span aria-hidden="true" class="icon-wrap">
-<!-- Globe -->
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.93 9H16.9a15.5 15.5 0 00-1.35-6.06A8.02 8.02 0 0119.93 11zM12 4c.86 0 2.44 2.23 3.14 7H8.86C9.56 6.23 11.14 4 12 4zM4.07 13H7.1a15.5 15.5 0 001.35 6.06A8.02 8.02 0 014.07 13zM7.1 11H4.07a8.02 8.02 0 014.38-6.06A15.5 15.5 0 007.1 11zm1.76 2h6.28c-.7 4.77-2.28 7-3.14 7-.86 0-2.44-2.23-3.14-7zm7.76 6.06A15.5 15.5 0 0016.9 13h3.03a8.02 8.02 0 01-4.41 6.06z"></path>
-</svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">Site</span>
-<span class="contact-value">www.seeaidata.com.br</span>
-</span>
-</a>
-<a class="contact-item" href="tel:+5511978596000">
-<span aria-hidden="true" class="icon-wrap">
-<!-- Phone -->
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"></path>
-</svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">Teléfono</span>
-<span class="contact-value">+55 11 97859-6000</span>
-</span>
-</a>
-<a class="contact-item" href="https://wa.me/5511978596000" rel="noopener noreferrer" target="_blank">
-<span aria-hidden="true" class="icon-wrap">
-<!-- WhatsApp (simplificado) -->
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.1.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"></path>
-</svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">WhatsApp</span>
-<span class="contact-value">Atención inmediata</span>
-</span>
-</a>
-<a class="contact-item" href="mailto:comercial@seeaidata.com.br">
-<span aria-hidden="true" class="icon-wrap">
-<!-- Mail -->
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-</svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">Correo electrónico</span>
-<span class="contact-value">comercial@seeaidata.com.br</span>
-</span>
-</a>
-<a class="contact-item" href="https://www.linkedin.com/company/seeai-data" rel="noopener noreferrer" target="_blank">
-<span aria-hidden="true" class="icon-wrap">
-<!-- LinkedIn -->
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0.5 23.5h4V7.98h-4V23.5zM8.5 7.98h3.83v2.12h.06c.53-1 1.83-2.12 3.77-2.12 4.03 0 4.78 2.65 4.78 6.1v9.42h-4v-8.35c0-1.99-.04-4.55-2.77-4.55-2.77 0-3.19 2.16-3.19 4.4v8.5h-4V7.98z"></path>
-</svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">LinkedIn</span>
-<span class="contact-value">/company/seeai-data</span>
-</span>
-</a>
-</div>
-</div>
-<div class="institutional-panel">
-<h3 class="section-title small">Información institucional</h3>
-<ul class="list">
-<li>Atención para Brasil y América Latina.</li>
-<li>Proyectos gubernamentales, corporativos y de compliance.</li>
-<li>Consultoría especializada en el ecosistema i2.</li>
-<li>Integración con nube o infraestructura propia.</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<!-- RODAPÉ -->
-<footer>
-      © <span id="year"></span>SEEAI · Inteligencia investigativa &amp; Data Hub.</footer>
-</div>
-<!-- WhatsApp flutuante -->
-<a aria-label="Hable con nosotros por WhatsApp" class="whatsapp-float" href="https://wa.me/5511978596000" rel="noopener noreferrer" target="_blank">
-<span aria-hidden="true" class="whatsapp-float__ring"></span>
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.1.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"></path>
-</svg>
-</a>
-<!-- SCRIPT: ano + animação + menu -->
-<script>
+		<iframe
+		  src="https://seeaidata.com.br/new"
+		  title="Análisis 3D de Vínculos"
+		  width="100%"
+		  height="100%"
+		  frameborder="0"
+		  loading="lazy"
+		  referrerpolicy="no-referrer"
+		  style="background: #050d1f;"
+		></iframe>
+	  </div>
+	</section>
+
+    <!-- SOCIOS -->
+    <section class="partners-section" id="parceiros">
+      <p class="partners-title">Socios e Integraciones</p>
+      <div class="partners-track-wrapper" id="partnersWrapper">
+        <div class="partners-inner" id="partnersInner">
+        <div class="partners-track" id="partnersTrack">
+          <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="Novavida TI"><img src="img/NOVAVIDA_TI.png" alt="Novavida TI"></a></div>
+          <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="PH3A"><img src="img/PH3A.png" alt="PH3A"></a></div>
+          <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="BigDataCorp"><img src="img/BIGDATA_CORP.png" alt="BigDataCorp"></a></div>
+          <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="Credilink"><img src="img/Aimart-Credilink-logo-transparente.png" alt="Credilink"></a></div>
+          <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="Sherlockeye"><img src="img/Sherlockeye.png" alt="Sherlockeye"></a></div>
+          <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="ShadowDragon"><img src="img/SHADOWDRAGON.png" alt="ShadowDragon"></a></div>
+          <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="ALAI"><img src="img/Logo_OALAI_bom.png" alt="ALAI"></a></div>
+          <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="Hexcov"><img src="img/HEXCOV.png" alt="Hexcov"></a></div>
+          <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="i2"><img src="img/Logoi2_2024_invertifo.png" alt="IBM i2"></a></div>
+        </div>
+      </div>
+    </section>
+    <script>
+    (function(){
+      const wrapper = document.getElementById('partnersWrapper');
+      const inner   = document.getElementById('partnersInner');
+      const track   = document.getElementById('partnersTrack');
+      if(!wrapper || !inner || !track) return;
+      const clone = track.cloneNode(true);
+      clone.setAttribute('aria-hidden','true');
+      inner.appendChild(clone);
+      let x = 0;
+      const speed = 1.8;
+      let currentSpeed = speed;
+      let dragging = false;
+      let dragStartX = 0;
+      let dragStartOffset = 0;
+      let dragVelocity = 0;
+      let lastDragX = 0;
+      let paused = false;
+      function getTrackWidth() { return track.offsetWidth; }
+      function tick() {
+        if (!dragging) {
+          if (!paused) x -= currentSpeed;
+          if (Math.abs(currentSpeed - speed) > 0.01) currentSpeed += (speed - currentSpeed) * 0.04;
+          else currentSpeed = speed;
+        }
+        const w = getTrackWidth();
+        if (x <= -w) x += w;
+        if (x > 0)   x -= w;
+        inner.style.transform = 'translateX(' + x + 'px)';
+        requestAnimationFrame(tick);
+      }
+      wrapper.addEventListener('mouseenter', () => { paused = true; });
+      wrapper.addEventListener('mouseleave', () => { if (!dragging) paused = false; });
+      wrapper.addEventListener('mousedown', e => { dragging = true; paused = true; dragStartX = e.clientX; dragStartOffset = x; lastDragX = e.clientX; wrapper.classList.add('dragging'); e.preventDefault(); });
+      window.addEventListener('mousemove', e => { if (!dragging) return; dragVelocity = e.clientX - lastDragX; lastDragX = e.clientX; x = dragStartOffset + (e.clientX - dragStartX); });
+      window.addEventListener('mouseup', () => { if (!dragging) return; dragging = false; paused = false; wrapper.classList.remove('dragging'); currentSpeed = -dragVelocity * 0.4 || speed; if (Math.abs(currentSpeed) < 0.1) currentSpeed = speed; });
+      wrapper.addEventListener('touchstart', e => { dragging = true; paused = true; dragStartX = e.touches[0].clientX; dragStartOffset = x; lastDragX = e.touches[0].clientX; }, { passive: true });
+      wrapper.addEventListener('touchmove', e => { if (!dragging) return; dragVelocity = e.touches[0].clientX - lastDragX; lastDragX = e.touches[0].clientX; x = dragStartOffset + (e.touches[0].clientX - dragStartX); }, { passive: true });
+      wrapper.addEventListener('touchend', () => { dragging = false; paused = false; currentSpeed = -dragVelocity * 0.4 || speed; if (Math.abs(currentSpeed) < 0.1) currentSpeed = speed; });
+      requestAnimationFrame(tick);
+    })();
+    </script>
+
+    <!-- BLOCO 3 - BLOG -->
+    <section id="blog" class="section-large section-block alt1">
+      <h2 class="section-title">Blog & Contenido</h2>
+      <p class="section-sub">
+        Próximamente: artículos, análisis, demostraciones e insights sobre inteligencia,
+        Data Hub, comportamiento e investigación digital.
+      </p>
+    </section>
+
+    <!-- BLOCO 4 - CONTATO -->
+    <section id="contato" class="section-large section-block alt3">
+
+      <h2 class="section-title">Contacto</h2>
+      <p class="section-sub">
+        Envíe su mensaje. Respondemos en hasta 1 día hábil con atención especializada.
+      </p>
+
+      <div class="two-column">
+
+        <!-- FORMULÁRIO COM BACKEND GOOGLE APPS SCRIPT -->
+        <form class="contact-form"
+              action="https://script.google.com/macros/s/AKfycbxCF6YKVuxBnIha5T504vrJXnzEMfhh_y2KzW88ejnf9VerBnwmDnGpl0Wh7CGLG7mo4g/exec"
+              method="POST">
+
+          <label for="nome">Nombre*</label>
+          <input id="nome" name="name" type="text" required />
+
+          <label for="email">Correo corporativo*</label>
+          <input id="email" name="email" type="email" required />
+
+          <label for="org">Organización</label>
+          <input id="org" name="organization" type="text" />
+
+          <label for="msg">Mensaje*</label>
+          <textarea id="msg" name="message" rows="6" required></textarea>
+
+          <button type="submit" class="btn btn-primary full-btn">
+            Enviar mensaje
+          </button>
+
+          <p class="form-note">
+            Normalmente respondemos en un plazo de 1 día hábil.
+          </p>
+        </form>
+
+        <!-- CONTATOS PREMIUM + INSTITUCIONAL -->
+        <div class="contact-right">
+
+          <div class="contact-card-panel">
+            <h3 class="section-title small">Contacto institucional</h3>
+
+            <div class="contact-cards">
+
+              <a class="contact-item" href="https://www.seeaidata.com.br" target="_blank" rel="noopener noreferrer">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- Globe -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.93 9H16.9a15.5 15.5 0 00-1.35-6.06A8.02 8.02 0 0119.93 11zM12 4c.86 0 2.44 2.23 3.14 7H8.86C9.56 6.23 11.14 4 12 4zM4.07 13H7.1a15.5 15.5 0 001.35 6.06A8.02 8.02 0 014.07 13zM7.1 11H4.07a8.02 8.02 0 014.38-6.06A15.5 15.5 0 007.1 11zm1.76 2h6.28c-.7 4.77-2.28 7-3.14 7-.86 0-2.44-2.23-3.14-7zm7.76 6.06A15.5 15.5 0 0016.9 13h3.03a8.02 8.02 0 01-4.41 6.06z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">Site</span>
+                  <span class="contact-value">www.seeaidata.com.br</span>
+                </span>
+              </a>
+
+              <a class="contact-item" href="tel:+5511978596000">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- Phone -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">Teléfono</span>
+                  <span class="contact-value">+55 11 97859-6000</span>
+                </span>
+              </a>
+
+              <a class="contact-item" href="https://wa.me/5511978596000" target="_blank" rel="noopener noreferrer">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- WhatsApp (simplificado) -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.1.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">WhatsApp</span>
+                  <span class="contact-value">Atención inmediata</span>
+                </span>
+              </a>
+
+              <a class="contact-item" href="mailto:comercial@seeaidata.com.br">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- Mail -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">Correo electrónico</span>
+                  <span class="contact-value">comercial@seeaidata.com.br</span>
+                </span>
+              </a>
+
+              <a class="contact-item" href="https://www.linkedin.com/company/seeai-data" target="_blank" rel="noopener noreferrer">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- LinkedIn -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0.5 23.5h4V7.98h-4V23.5zM8.5 7.98h3.83v2.12h.06c.53-1 1.83-2.12 3.77-2.12 4.03 0 4.78 2.65 4.78 6.1v9.42h-4v-8.35c0-1.99-.04-4.55-2.77-4.55-2.77 0-3.19 2.16-3.19 4.4v8.5h-4V7.98z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">LinkedIn</span>
+                  <span class="contact-value">/company/seeai-data</span>
+                </span>
+              </a>
+
+            </div>
+          </div>
+
+          <div class="institutional-panel">
+            <h3 class="section-title small">Información institucional</h3>
+            <ul class="list">
+              <li>Cobertura de servicio: Brasil y América Latina.</li>
+              <li>Proyectos gubernamentales, corporativos y de cumplimiento.</li>
+              <li>Consultoría especializada en el ecosistema i2.</li>
+              <li>Integración con nube o infraestructura propia.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+      <div class="footer-inner">
+        <span class="footer-copyright">© <span id="year"></span> SEEAI · Inteligencia investigativa & Data Hub.</span>
+      </div>
+      <div class="footer-partner">
+        <img src="img/Logoi2_2024_invertifo.png" alt="IBM i2" class="footer-i2-logo">
+        <span class="footer-partner-label">Socio Oficial</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- WhatsApp flutuante -->
+  <a class="whatsapp-float"
+     href="https://wa.me/5511978596000"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Contáctenos por WhatsApp">
+    <span class="whatsapp-float__ring" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.1.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"/>
+    </svg>
+  </a>
+
+  <!-- SCRIPT: ano + animação + menu -->
+  <script>
   
   (function () {
     const banner = document.getElementById("cookie-banner");

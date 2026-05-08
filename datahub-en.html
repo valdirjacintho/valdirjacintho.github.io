@@ -1,249 +1,577 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<!-- SEO básico -->
-<title>SEEAI Data Hub | Data Integration for Investigation and Anti-Fraud</title>
-<meta content="SEEAI Data Hub: continuous ingestion, normalization, deduplication and governance of investigative data to feed IBM i2 link analysis with consistent entities and events." name="description"/>
-<meta content="data hub, integração de data, conectores de data, investigation, intelligence investigativa, anti-fraud, ecossistema i2, i2 Analyst’s Notebook, Analysis Hub, Analysis Studio, iBase, TextChart, OSINT" name="keywords"/>
-<meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
-<link href="https://seeaidata.com.br/datahub-en.html" rel="canonical"/>
-<!-- Google Analytics GA4 -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8H4KREJX27"></script>
-<script>
+  <meta charset="UTF-8" />
+
+  <!-- SEO básico -->
+  <title>SEEAI Data Hub | Data Integration for Investigation and Fraud Prevention</title>
+  <meta name="description" content="SEEAI Data Hub: continuous ingestion, normalization and enrichment of investigative data to feed IBM i2 link analysis with consistent entities and events." />
+  <meta name="keywords" content="data hub, data integration, investigative data, fraud prevention, IBM i2, link analysis, Analyst’s Notebook, Analysis Hub, Analysis Studio, iBase, TextChart, OSINT" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="canonical" href="https://seeaidata.com.br/datahub-en.html" />
+
+  <!-- Google Analytics GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8H4KREJX27"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-8H4KREJX27');
   </script>
-<!-- Open Graph / LinkedIn -->
-<meta content="SEEAI Data Hub | Data Integration for Investigation and Anti-Fraud" property="og:title"/>
-<meta content="SEEAI Data Hub: continuous ingestion, normalization, deduplication and governance of investigative data to feed IBM i2 link analysis with consistent entities and events." property="og:description"/>
-<meta content="website" property="og:type"/>
-<meta content="https://seeaidata.com.br/datahub-en.html" property="og:url"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="style.css" rel="stylesheet"/>
-<link href="https://seeaidata.com.br/datahub.html" hreflang="pt-BR" rel="alternate"/>
-<link href="https://seeaidata.com.br/datahub-en.html" hreflang="en" rel="alternate"/>
-<link href="https://seeaidata.com.br/datahub-es.html" hreflang="es" rel="alternate"/>
-<link href="https://seeaidata.com.br/datahub.html" hreflang="x-default" rel="alternate"/>
+  
+  <!-- Open Graph / LinkedIn -->
+  <meta property="og:title" content="SEEAI Data Hub | Data Integration for Investigation and Fraud Prevention" />
+  <meta property="og:description" content="SEEAI Data Hub: continuous ingestion, normalization and enrichment of investigative data to feed IBM i2 link analysis with consistent entities and events." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://seeaidata.com.br/datahub-en.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+    <link rel="alternate" hreflang="pt-BR" href="https://seeaidata.com.br/datahub.html" />
+  <link rel="alternate" hreflang="en" href="https://seeaidata.com.br/datahub-en.html" />
+  <link rel="alternate" hreflang="es" href="https://seeaidata.com.br/datahub-es.html" />
+  <link rel="alternate" hreflang="x-default" href="https://seeaidata.com.br/datahub.html" />
 </head>
+
 <body>
-<canvas id="network-bg"></canvas>
-<div class="content-wrapper">
-<!-- HEADER -->
-<header>
-<div class="nav-inner">
-<a class="brand" href="index-en.html#top">
-<img alt="SEEAI logo" class="logo-small" src="img/seeai-logo.png"/>
-<span class="brand-name">SEEAI</span>
-</a>
-<!-- NAV DESKTOP -->
-<nav aria-label="Main navigation" class="nav-desktop">
-<ul>
-<li><a href="index-en.html#quem-somos">About us</a></li>
-<li><a href="index-en.html#servicos">Services</a></li>
-<li><a href="consultoria-i2-en.html">i2 Consulting</a></li>
-<li><a href="index-en.html#analise-3d">3D View Analysis</a></li>
-<li><a class="is-active" href="datahub-en.html">SEEAI Data Hub</a></li>
-<li><a href="produtos-i2-en.html">i2 Products</a></li>
-<li><a href="index-en.html#blog">Blog</a></li>
-<li><a href="index-en.html#contato">Contact</a></li>
-</ul>
-</nav>
-<!-- BOTÃO MOBILE -->
-<div aria-label="Language selection" class="lang-switch"><a href="datahub.html" lang="pt-BR">PT</a>
-          <a class="is-active" href="datahub-en.html" lang="en">EN</a>
-          <a href="datahub-es.html" lang="es">ES</a></div>
+  <canvas id="network-bg"></canvas>
 
-        <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="nav-toggle" type="button">
-<span aria-hidden="true" class="nav-toggle-lines"></span>
-</button>
-</div>
-<!-- NAV MOBILE -->
-<div aria-hidden="true" class="nav-mobile" id="mobile-nav">
-<div class="nav-mobile-inner">
-<div class="nav-mobile-top">
-<span class="nav-mobile-title">Menu</span>
-<button aria-label="Close menu" class="nav-close" type="button">
-<span aria-hidden="true">×</span>
-</button>
-</div>
-<a class="nav-mobile-link" href="index-en.html#quem-somos">About us</a>
-<a class="nav-mobile-link" href="index-en.html#servicos">Services</a>
-<a class="nav-mobile-link" href="consultoria-i2-en.html">i2 Consulting</a>
-<a class="nav-mobile-link" href="index-en.html#analise-3d">3D View Analysis</a>
-<a class="nav-mobile-link is-active" href="datahub-en.html">SEEAI Data Hub</a>
-<a class="nav-mobile-link" href="produtos-i2-en.html">i2 Products</a>
-<a class="nav-mobile-link" href="index-en.html#blog">Blog</a>
-<a class="nav-mobile-link" href="index-en.html#contato">Contact</a>
+  <div class="content-wrapper">
 
+    <!-- HEADER -->
+    <header>
+      <div class="nav-inner">
 
-          <div class="nav-mobile-section"><div class="nav-mobile-section-title">Language</div>
-            <a class="nav-mobile-sublink" href="datahub.html">Português</a>
-            <a class="nav-mobile-sublink is-active" href="datahub-en.html">English</a>
-            <a class="nav-mobile-sublink" href="datahub-es.html">Español</a>
+        <a href="index-en.html#top" class="brand">
+          <img src="img/seeai-logo.png" alt="Logotipo SEEAI" class="logo-small" />
+          <span class="brand-name">SEEAI</span>
+        </a>
+
+        <!-- NAV DESKTOP -->
+        <nav class="nav-desktop" aria-label="Main navigation">
+          <ul>
+            <li><a href="index-en.html#quem-somos" class="">About us</a></li>
+            <li><a href="index-en.html#servicos">Services</a></li>
+            <li><a href="consultoria-i2-en.html">i2 Consulting</a></li>
+			<li><a href="index-en.html#analise-3d">3D View Analysis</a></li>
+            <li><a href="datahub-en.html" class="is-active">SEEAI Data Hub</a></li>
+            <li><a href="produtos-i2-en.html">i2 Products</a></li>
+            <li><a href="index-en.html#blog">Blog</a></li>
+            <li><a href="index-en.html#contato">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- BOTÃO MOBILE -->
+                <div class="lang-switch" aria-label="Language selection">
+          <a href="index.html" lang="pt-BR">PT</a>
+          <a href="index-en.html" lang="en" class="is-active">EN</a>
+          <a href="index-es.html" lang="es">ES</a>
+        </div>
+
+        <button class="nav-toggle"
+                type="button"
+                aria-label="Open menu"
+                aria-controls="mobile-nav"
+                aria-expanded="false">
+          <span class="nav-toggle-lines" aria-hidden="true"></span>
+        </button>
+
+      </div>
+
+      <!-- NAV MOBILE (drawer) -->
+      <div id="mobile-nav" class="nav-mobile" aria-hidden="true">
+        <div class="nav-mobile-inner">
+          <div class="nav-mobile-top">
+            <span class="nav-mobile-title">Menu</span>
+            <button class="nav-close" type="button" aria-label="Close menu">
+              <span aria-hidden="true">×</span>
+            </button>
           </div>
-</div>
-</div>
-<div aria-hidden="true" class="nav-overlay"></div>
-</header>
-<!-- HERO -->
-<section class="hero" id="top">
-<div class="hero-left">
-<img alt="SEEAI Logo" class="logo-hero" src="img/seeai-logo.png"/>
-<h1 class="hero-title">
-          SEEAI Data Hub<br/>
-<span class="hero-highlight">integração contínua</span>for investigation and fraud prevention</h1>
-<p class="hero-subtitle">A data hub designed to transform heterogeneous sources into consistent entities and events, ready for link analysis, pattern detection, risk analysis and investigation within the i2 ecosystem.</p>
-<div class="hero-actions">
-<a class="btn btn-primary" href="index-en.html#contato">Schedule a call</a>
-<a class="btn btn-secondary" href="consultoria-i2-en.html">i2 Consulting</a>
-<a class="btn btn-secondary" href="produtos-i2-en.html">View i2 products</a>
-</div>
-<p class="hero-meta">Connectors · Ingestion · Standardization · Entities and events · Governance · i2 integration</p>
-</div>
-<aside class="hero-panel">
-<span class="badge">Architecture</span>
-<h2>From raw data to context-driven investigation</h2>
-<p>Standardize entities, normalize events and keep the pipeline running continuously to feed investigations, crime prevention and fraud detection with consistency.</p>
-<!-- FIX: classe extra para estabilizar proporções no Chrome/Edge -->
-<div class="network network--fixed">
-<div class="network-logo">
-<img alt="SEEAI" class="logo-network" src="img/seeai-logo.png"/>
-</div>
-</div>
-</aside>
-</section>
-<!-- BLOCO 1 -->
-<section class="section-large section-block alt1">
-<div class="two-column">
-<div>
-<h2 class="section-title">What the Data Hub delivers</h2>
-<p class="section-sub">An operational layer for ingesting and processing investigative data: connectors, normalization rules, deduplication, enrichment and publication in formats compatible with link analysis.</p>
-<p class="text-body">The goal is to reduce manual effort, improve quality and accelerate the “data → intelligence” cycle.</p>
-</div>
-<div>
-<h3 class="section-title small">Key capabilities</h3>
-<ul class="list">
-<li>Continuous ingestion (batch or near real time).</li>
-<li>Entity standardization (person, account, company, device, location, etc.).</li>
-<li>Governance, traceability and investigative consistency.</li>
-<li>Connectors and pipelines for internal sources and OSINT.</li>
-</ul>
-</div>
-</div>
-</section>
-<!-- BLOCO 2 -->
-<section class="section-large section-block alt2">
-<h2 class="section-title">Integration with the i2 ecosystem</h2>
-<p class="section-sub">Designed to support real investigation, anti-fraud and compliance use cases, with integration and best practices for consumption in Analyst’s Notebook and collaborative environments.</p>
-<div class="grid-3">
-<article class="card tall-card">
-<h3>Investigative modeling</h3>
-<p class="text-body">Entity and link structures that reduce ambiguity and increase traceability.</p>
-</article>
-<article class="card tall-card">
-<h3>Connectors and sources</h3>
-<p class="text-body">Integration with banks, APIs, ERPs, logs, events and open sources (OSINT).</p>
-</article>
-<article class="card tall-card">
-<h3>Operations and support</h3>
-<p class="text-body">Training, hardening, troubleshooting and production support.</p>
-</article>
-</div>
-</section>
-<!-- CONTATO -->
-<section class="section-large section-block alt3" id="contato">
-<h2 class="section-title">Contact</h2>
-<p class="section-sub">Send your message. We reply within 1 business day with specialized support.</p>
-<div class="two-column">
-<form action="https://script.google.com/macros/s/AKfycbxCF6YKVuxBnIha5T504vrJXnzEMfhh_y2KzW88ejnf9VerBnwmDnGpl0Wh7CGLG7mo4g/exec" class="contact-form" method="POST">
-<label for="nome">Name*</label>
-<input id="nome" name="name" required="" type="text"/>
-<label for="email">Corporate e-mail*</label>
-<input id="email" name="email" required="" type="email"/>
-<label for="org">Organization</label>
-<input id="org" name="organization" type="text"/>
-<label for="msg">Message*</label>
-<textarea id="msg" name="message" required="" rows="6"></textarea>
-<button class="btn btn-primary full-btn" type="submit">Send message</button>
-<p class="form-note">We usually reply within 1 business day.</p>
-</form>
-<div class="contact-right">
-<div class="contact-card-panel">
-<h3 class="section-title small">Institutional contact</h3>
-<div class="contact-cards">
-<a class="contact-item" href="https://www.seeaidata.com.br" rel="noopener noreferrer" target="_blank">
-<span aria-hidden="true" class="icon-wrap">
-<svg viewbox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.93 9H16.9a15.5 15.5 0 00-1.35-6.06A8.02 8.02 0 0119.93 11zM12 4c.86 0 2.44 2.23 3.14 7H8.86C9.56 6.23 11.14 4 12 4zM4.07 13H7.1a15.5 15.5 0 001.35 6.06A8.02 8.02 0 014.07 13zM7.1 11H4.07a8.02 8.02 0 014.38-6.06A15.5 15.5 0 007.1 11zm1.76 2h6.28c-.7 4.77-2.28 7-3.14 7-.86 0-2.44-2.23-3.14-7zm7.76 6.06A15.5 15.5 0 0016.9 13h3.03a8.02 8.02 0 01-4.41 6.06z"></path></svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">Site</span>
-<span class="contact-value">www.seeaidata.com.br</span>
-</span>
-</a>
-<a class="contact-item" href="tel:+5511978596000">
-<span aria-hidden="true" class="icon-wrap">
-<svg viewbox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"></path></svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">Phone</span>
-<span class="contact-value">+55 11 97859-6000</span>
-</span>
-</a>
-<a class="contact-item" href="https://wa.me/5511978596000" rel="noopener noreferrer" target="_blank">
-<span aria-hidden="true" class="icon-wrap">
-<svg viewbox="0 0 24 24"><path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.10.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"></path></svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">WhatsApp</span>
-<span class="contact-value">Immediate assistance</span>
-</span>
-</a>
-<a class="contact-item" href="mailto:comercial@seeaidata.com.br">
-<span aria-hidden="true" class="icon-wrap">
-<svg viewbox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">E-mail</span>
-<span class="contact-value">comercial@seeaidata.com.br</span>
-</span>
-</a>
-<a class="contact-item" href="https://www.linkedin.com/company/seeai-data" rel="noopener noreferrer" target="_blank">
-<span aria-hidden="true" class="icon-wrap">
-<svg viewbox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0.5 23.5h4V7.98h-4V23.5zM8.5 7.98h3.83v2.12h.06c.53-1 1.83-2.12 3.77-2.12 4.03 0 4.78 2.65 4.78 6.1v9.42h-4v-8.35c0-1.99-.04-4.55-2.77-4.55-2.77 0-3.19 2.16-3.19 4.4v8.5h-4V7.98z"></path></svg>
-</span>
-<span class="contact-text">
-<span class="contact-label">LinkedIn</span>
-<span class="contact-value">/company/seeai-data</span>
-</span>
-</a>
-</div>
-</div>
-<div class="institutional-panel">
-<h3 class="section-title small">Institutional information</h3>
-<ul class="list">
-<li>Support for Brazil and Latin America.</li>
-<li>Government, corporate and compliance projects.</li>
-<li>Consulting specialized in the i2 ecosystem.</li>
-<li>Integration with cloud or on-premises infrastructure.</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<footer>
-      © <span id="year"></span>SEEAI · Investigative intelligence &amp; Data Hub.</footer>
-</div>
-<a aria-label="Talk to us on WhatsApp" class="whatsapp-float" href="https://wa.me/5511978596000" rel="noopener noreferrer" target="_blank">
-<span aria-hidden="true" class="whatsapp-float__ring"></span>
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.10.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"></path>
-</svg>
-</a>
-<script>
+
+          <a href="index-en.html#quem-somos" class="nav-mobile-link is-active">About us</a>
+          <a href="index-en.html#servicos" class="nav-mobile-link">Services</a>
+          <a href="consultoria-i2-en.html" class="nav-mobile-link">i2 Consulting</a>
+		  <a href="index-en.html#analise-3d" class="nav-mobile-link">3D View Analysis</a>
+          <a href="datahub-en.html" class="nav-mobile-link">SEEAI Data Hub</a>
+          <a href="produtos-i2-en.html" class="nav-mobile-link">i2 Products</a>
+          <a href="index-en.html#blog" class="nav-mobile-link">Blog</a>
+          <a href="index-en.html#contato" class="nav-mobile-link">Contact</a>
+
+          <div class="nav-mobile-section">
+            <div class="nav-mobile-section-title">Language</div>
+            <a href="index.html" class="nav-mobile-sublink">Português</a>
+            <a href="index-en.html" class="nav-mobile-sublink is-active">English</a>
+            <a href="index-es.html" class="nav-mobile-sublink">Español</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="nav-overlay" aria-hidden="true"></div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-left">
+        <img src="img/seeai-logo.png" class="logo-hero" alt="SEEAI Logo">
+
+        <h1 class="hero-title">
+          SEEAI Data Hub<br>
+          <span class="hero-highlight">continuous integration</span> for investigation and anti-fraud
+        </h1>
+
+        <p class="hero-subtitle">
+          A data hub designed to transform heterogeneous sources into consistent entities and events,
+          ready for link analysis, patterns, risks and investigation in the i2 ecosystem.
+        </p>
+
+        <div class="hero-actions">
+          <a href="index-en.html#contato" class="btn btn-primary">Schedule a call</a>
+          <a href="consultoria-i2-en.html" class="btn btn-secondary">i2 Consulting</a>
+          <a href="produtos-i2-en.html" class="btn btn-secondary">View i2 products</a>
+        </div>
+
+        <p class="hero-meta">
+          Connectors · Ingestion · Standardization · Entities & events · Governance · i2 Integration
+        </p>
+      </div>
+
+      <aside class="hero-panel">
+        <span class="badge">Architecture</span>
+        <h2>From raw data to context-driven investigation</h2>
+        <p>
+          Standardize entities, normalize events and keep the pipeline running continuously to feed
+          investigations, crime prevention and fraud detection with consistency.
+        </p>
+
+        <!-- FIX: classe extra para estabilizar proporções no Chrome/Edge -->
+        <div class="network network--fixed" id="datahub-network">
+          <canvas id="hub-canvas"></canvas>
+        </div>
+        <script>
+        (function(){
+          const canvas = document.getElementById('hub-canvas');
+          const ctx    = canvas.getContext('2d');
+          const wrap   = document.getElementById('datahub-network');
+
+          // ── Parceiros ──────────────────────────────────────────────────
+          const PARTNERS = [
+            { src: 'img/NOVAVIDA_TI.png',                    label: 'Nova Vida TI'  },
+            { src: 'img/SHADOWDRAGON.png',                    label: 'ShadowDragon' },
+            { src: 'img/Sherlockeye.png',                     label: 'Sherlockeye'  },
+            { src: 'img/Logo_OALAI_bom.png',                  label: 'OALAI'        },
+            { src: 'img/PH3A.png',                            label: 'PH3A'         },
+            { src: 'img/HEXCOV.png',                          label: 'Hexcov'       },
+            { src: 'img/Aimart-Credilink-logo-transparente.png', label: 'Credilink' },
+            { src: 'img/BIGDATA_CORP.png',                    label: 'BigDataCorp'  },
+          ];
+          const CENTER_SRC = 'img/seeai-logo.png';
+
+          // ── Carregar imagens ───────────────────────────────────────────
+          let loaded = 0;
+          const total = PARTNERS.length + 1;
+          let centerImg = null;
+
+          function tryStart() {
+            loaded++;
+            if (loaded >= total) startAnim();
+          }
+
+          centerImg = new Image();
+          centerImg.onload = tryStart;
+          centerImg.onerror = tryStart;
+          centerImg.src = CENTER_SRC;
+
+          PARTNERS.forEach(p => {
+            p.img = new Image();
+            p.img.onload = tryStart;
+            p.img.onerror = tryStart;
+            p.img.src = p.src;
+          });
+
+          // ── Partículas ─────────────────────────────────────────────────
+          const particles = PARTNERS.map((_, i) => ({
+            partnerIdx: i,
+            t: Math.random(),               // posição 0–1 na linha
+            speed: 0.004 + Math.random() * 0.003,
+            size: 2 + Math.random() * 1.5,
+            alpha: 0.5 + Math.random() * 0.5,
+          }));
+          // Adicionar 2 partículas por parceiro
+          PARTNERS.forEach((_, i) => {
+            particles.push({
+              partnerIdx: i,
+              t: (Math.random() + 0.5) % 1,
+              speed: 0.003 + Math.random() * 0.004,
+              size: 1.5 + Math.random() * 1.5,
+              alpha: 0.4 + Math.random() * 0.4,
+            });
+          });
+
+          let orbitAngle = 0;
+          let raf;
+
+          function resize() {
+            canvas.width  = wrap.clientWidth  || 560;
+            canvas.height = wrap.clientHeight || 315;
+          }
+
+          function startAnim() {
+            resize();
+            window.addEventListener('resize', () => { resize(); });
+            raf = requestAnimationFrame(draw);
+          }
+
+          function draw() {
+            const W = canvas.width, H = canvas.height;
+            const cx = W / 2, cy = H / 2;
+            const rx = Math.min(W, H) * 0.36;   // raio X da órbita
+            const ry = Math.min(W, H) * 0.30;   // raio Y da órbita
+            const logoR  = Math.min(W, H) * 0.085; // raio do logo central
+            const pLogoR = Math.min(W, H) * 0.058; // raio dos parceiros
+
+            ctx.clearRect(0, 0, W, H);
+
+            // Posições dos parceiros
+            const positions = PARTNERS.map((_, i) => {
+              const baseAngle = (2 * Math.PI / PARTNERS.length) * i;
+              const a = baseAngle + orbitAngle;
+              return {
+                x: cx + Math.cos(a) * rx,
+                y: cy + Math.sin(a) * ry,
+              };
+            });
+
+            // ── Linhas de conexão ────────────────────────────────────────
+            positions.forEach((pos, i) => {
+              const grad = ctx.createLinearGradient(cx, cy, pos.x, pos.y);
+              grad.addColorStop(0,   'rgba(30,164,255,0.55)');
+              grad.addColorStop(0.5, 'rgba(30,164,255,0.18)');
+              grad.addColorStop(1,   'rgba(230,50,58,0.35)');
+              ctx.beginPath();
+              ctx.moveTo(cx, cy);
+              ctx.lineTo(pos.x, pos.y);
+              ctx.strokeStyle = grad;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            });
+
+            // ── Partículas fluindo ────────────────────────────────────────
+            particles.forEach(p => {
+              p.t += p.speed;
+              if (p.t > 1) p.t -= 1;
+              const pos = positions[p.partnerIdx];
+              const pt = 1 - p.t;  // fluxo do parceiro → centro
+              const px = cx + (pos.x - cx) * pt;
+              const py = cy + (pos.y - cy) * pt;
+              ctx.beginPath();
+              ctx.arc(px, py, p.size, 0, Math.PI * 2);
+              // alterna azul/vermelho por parceiro
+              const isBlue = p.partnerIdx % 2 === 0;
+              ctx.fillStyle = isBlue
+                ? `rgba(30,164,255,${p.alpha})`
+                : `rgba(230,50,58,${p.alpha})`;
+              ctx.fill();
+            });
+
+            // ── Logos dos parceiros ────────────────────────────────────────
+            positions.forEach((pos, i) => {
+              const p = PARTNERS[i];
+              // fundo circular escuro
+              ctx.beginPath();
+              ctx.arc(pos.x, pos.y, pLogoR + 6, 0, Math.PI * 2);
+              ctx.fillStyle = 'rgba(5,13,31,0.85)';
+              ctx.fill();
+              // borda
+              ctx.beginPath();
+              ctx.arc(pos.x, pos.y, pLogoR + 6, 0, Math.PI * 2);
+              ctx.strokeStyle = 'rgba(30,164,255,0.28)';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+              // imagem do logo
+              if (p.img && p.img.complete && p.img.naturalWidth) {
+                const iw = p.img.naturalWidth, ih = p.img.naturalHeight;
+                const scale = (pLogoR * 1.7) / Math.max(iw, ih);
+                const dw = iw * scale, dh = ih * scale;
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, pLogoR + 4, 0, Math.PI * 2);
+                ctx.clip();
+                ctx.drawImage(p.img, pos.x - dw/2, pos.y - dh/2, dw, dh);
+                ctx.restore();
+              }
+            });
+
+            // ── Logo SEEAI central ─────────────────────────────────────────
+            // brilho
+            const glow = ctx.createRadialGradient(cx, cy, logoR*0.4, cx, cy, logoR*2.2);
+            glow.addColorStop(0,   'rgba(30,164,255,0.18)');
+            glow.addColorStop(0.5, 'rgba(30,164,255,0.06)');
+            glow.addColorStop(1,   'rgba(30,164,255,0)');
+            ctx.beginPath();
+            ctx.arc(cx, cy, logoR * 2.2, 0, Math.PI * 2);
+            ctx.fillStyle = glow;
+            ctx.fill();
+            // círculo fundo
+            ctx.beginPath();
+            ctx.arc(cx, cy, logoR + 8, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(5,13,31,0.92)';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(cx, cy, logoR + 8, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(30,164,255,0.45)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            // logo
+            if (centerImg && centerImg.complete && centerImg.naturalWidth) {
+              const iw = centerImg.naturalWidth, ih = centerImg.naturalHeight;
+              const scale = (logoR * 1.7) / Math.max(iw, ih);
+              const dw = iw * scale, dh = ih * scale;
+              ctx.save();
+              ctx.beginPath();
+              ctx.arc(cx, cy, logoR + 6, 0, Math.PI * 2);
+              ctx.clip();
+              ctx.drawImage(centerImg, cx - dw/2, cy - dh/2, dw, dh);
+              ctx.restore();
+            }
+
+            orbitAngle += 0.0015;
+            raf = requestAnimationFrame(draw);
+          }
+
+          // Parar animação quando fora da viewport (performance)
+          const obs = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+              if (!raf) raf = requestAnimationFrame(draw);
+            } else {
+              cancelAnimationFrame(raf);
+              raf = null;
+            }
+          }, { threshold: 0.1 });
+          obs.observe(wrap);
+        })();
+        </script>
+      </aside>
+    </section>
+
+    <!-- BLOCO 1 -->
+    <section class="section-large section-block alt1">
+      <div class="two-column">
+        <div>
+          <h2 class="section-title">What the Data Hub delivers</h2>
+          <p class="section-sub">
+            An operational layer for ingestion and processing of investigative data: connectors, normalization rules,
+            deduplication, enrichment and publishing in formats compatible with link analysis.
+          </p>
+          <p class="text-body">
+            The focus is reducing manual effort, improving quality and accelerating the “data → intelligence” cycle.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="section-title small">Key capabilities</h3>
+          <ul class="list">
+            <li>Continuous ingestion (batch or near-real-time).</li>
+            <li>Entity standardization (person, account, company, device, location, etc.).</li>
+            <li>Governance, audit trail and investigative consistency.</li>
+            <li>Connectors and pipelines for internal sources and OSINT.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 2 -->
+    <section class="section-large section-block alt2">
+      <h2 class="section-title">Integration with the i2 ecosystem</h2>
+      <p class="section-sub">
+        Designed to support real-world investigation, anti-fraud and compliance cases, with integration and best practices
+        for consumption in Analyst’s Notebook and collaborative environments.
+      </p>
+
+      <div class="grid-3">
+        <article class="card tall-card">
+          <h3>Investigative modeling</h3>
+          <p class="text-body">Entity and link structures that reduce ambiguity and increase traceability.</p>
+        </article>
+
+        <article class="card tall-card">
+          <h3>Connectors and sources</h3>
+          <p class="text-body">Integration with databases, APIs, ERPs, logs, events and open sources (OSINT).</p>
+        </article>
+
+        <article class="card tall-card">
+          <h3>Operations and support</h3>
+          <p class="text-body">Training, hardening, troubleshooting and production support.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- INTEGRATED DATABASES -->
+    <section class="section-large section-block alt1" id="bases-integradas">
+      <h2 class="section-title">Main Databases Integrated with i2</h2>
+      <p class="section-sub">
+        SEEAI Data Hub connects the leading data sources in the market to the i2 ecosystem,
+        delivering unified and actionable intelligence for investigation, anti-fraud and compliance.
+      </p>
+      <div class="bases-img-wrap">
+        <img
+          src="img/06_hub_parceiros_hd.png"
+          alt="Main databases integrated with SEEAI Data Hub"
+          loading="lazy"
+        />
+      </div>
+      <p class="bases-caption">Integrated sources · Unified data · Actionable intelligence</p>
+    </section>
+
+    <section id="contato" class="section-large section-block alt3">
+
+      <h2 class="section-title">Contact</h2>
+      <p class="section-sub">
+        Send your message. We respond within 1 business day with specialized assistance.
+      </p>
+
+      <div class="two-column">
+
+        <!-- FORMULÁRIO COM BACKEND GOOGLE APPS SCRIPT -->
+        <form class="contact-form"
+              action="https://script.google.com/macros/s/AKfycbxCF6YKVuxBnIha5T504vrJXnzEMfhh_y2KzW88ejnf9VerBnwmDnGpl0Wh7CGLG7mo4g/exec"
+              method="POST">
+
+          <label for="nome">Name*</label>
+          <input id="nome" name="name" type="text" required />
+
+          <label for="email">Corporate e-mail*</label>
+          <input id="email" name="email" type="email" required />
+
+          <label for="org">Organization</label>
+          <input id="org" name="organization" type="text" />
+
+          <label for="msg">Message*</label>
+          <textarea id="msg" name="message" rows="6" required></textarea>
+
+          <button type="submit" class="btn btn-primary full-btn">
+            Send message
+          </button>
+
+          <p class="form-note">
+            We usually reply within 1 business day.
+          </p>
+        </form>
+
+        <!-- CONTATOS PREMIUM + INSTITUCIONAL -->
+        <div class="contact-right">
+
+          <div class="contact-card-panel">
+            <h3 class="section-title small">Institutional contact</h3>
+
+            <div class="contact-cards">
+
+              <a class="contact-item" href="https://www.seeaidata.com.br" target="_blank" rel="noopener noreferrer">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- Globe -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.93 9H16.9a15.5 15.5 0 00-1.35-6.06A8.02 8.02 0 0119.93 11zM12 4c.86 0 2.44 2.23 3.14 7H8.86C9.56 6.23 11.14 4 12 4zM4.07 13H7.1a15.5 15.5 0 001.35 6.06A8.02 8.02 0 014.07 13zM7.1 11H4.07a8.02 8.02 0 014.38-6.06A15.5 15.5 0 007.1 11zm1.76 2h6.28c-.7 4.77-2.28 7-3.14 7-.86 0-2.44-2.23-3.14-7zm7.76 6.06A15.5 15.5 0 0016.9 13h3.03a8.02 8.02 0 01-4.41 6.06z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">Site</span>
+                  <span class="contact-value">www.seeaidata.com.br</span>
+                </span>
+              </a>
+
+              <a class="contact-item" href="tel:+5511978596000">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- Phone -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">Phone</span>
+                  <span class="contact-value">+55 11 97859-6000</span>
+                </span>
+              </a>
+
+              <a class="contact-item" href="https://wa.me/5511978596000" target="_blank" rel="noopener noreferrer">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- WhatsApp (simplificado) -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.1.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">WhatsApp</span>
+                  <span class="contact-value">Immediate assistance</span>
+                </span>
+              </a>
+
+              <a class="contact-item" href="mailto:comercial@seeaidata.com.br">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- Mail -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">E-mail</span>
+                  <span class="contact-value">comercial@seeaidata.com.br</span>
+                </span>
+              </a>
+
+              <a class="contact-item" href="https://www.linkedin.com/company/seeai-data" target="_blank" rel="noopener noreferrer">
+                <span class="icon-wrap" aria-hidden="true">
+                  <!-- LinkedIn -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0.5 23.5h4V7.98h-4V23.5zM8.5 7.98h3.83v2.12h.06c.53-1 1.83-2.12 3.77-2.12 4.03 0 4.78 2.65 4.78 6.1v9.42h-4v-8.35c0-1.99-.04-4.55-2.77-4.55-2.77 0-3.19 2.16-3.19 4.4v8.5h-4V7.98z"/>
+                  </svg>
+                </span>
+                <span class="contact-text">
+                  <span class="contact-label">LinkedIn</span>
+                  <span class="contact-value">/company/seeai-data</span>
+                </span>
+              </a>
+
+            </div>
+          </div>
+
+          <div class="institutional-panel">
+            <h3 class="section-title small">Institutional information</h3>
+            <ul class="list">
+              <li>Service coverage: Brazil and Latin America.</li>
+              <li>Government, corporate and compliance projects.</li>
+              <li>Specialized consulting in the i2 ecosystem.</li>
+              <li>Integration with cloud or on-premises infrastructure.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <span class="footer-copyright">© <span id="year"></span> SEEAI · Investigative intelligence & Data Hub.</span>
+      </div>
+      <div class="footer-partner">
+        <img src="img/Logoi2_2024_invertifo.png" alt="IBM i2" class="footer-i2-logo">
+        <span class="footer-partner-label">Official Partner</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <a class="whatsapp-float"
+     href="https://wa.me/5511978596000"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Contact us on WhatsApp">
+    <span class="whatsapp-float__ring" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.10.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"/>
+    </svg>
+  </a>
+
+  <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
     const canvas = document.getElementById("network-bg");

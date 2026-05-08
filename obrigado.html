@@ -1,40 +1,177 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<title>Mensagem enviada | SEEAI</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="style.css" rel="stylesheet"/>
-<link href="https://seeaidata.com.br/obrigado.html" hreflang="pt-BR" rel="alternate"/>
-<link href="https://seeaidata.com.br/obrigado-en.html" hreflang="en" rel="alternate"/>
-<link href="https://seeaidata.com.br/obrigado-es.html" hreflang="es" rel="alternate"/>
-<link href="https://seeaidata.com.br/obrigado.html" hreflang="x-default" rel="alternate"/>
+  <meta charset="UTF-8" />
+  <title>Mensagem enviada | SEEAI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="alternate" hreflang="pt-BR" href="https://seeaidata.com.br/obrigado.html" />
+  <link rel="alternate" hreflang="en" href="https://seeaidata.com.br/obrigado-en.html" />
+  <link rel="alternate" hreflang="es" href="https://seeaidata.com.br/obrigado-es.html" />
+  <link rel="alternate" hreflang="x-default" href="https://seeaidata.com.br/obrigado.html" />
 </head>
+
 <body>
-<canvas id="network-bg"></canvas>
-<div class="content-wrapper">
-<header>
-<div class="nav-inner">
-<a class="brand" href="index.html#top">
-<img alt="Logotipo SEEAI" class="logo-small" src="img/seeai-logo.png"/>
-<span class="brand-name">SEEAI</span>
-</a>
-<div aria-label="Seleção de idioma" class="lang-switch"><a class="is-active" href="obrigado.html" lang="pt-BR">PT</a>
-          <a href="obrigado-en.html" lang="en">EN</a>
-          <a href="obrigado-es.html" lang="es">ES</a></div></div>
-</header>
-<main class="section-large section-block alt2" style="min-height:70vh; display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center;">
-<h1 class="section-title">Obrigado pela mensagem! ✅</h1>
-<p class="section-sub" style="max-width:30rem;">
+
+  <canvas id="network-bg"></canvas>
+
+  <div class="content-wrapper">
+
+    <header>
+      <div class="nav-inner">
+
+        <a href="index.html#top" class="brand">
+          <img src="img/seeai-logo.png" alt="Logotipo SEEAI" class="logo-small" />
+          <span class="brand-name">SEEAI</span>
+        </a>
+
+        <!-- NAV DESKTOP -->
+        <nav class="nav-desktop" aria-label="Navegação principal">
+          <ul>
+            <li><a href="index.html#quem-somos" class="is-active">Quem somos</a></li>
+            <li><a href="index.html#servicos">Serviços</a></li>
+            <li><a href="consultoria-i2.html">Consultoria i2</a></li>
+			<li><a href="index.html#analise-3d">Análise 3D View</a></li>
+            <li><a href="datahub.html">SEEAI Data Hub</a></li>
+            <li><a href="produtos-i2.html">Produtos i2</a></li>
+            <li><a href="index.html#blog">Blog</a></li>
+            <li><a href="index.html#contato">Contato</a></li>
+          </ul>
+        </nav>
+
+        <!-- BOTÃO MOBILE -->
+                <div class="lang-switch" aria-label="Seleção de idioma">
+          <a href="index.html" lang="pt-BR" class="is-active">PT</a>
+          <a href="index-en.html" lang="en">EN</a>
+          <a href="index-es.html" lang="es">ES</a>
+        </div>
+
+        <button class="nav-toggle"
+                type="button"
+                aria-label="Abrir menu"
+                aria-controls="mobile-nav"
+                aria-expanded="false">
+          <span class="nav-toggle-lines" aria-hidden="true"></span>
+        </button>
+
+      </div>
+
+      <!-- NAV MOBILE (drawer) -->
+      <div id="mobile-nav" class="nav-mobile" aria-hidden="true">
+        <div class="nav-mobile-inner">
+          <div class="nav-mobile-top">
+            <span class="nav-mobile-title">Menu</span>
+            <button class="nav-close" type="button" aria-label="Fechar menu">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <a href="index.html#quem-somos" class="nav-mobile-link is-active">Quem somos</a>
+          <a href="index.html#servicos" class="nav-mobile-link">Serviços</a>
+          <a href="consultoria-i2.html" class="nav-mobile-link">Consultoria i2</a>
+		  <a href="index.html#analise-3d" class="nav-mobile-link">Análise 3D View</a>
+          <a href="datahub.html" class="nav-mobile-link">SEEAI Data Hub</a>
+          <a href="produtos-i2.html" class="nav-mobile-link">Produtos i2</a>
+          <a href="index.html#blog" class="nav-mobile-link">Blog</a>
+          <a href="index.html#contato" class="nav-mobile-link">Contato</a>
+
+          <div class="nav-mobile-section">
+            <div class="nav-mobile-section-title">Idioma</div>
+            <a href="index.html" class="nav-mobile-sublink is-active">Português</a>
+            <a href="index-en.html" class="nav-mobile-sublink">English</a>
+            <a href="index-es.html" class="nav-mobile-sublink">Español</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="nav-overlay" aria-hidden="true"></div>
+    </header>
+
+    <main class="section-large section-block alt2" style="min-height:70vh; display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center;">
+      <h1 class="section-title">Obrigado pela mensagem! ✅</h1>
+      <p class="section-sub" style="max-width:30rem;">
         Sua mensagem foi enviada com sucesso. Em breve retornaremos pelo e-mail informado.
       </p>
-<a class="btn btn-primary" href="index.html#top" style="margin-top:1.5rem;">
+
+      <a href="index.html#top" class="btn btn-primary" style="margin-top:1.5rem;">
         Voltar ao site
       </a>
-</main>
-<footer>
-      © <span id="year"></span> SEEAI · Inteligência investigativa &amp; Data Hub.
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span class="footer-copyright">© <span id="year"></span> SEEAI · Inteligência investigativa & Data Hub.</span>
+      </div>
+      <div class="footer-partner">
+        <img src="img/Logoi2_2024_invertifo.png" alt="IBM i2" class="footer-i2-logo">
+        <span class="footer-partner-label">Parceiro Oficial</span>
+      </div>
     </footer>
-</div>
-<script></script></body></html>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const canvas = document.getElementById("network-bg");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    let nodes = [];
+    const NODE_COUNT = 70;
+    const MAX_DISTANCE = 140;
+
+    function initNodes() {
+      nodes = [];
+      for (let i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5
+        });
+      }
+    }
+
+    initNodes();
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(5, 13, 31, 1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      nodes.forEach(node => {
+        node.x += node.vx;
+        node.y += node.vy;
+
+        if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+        if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = "#1ea4ff";
+        ctx.fill();
+
+        if (Math.random() < 0.002) {
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = "#e6323a";
+          ctx.fill();
+        }
+      });
+
+      for (let a = 0; a < NODE_COUNT; a++) {
+        for (let b = a + 1; b < NODE_COUNT; b++) {
+          const dx = nodes[a].x - nodes[b].x;
+          const dy = nodes[a].y - nodes[b].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < MAX_DISTANCE) {
+            ctx.strokeStyle = "rgba(30, 164, 255," + (1 - dist / MAX_DISTANCE) +
