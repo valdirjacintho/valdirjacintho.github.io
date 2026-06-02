@@ -1,0 +1,24 @@
+# ════════════════════════════════════════════════════════
+# SEEAI Data Hub — .htaccess
+# Coloque este arquivo na raiz do site (mesma pasta do index.html)
+# ════════════════════════════════════════════════════════
+
+RewriteEngine On
+
+# ── 1. Forçar www (resolve duplicata de domínio no Google) ──────────
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# ── 2. URL amigável: /explore → seeaiexplore.html ───────────────────
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^explore/?$ /seeaiexplore.html [L]
+
+# ── 3. Outras URLs amigáveis (descomente se quiser) ──────────────────
+# RewriteRule ^datahub$        /datahub.html         [L]
+# RewriteRule ^consultoria$    /consultoria-i2.html  [L]
+# RewriteRule ^produtos$       /produtos-i2.html     [L]
+
+# ── 4. Forçar HTTPS ─────────────────────────────────────────────────
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
