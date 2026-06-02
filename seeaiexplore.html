@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>SEEAI EXPLORE | Inteligência Investigativa para Revelar Conexões Ocultas</title>
+  <meta name="description" content="Plataforma web investigativa que transforma dados complexos em grafos visuais interativos 3D/2D. Análise de vínculos, prevenção a fraudes, crimes financeiros, lavagem de dinheiro, OSINT e segurança pública." />
+  <meta name="keywords" content="análise de vínculos, análise investigativa, grafo 3D investigativo, prevenção a fraudes, investigação de lavagem de dinheiro, inteligência investigativa, OSINT e análise de redes, link analysis, fraude em seguros, crimes financeiros, visualização de dados investigativos, análise de telefonia, análise de transações financeiras, SEEAI EXPLORE" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://www.seeaidata.com.br/seeaiexplore" />
+  <meta property="og:title" content="SEEAI EXPLORE | Inteligência investigativa para revelar conexões ocultas" />
+  <meta property="og:description" content="Visualize, explore e organize redes de pessoas, empresas, transações, telefones, endereços e eventos em uma plataforma web criada para investigações modernas." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.seeaidata.com.br/seeaiexplore" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8H4KREJX27"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8H4KREJX27');
+  </script>
+
+  <style>
+:root {
+  --navy: #050d1f;
+  --panel: rgba(5, 13, 31, 0.88);
+  --card: #0c1b36;
+  --card2: #0b1933;
+
+  --white: #ffffff;
+  --red: #e6323a;
+  --blue: #1ea4ff;
+  --muted: #c4d1e6;
+  --border: #172743;
+
+  --shadow: rgba(0, 0, 0, 0.55);
+
+  --glow-blue: rgba(30, 164, 255, 0.34);
+  --glow-red: rgba(230, 50, 58, 0.28);
+  --glow-soft: rgba(255, 255, 255, 0.08);
+}
+
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+:target { scroll-margin-top: 90px; }
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Imagens/Vídeos previsíveis em qualquer browser */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Acessibilidade */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* CANVAS */
+#network-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+/* CONTEÚDO */
+.content-wrapper {
+  z-index: 10;
+  position: relative;
+}
+
+/* LINKS */
+a { color: inherit; text-decoration: none; }
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--panel);
+  border-bottom: 1px solid rgba(20, 28, 56, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+.nav-inner {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 180px;
+}
+
+.logo-small { height: 34px; width: auto; }
+
+.brand-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* NAV DESKTOP */
+.nav-desktop { display: block; }
+
+.nav-desktop ul {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+}
+
+.nav-desktop a {
+  color: var(--muted);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  padding-bottom: 0.2rem;
+  display: inline-block;
+}
+
+.nav-desktop a:hover { color: var(--white); }
+
+.nav-desktop a::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--blue));
+  transition: width 0.2s ease-out;
+}
+
+.nav-desktop a:hover::after { width: 100%; }
+
+.nav-desktop a.is-active { color: var(--white); }
+.nav-desktop a.is-active::after { width: 100%; }
+
+/* MOBILE NAV */
+.nav-toggle {
+  display: none;
+  width: 46px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.nav-toggle:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(0,0,0,0.30);
+}
+
+.nav-toggle-lines {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  border-radius: 2px;
+}
+
+.nav-toggle-lines::before,
+.nav-toggle-lines::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.nav-toggle-lines::before { top: -7px; }
+.nav-toggle-lines::after  { top: 7px; }
+
+.nav-mobile {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: min(360px, 88vw);
+  background: linear-gradient(
+    to bottom,
+    rgba(8,16,34,0.965),
+    rgba(5,13,31,0.955)
+  );
+  border-left: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(14px);
+  box-shadow: -20px 0 70px rgba(0,0,0,0.65);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+  z-index: 120;
+}
+
+.nav-mobile-inner {
+  padding: 1.2rem 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.nav-mobile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav-mobile-title {
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.85);
+}
+
+.nav-close {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.22);
+  color: #fff;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.nav-close:hover {
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(0,0,0,0.28);
+  transform: translateY(-1px);
+}
+
+.nav-mobile-link {
+  padding: 0.95rem 0.95rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.92);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.nav-mobile-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(30,164,255,0.28);
+  background: rgba(30,164,255,0.06);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.25);
+}
+
+.nav-mobile-link.is-active {
+  border-color: rgba(255,255,255,0.18);
+  background: linear-gradient(90deg, rgba(230,50,58,0.16), rgba(30,164,255,0.12));
+  box-shadow:
+    0 16px 34px rgba(0,0,0,0.28),
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 0 24px var(--glow-red),
+    0 0 28px var(--glow-blue);
+  position: relative;
+}
+
+.nav-mobile-link.is-active::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--red), var(--blue));
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.06),
+    0 0 16px var(--glow-blue);
+}
+
+.nav-mobile-section {
+  margin-top: 0.3rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav-mobile-section-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.70);
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+}
+
+.nav-mobile-sublink {
+  padding: 0.75rem 0.95rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.18);
+  color: rgba(255,255,255,0.88);
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  margin-left: 0.55rem;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.nav-mobile-sublink:hover {
+  transform: translateY(-1px);
+  border-color: rgba(30,164,255,0.22);
+  background: rgba(30,164,255,0.05);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.22);
+}
+
+.nav-mobile-sublink.is-active {
+  border-color: rgba(255,255,255,0.16);
+  background: linear-gradient(90deg, rgba(30,164,255,0.12), rgba(230,50,58,0.06));
+  box-shadow:
+    0 14px 30px rgba(0,0,0,0.24),
+    0 0 18px rgba(30,164,255,0.22);
+}
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  z-index: 110;
+}
+
+.nav-open .nav-mobile { transform: translateX(0%); }
+.nav-open .nav-overlay { opacity: 1; pointer-events: auto; }
+
+@media (max-width: 900px) {
+  .nav-desktop { display: none; }
+  .nav-toggle { display: inline-flex; }
+}
+
+/* HERO (index + datahub) */
+.hero {
+  min-height: 95vh;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+}
+
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; gap: 2.4rem; }
+}
+
+.logo-hero { height: 145px; width: auto; }
+
+.hero-title {
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-weight: 760;
+  line-height: 1.1;
+  margin-top: 1rem;
+}
+
+.hero-highlight {
+  background: linear-gradient(90deg, var(--blue), var(--red));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero-subtitle {
+  margin-top: 1.2rem;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  max-width: 54rem;
+}
+
+.hero-actions {
+  margin-top: 2.2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-meta {
+  margin-top: 1.6rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* HERO PANEL */
+.hero-panel {
+  background: radial-gradient(circle at top, #132a54, #0c1b36 55%);
+  border: 1px solid var(--border);
+  border-radius: 1.4rem;
+  padding: 2rem 2.2rem;
+  box-shadow: 0 18px 55px var(--shadow);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(30, 164, 255, 0.12);
+  border: 1px solid rgba(30, 164, 255, 0.25);
+  color: var(--white);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.hero-panel h2 {
+  margin-top: 1rem;
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.hero-panel p {
+  margin-top: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* NETWORK (painel interno) + FIX forte p/ Chrome/Edge */
+.network {
+  margin-top: 1.4rem;
+  width: 100%;
+  border-radius: 1rem;
+  background: radial-gradient(circle at bottom, #101f3f, #050916 70%);
+  border: 1px solid #192643;
+  overflow: hidden;
+  position: relative;
+
+  /* ✅ FIX: evita “esticar” imprevisível */
+  min-height: 220px;
+  aspect-ratio: 16 / 9;
+}
+
+/* classe extra usada no datahub para fix “ainda mais previsível” */
+.network.network--fixed {
+  min-height: 240px;
+  height: auto;
+  max-height: 340px;
+}
+
+@media (max-width: 1024px) {
+  .network { min-height: 220px; }
+  .network.network--fixed { min-height: 220px; max-height: 320px; }
+}
+
+@media (max-width: 540px) {
+  .network { aspect-ratio: 4 / 3; min-height: 210px; }
+  .network.network--fixed { aspect-ratio: 4 / 3; min-height: 210px; }
+}
+
+.network-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.logo-network {
+  height: 125px;
+  width: auto;
+  opacity: 0.98;
+}
+
+/* BOTÕES */
+.btn {
+  padding: 0.95rem 2.3rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.88rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, filter 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
+
+.btn-primary:hover { filter: brightness(1.08); }
+
+.btn-secondary {
+  background: transparent;
+  border-color: #243452;
+  color: var(--muted);
+}
+
+.btn-secondary:hover {
+  border-color: var(--blue);
+  color: var(--white);
+}
+
+/* SEÇÕES */
+.section-large {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.section-title {
+  font-size: 1.9rem;
+  margin-bottom: 1rem;
+}
+
+.section-title.small { font-size: 1.25rem; margin-bottom: 0.85rem; }
+
+.section-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 66rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.text-body {
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 1.02rem;
+  margin-top: 1rem;
+}
+
+/* LISTAS */
+.list {
+  margin-top: 0.75rem;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.list strong { color: var(--white); }
+
+/* GRID */
+.two-column {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+}
+
+@media (max-width: 1024px) {
+  .two-column { grid-template-columns: 1fr; }
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+}
+
+@media (max-width: 1024px) {
+  .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* CARDS */
+.card {
+  padding: 2rem;
+  border-radius: 1.2rem;
+  background: radial-gradient(circle at top left, #162952, #0c1b36 70%);
+  border: 1px solid var(--border);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.45);
+}
+
+.tall-card { min-height: 220px; }
+
+.pill {
+  display: inline-flex;
+  margin-top: 1rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(30, 164, 255, 0.25);
+  background: rgba(30, 164, 255, 0.08);
+  color: var(--white);
+  transition: transform 0.18s ease, filter 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.link-pill:hover {
+  border-color: rgba(230, 50, 58, 0.35);
+  background: rgba(230, 50, 58, 0.10);
+  transform: translateY(-1px);
+}
+
+.ghost-pill {
+  border-color: rgba(255,255,255,0.12);
+  background: rgba(5, 9, 22, 0.35);
+  color: var(--muted);
+}
+
+.ghost-pill:hover {
+  border-color: rgba(255,255,255,0.22);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+/* BLOCOS */
+.section-block {
+  padding: 7rem 2rem;
+  position: relative;
+  background: linear-gradient(to bottom, rgba(12, 22, 45, 0.35), rgba(8, 16, 34, 0.6));
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(4px);
+}
+
+.section-block.alt1 {
+  background: linear-gradient(to bottom, rgba(14, 28, 58, 0.35), rgba(10, 20, 42, 0.6));
+}
+
+.section-block.alt2 {
+  background: linear-gradient(to bottom, rgba(18, 32, 64, 0.35), rgba(12, 22, 46, 0.6));
+}
+
+.section-block.alt3 {
+  background: linear-gradient(to bottom, rgba(20, 36, 72, 0.35), rgba(14, 28, 58, 0.6));
+}
+
+/* FORM */
+.contact-form {
+  background: radial-gradient(circle at top left, #162952, #0c1b36 70%);
+  border: 1px solid var(--border);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+}
+
+.contact-form label {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-top: 0.45rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 0.7rem;
+  border: 1px solid #2a3960;
+  background: #050916;
+  color: var(--white);
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(30, 164, 255, 0.55);
+  box-shadow: 0 0 0 3px rgba(30, 164, 255, 0.12);
+}
+
+.contact-form textarea { resize: vertical; }
+
+.full-btn { width: 100%; justify-content: center; margin-top: 1.3rem; }
+
+.form-note {
+  margin-top: 0.85rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.contact-right { display: flex; flex-direction: column; gap: 1.3rem; }
+
+.contact-card-panel {
+  padding: 1.6rem 1.6rem 1.7rem;
+  border-radius: 1.35rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.32);
+}
+
+.contact-cards {
+  margin-top: 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 620px) {
+  .contact-cards { grid-template-columns: 1fr; }
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  padding: 1.05rem 1.05rem;
+  border-radius: 1.05rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.20);
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.16);
+  background: rgba(0,0,0,0.26);
+}
+
+.icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+}
+
+.contact-text { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+
+.contact-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.70);
+  font-weight: 800;
+}
+
+.contact-value {
+  font-size: 1rem;
+  color: var(--white);
+  font-weight: 650;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.institutional-panel {
+  padding: 1.6rem;
+  border-radius: 1.35rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+
+.icon-wrap,
+.whatsapp-float {
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-wrap svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+  fill: #ffffff;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  image-rendering: crisp-edges;
+  filter: none !important;
+  opacity: 1;
+}
+
+.contact-item:hover .icon-wrap {
+  border-color: rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.08);
+}
+
+/* WhatsApp Float */
+.whatsapp-float {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 60;
+  width: 62px;
+  height: 62px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 55px rgba(0,0,0,0.55);
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-3px);
+  border-color: rgba(30,164,255,0.35);
+  background: rgba(0,0,0,0.34);
+}
+
+.whatsapp-float__ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 1px solid rgba(30,164,255,0.28);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: ringPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%   { transform: scale(0.96); opacity: 0.20; }
+  45%  { transform: scale(1.08); opacity: 0.55; }
+  100% { transform: scale(0.96); opacity: 0.20; }
+}
+
+.whatsapp-float svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+  fill: #ffffff;
+  shape-rendering: geometricPrecision;
+  image-rendering: crisp-edges;
+  filter: none !important;
+  opacity: 1;
+}
+
+/* FOOTER */
+footer {
+  padding: 2.3rem 2rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0,0,0,0.10);
+}
+
+/* =========================
+   PRODUTOS i2 (layout completo)
+   ========================= */
+
+.product-hero {
+  padding: 5.5rem 2rem 3.5rem;
+}
+
+.product-hero-inner {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.product-hero-left {
+  min-width: 0;
+}
+
+.product-hero-title {
+  margin-top: 1rem;
+  font-size: clamp(2.1rem, 3.6vw, 3.2rem);
+  line-height: 1.08;
+}
+
+.product-hero-subtitle {
+  margin-top: 1rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 52rem;
+}
+
+.product-hero-panel {
+  background: radial-gradient(circle at top, #132a54, #0c1b36 55%);
+  border: 1px solid var(--border);
+  border-radius: 1.4rem;
+  padding: 2rem 2.2rem;
+  box-shadow: 0 18px 55px rgba(0,0,0,0.55);
+}
+
+.product-hero-panel h2 {
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.product-hero-panel p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+
+.product-hero-mini-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.mini-pill {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(5, 9, 22, 0.45);
+  color: var(--muted);
+}
+
+.product-band {
+  position: relative;
+  padding: 6rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(4px);
+}
+
+.product-band-inner {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 2.4rem;
+  align-items: start;
+}
+
+.band-a {
+  background: linear-gradient(to bottom, rgba(14, 28, 58, 0.35), rgba(10, 20, 42, 0.6));
+}
+
+.band-b {
+  background: linear-gradient(to bottom, rgba(18, 32, 64, 0.35), rgba(12, 22, 46, 0.6));
+}
+
+.product-title {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.product-lead {
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 1.03rem;
+  max-width: 58rem;
+}
+
+.product-bullets {
+  margin-top: 1.6rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.bullet {
+  padding: 1.1rem 1.2rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(5, 9, 22, 0.45);
+}
+
+.bullet h3 {
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+}
+
+.bullet p {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 0.98rem;
+}
+
+.product-cta-row {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.product-card {
+  padding: 1.6rem 1.6rem;
+  border-radius: 1.2rem;
+  background: radial-gradient(circle at top left, #162952, #0c1b36 70%);
+  border: 1px solid var(--border);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.45);
+  margin-bottom: 1.2rem;
+}
+
+.product-card h3 {
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+  .product-hero-inner,
+  .product-band-inner {
+    grid-template-columns: 1fr;
+  }
+  .product-hero { padding-top: 4.4rem; }
+}
+
+/* Cookie banner */
+.cookie-banner {
+  position: fixed;
+  bottom: 18px;
+  left: 18px;
+  right: 18px;
+  max-width: 960px;
+  margin: 0 auto;
+  z-index: 200;
+  padding: 1.2rem 1.4rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(5, 13, 31, 0.95);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+}
+
+.cookie-banner p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cookie-banner a {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.cookie-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+@media (max-width: 640px) {
+  .cookie-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Ajuste WhatsApp no mobile */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .whatsapp-float {
+    right: calc(12px + env(safe-area-inset-right));
+    bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+}
+/* =========================
+   HEADER FIXO NO DESKTOP
+   (mantém o menu sempre visível)
+   ========================= */
+@media (min-width: 901px) {
+  header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999 !important;
+  }
+
+  /* Compensa a altura do header fixo para não cobrir o conteúdo */
+  .content-wrapper {
+    padding-top: 86px;
+  }
+}
+
+/* ==========================
+   Language switcher
+   ========================== */
+.lang-switch{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:6px 10px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:12px;
+  background:rgba(5,13,31,.55);
+  backdrop-filter: blur(10px);
+}
+.lang-switch a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:34px;
+  height:28px;
+  padding:0 10px;
+  border-radius:10px;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.88);
+  border:1px solid transparent;
+}
+.lang-switch a:hover{
+  border-color:rgba(30,164,255,.55);
+  background:rgba(30,164,255,.12);
+}
+.lang-switch a.is-active{
+  background:rgba(30,164,255,.22);
+  border-color:rgba(30,164,255,.75);
+  color:#ffffff;
+}
+
+@media (max-width: 980px){
+  .lang-switch{ display:none; }
+}
+
+/* ==========================
+   Embedded 3D view
+   ========================== */
+.embed-3d{
+  width:100%;
+  border:0;
+  border-radius:18px;
+  background:#050d1f;
+  display:block;
+}
+.embed-3d-wrap{
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow: 0 10px 40px rgba(0,0,0,.35);
+}
+
+/* ===== PARCEIROS / PARTNERS CAROUSEL ===== */
+.partners-section {
+  padding: 56px 0 60px;
+  background: linear-gradient(to bottom, rgba(12, 22, 45, 0.50), rgba(8, 16, 34, 0.70));
+  overflow: hidden;
+  position: relative;
+}
+.partners-section::before,
+.partners-section::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.partners-section::before {
+  left: 0;
+  background: linear-gradient(to right, #050d1f 0%, transparent 100%);
+}
+.partners-section::after {
+  right: 0;
+  background: linear-gradient(to left, #050d1f 0%, transparent 100%);
+}
+.partners-title {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.55;
+  margin-bottom: 36px;
+}
+.partners-track-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+.partners-track-wrapper.dragging { cursor: grabbing; }
+.partners-inner {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  will-change: transform;
+}
+.partners-track {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  flex-shrink: 0;
+  padding-right: 72px;
+}
+.partner-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  flex-shrink: 0;
+  opacity: 0.55;
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+  filter: grayscale(100%) brightness(1.4);
+  pointer-events: none;
+}
+.partners-track-wrapper:hover .partner-logo { opacity: 0.35; }
+.partner-logo:hover {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: scale(1.08);
+}
+.partner-logo a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  pointer-events: all;
+}
+.partner-logo img {
+  max-height: 48px;
+  max-width: 160px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Badge "Novo" nos produtos */
+.badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  background: rgba(30,164,255,0.12);
+  color: var(--blue);
+  border: 1px solid rgba(30,164,255,0.3);
+}
+.badge-new {
+  background: rgba(230,50,58,0.12);
+  color: var(--red);
+  border-color: rgba(230,50,58,0.3);
+}
+
+
+
+/* ===== SCREENSHOT DE PRODUTO ===== */
+.product-screenshot {
+  margin-top: 2.8rem;
+  text-align: center;
+}
+.product-screenshot img {
+  display: block;
+  width: 100%;
+  max-width: 860px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid rgba(30,164,255,0.2);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 24px 60px rgba(0,0,0,0.55),
+    0 0 40px rgba(30,164,255,0.07);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-screenshot img:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    0 0 0 1px rgba(30,164,255,0.25),
+    0 32px 80px rgba(0,0,0,0.65),
+    0 0 60px rgba(30,164,255,0.12);
+}
+
+/* Canvas da animação DataHub */
+#datahub-network {
+  aspect-ratio: 16 / 9;
+  min-height: 260px;
+  max-height: 400px;
+  cursor: default;
+}
+#hub-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+#datahub-network { position: relative; }
+
+/* ===== BLOCO BASES DE DADOS INTEGRADAS ===== */
+.bases-img-wrap {
+  margin: 2.4rem auto 0;
+  max-width: 680px;
+  text-align: center;
+}
+.bases-img-wrap img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(30,164,255,0.18);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 24px 60px rgba(0,0,0,0.55),
+    0 0 48px rgba(30,164,255,0.08);
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.bases-img-wrap img:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    0 0 0 1px rgba(30,164,255,0.25),
+    0 32px 80px rgba(0,0,0,0.65),
+    0 0 64px rgba(30,164,255,0.13);
+}
+.bases-caption {
+  margin-top: 1.2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.5;
+  text-align: center;
+}
+
+
+
+
+/* ===== FOOTER COM PARCEIRO OFICIAL i2 ===== */
+footer {
+  padding: 1.8rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.10);
+  color: var(--muted);
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.footer-inner { text-align: center; }
+.footer-partner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.footer-i2-logo {
+  height: 36px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.footer-i2-logo:hover { opacity: 1; }
+.footer-partner-label {
+  font-size: 0.60rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.55;
+  white-space: nowrap;
+}
+
+
+/* ══ EXPLORE EXTRAS ══════════════════════════════════════════════ */
+.ex-header {
+  position: sticky; top: 0; z-index: 30;
+  background: var(--panel); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(20,28,56,0.6);
+  padding: 0.9rem 2rem;
+  display: flex; align-items: center;
+}
+
+.explore-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.3rem 0.8rem; border-radius: 999px;
+  background: rgba(230,50,58,0.12); border: 1px solid rgba(230,50,58,0.28);
+  color: var(--white); font-size: 0.72rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 1rem;
+}
+.explore-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--red); animation: exblink 2s infinite;
+}
+@keyframes exblink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+.ex-slogan {
+  font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--blue); opacity: 0.6; margin-bottom: 0.8rem; display: block;
+}
+
+.ex-stat-row {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  margin-top: 2rem; padding-top: 1.8rem; border-top: 1px solid var(--border);
+}
+.ex-stat-val { font-size: 1.9rem; font-weight: 800; color: var(--white); }
+.ex-stat-val span { color: var(--blue); }
+.ex-stat-lbl { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+.section-label {
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--blue); opacity: 0.7; margin-bottom: 0.8rem; display: block;
+}
+
+/* Placeholder de mídia */
+.media-slot {
+  background: radial-gradient(circle at top, #132a54, #0c1b36 55%);
+  border: 1px solid var(--border); border-radius: 1.4rem;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.8rem; padding: 2.5rem;
+  text-align: center; position: relative; overflow: hidden;
+}
+.media-slot-label {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue); opacity: 0.55; font-weight: 600;
+}
+.media-slot-tag {
+  position: absolute; bottom: 0.8rem; right: 0.9rem;
+  font-size: 0.62rem; letter-spacing: 0.1em; color: var(--blue); opacity: 0.35;
+  border: 1px solid rgba(30,164,255,0.15); padding: 0.2rem 0.5rem; border-radius: 4px;
+}
+.media-slot svg { opacity: 0.22; }
+.media-slot.video { aspect-ratio: 16/9; }
+.media-slot.screenshot { aspect-ratio: 4/3; }
+.play-ring {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(30,164,255,0.1); border: 1.5px solid rgba(30,164,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.play-ring svg { width: 26px; height: 26px; fill: var(--blue); margin-left: 4px; opacity: 0.6; }
+
+/* DOR */
+.pain-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 1.2rem; overflow: hidden; margin-top: 2.5rem;
+}
+@media(max-width:768px){ .pain-grid { grid-template-columns: 1fr; } }
+.pain-item {
+  background: var(--navy); padding: 1.8rem 1.5rem;
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s;
+}
+.pain-item:hover { border-left-color: var(--red); }
+.pain-icon { font-size: 1.4rem; margin-bottom: 0.8rem; }
+.pain-item h3 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+.pain-item p  { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+
+/* TARGETS */
+.ex-targets {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 1.2rem; overflow: hidden; margin-top: 2.5rem;
+}
+@media(max-width:768px){ .ex-targets { grid-template-columns: 1fr; } }
+.ex-target { background: var(--navy); padding: 1.8rem 1.5rem; }
+.ex-target-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(30,164,255,0.08); border: 1px solid rgba(30,164,255,0.12);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;
+}
+.ex-target-icon svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.ex-target h3 { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+.ex-target .pain-tag {
+  font-size: 0.72rem; color: var(--red); opacity: 0.8;
+  margin-bottom: 0.5rem; display: block; font-style: italic;
+}
+.ex-target p  { font-size: 0.83rem; color: var(--muted); line-height: 1.65; }
+
+/* FEATURES */
+.ex-features {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 2.5rem;
+}
+@media(max-width:768px){ .ex-features { grid-template-columns: 1fr; } }
+.ex-feature {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 1.2rem; padding: 1.8rem; transition: border-color 0.2s, transform 0.2s;
+}
+.ex-feature:hover { border-color: rgba(30,164,255,0.3); transform: translateY(-2px); }
+.ex-feat-num   { font-size: 0.65rem; letter-spacing: 0.18em; color: var(--blue); opacity: 0.45; margin-bottom: 0.7rem; }
+.ex-feat-icon  { font-size: 1.5rem; margin-bottom: 0.7rem; }
+.ex-feat-title { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+.ex-feat-desc  { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+.ex-tag {
+  display: inline-block; margin-top: 0.75rem;
+  padding: 0.18rem 0.55rem; border-radius: 4px;
+  font-size: 0.68rem; letter-spacing: 0.06em;
+  background: rgba(30,164,255,0.08); color: var(--blue);
+  border: 1px solid rgba(30,164,255,0.16); margin-right: 0.3rem;
+}
+
+/* CASOS DE USO */
+.use-cases {
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 1.2rem; overflow: hidden; margin-top: 2.5rem;
+}
+@media(max-width:768px){ .use-cases { grid-template-columns: 1fr; } }
+.use-case {
+  background: var(--navy2); padding: 2rem 1.8rem;
+  border-left: 3px solid var(--border); transition: border-color 0.2s;
+}
+.use-case:hover { border-left-color: var(--blue); }
+.use-case-badge {
+  display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px;
+  font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
+  background: rgba(30,164,255,0.1); color: var(--blue);
+  border: 1px solid rgba(30,164,255,0.18); margin-bottom: 0.8rem;
+}
+.use-case h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+.use-case p  { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+
+/* ARTEFATOS */
+.ex-artifacts {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem;
+}
+@media(max-width:768px){ .ex-artifacts { grid-template-columns: 1fr; } }
+.ex-artifact {
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 1.2rem; padding: 1.8rem 1.5rem; position: relative; overflow: hidden;
+}
+.ex-artifact::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.ex-artifact.blue::before   { background: var(--blue); }
+.ex-artifact.red::before    { background: var(--red); }
+.ex-artifact.purple::before { background: #7c3aed; }
+.ex-artifact-bg {
+  position: absolute; top: 0.8rem; right: 1rem; font-size: 3rem; font-weight: 900;
+  opacity: 0.04; color: var(--white); pointer-events: none; line-height: 1;
+}
+.ex-artifact h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+.ex-artifact p  { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+
+/* ROADMAP */
+.roadmap-grid {
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin-top: 2.5rem;
+}
+@media(max-width:768px){ .roadmap-grid { grid-template-columns: 1fr; } }
+.roadmap-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 1.2rem; padding: 1.6rem;
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.roadmap-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--border); border: 2px solid var(--blue);
+  flex-shrink: 0; margin-top: 0.3rem;
+}
+.roadmap-item h4 { font-size: 0.92rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+.roadmap-item p  { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+.roadmap-badge {
+  display: inline-block; margin-top: 0.6rem;
+  padding: 0.15rem 0.5rem; border-radius: 4px;
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  background: rgba(30,164,255,0.08); color: var(--blue);
+  border: 1px solid rgba(30,164,255,0.2);
+}
+
+/* IA */
+.ex-ia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 2.5rem; }
+@media(max-width:768px){ .ex-ia-grid { grid-template-columns: 1fr; } }
+.ex-ia-list { display: flex; flex-direction: column; gap: 1.2rem; }
+.ex-ia-item { display: flex; gap: 1rem; }
+.ex-ia-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); margin-top: 0.35rem; flex-shrink: 0; }
+.ex-ia-dot.red { background: var(--red); }
+.ex-ia-item h4 { font-size: 0.92rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+.ex-ia-item p  { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+/* OBJEÇÕES */
+.objections-grid {
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin-top: 2.5rem;
+}
+@media(max-width:768px){ .objections-grid { grid-template-columns: 1fr; } }
+.objection {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 1.2rem; padding: 1.8rem;
+}
+.objection-q {
+  font-size: 0.88rem; font-weight: 700; color: var(--white);
+  margin-bottom: 0.7rem; display: flex; align-items: flex-start; gap: 0.6rem;
+}
+.objection-q::before {
+  content: "?"; width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(230,50,58,0.12); color: var(--red);
+  font-size: 0.8rem; font-weight: 800; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(230,50,58,0.25); margin-top: 1px;
+}
+.objection-a { font-size: 0.84rem; color: var(--muted); line-height: 1.65; padding-left: 1.8rem; }
+
+/* SEGURANÇA */
+.ex-security {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 1.2rem; overflow: hidden; margin-top: 2.5rem;
+}
+@media(max-width:768px){ .ex-security { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .ex-security { grid-template-columns: 1fr; } }
+.ex-sec-item { background: var(--navy); padding: 1.6rem 1.4rem; }
+.ex-sec-item h4 { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+.ex-sec-item p  { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+/* SCREENS */
+.ex-screens {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 2.5rem;
+}
+@media(max-width:768px){ .ex-screens { grid-template-columns: 1fr; } }
+
+/* CTA */
+.ex-cta-strip { text-align: center; }
+.ex-cta-strip .section-title { max-width: 680px; margin: 0 auto 1rem; }
+.ex-cta-strip .section-sub   { margin: 0 auto 2rem; text-align: center; }
+.ex-cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
+  <p>Utilizamos cookies para melhorar sua experiência e analisar o tráfego do site.
+    <a href="politica-de-privacidade.html">Saiba mais</a>.</p>
+  <div class="cookie-actions">
+    <button id="cookie-accept"  class="btn btn-primary small-btn">Aceitar</button>
+    <button id="cookie-decline" class="btn btn-secondary small-btn">Recusar</button>
+  </div>
+</div>
+
+<body>
+  <canvas id="network-bg"></canvas>
+  <div class="content-wrapper">
+
+    <!-- HEADER — só logo -->
+    <header>
+      <div class="nav-inner">
+        <a href="index.html" class="brand">
+          <img src="img/seeai-logo.png" alt="Logotipo SEEAI" class="logo-small" />
+          <span class="brand-name">SEEAI</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- LOGO SEEAI EXPLORE centralizado -->
+    <div style="text-align:center;padding:2.2rem 2rem 0.8rem;position:relative;z-index:1;">
+      <svg width="480" height="160" viewBox="0 0 480 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SEEAI EXPLORE" style="max-width:100%;height:auto;">
+  <circle cx="80" cy="80" r="68" stroke="#1ea4ff" stroke-width="0.8" stroke-dasharray="4 9" opacity="0.18"/>
+  <circle cx="80" cy="80" r="50" stroke="#1ea4ff" stroke-width="0.7" stroke-dasharray="2 6" opacity="0.25"/>
+  <line x1="80" y1="80" x2="36"  y2="36"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.50"/>
+  <line x1="80" y1="80" x2="80"  y2="14"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.50"/>
+  <line x1="80" y1="80" x2="124" y2="36"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.45"/>
+  <line x1="80" y1="80" x2="144" y2="80"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.45"/>
+  <line x1="80" y1="80" x2="124" y2="124" stroke="#1ea4ff" stroke-width="1.2" opacity="0.38"/>
+  <line x1="80" y1="80" x2="80"  y2="148" stroke="#e6323a" stroke-width="1.2" opacity="0.60"/>
+  <line x1="80" y1="80" x2="36"  y2="124" stroke="#e6323a" stroke-width="1.2" opacity="0.50"/>
+  <line x1="80" y1="80" x2="16"  y2="80"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.42"/>
+  <circle cx="36"  cy="36"  r="11" fill="#1ea4ff" opacity="0.08"/><circle cx="80"  cy="14"  r="10" fill="#1ea4ff" opacity="0.08"/>
+  <circle cx="124" cy="36"  r="11" fill="#1ea4ff" opacity="0.08"/><circle cx="144" cy="80"  r="10" fill="#1ea4ff" opacity="0.07"/>
+  <circle cx="124" cy="124" r="11" fill="#3a88cc" opacity="0.07"/><circle cx="80"  cy="148" r="13" fill="#e6323a" opacity="0.10"/>
+  <circle cx="36"  cy="124" r="10" fill="#e6323a" opacity="0.09"/><circle cx="16"  cy="80"  r="10" fill="#1ea4ff" opacity="0.07"/>
+  <circle cx="36"  cy="36"  r="7"   fill="#1ea4ff" opacity="0.72"/>
+  <circle cx="80"  cy="14"  r="6"   fill="#1ea4ff" opacity="0.65"/>
+  <circle cx="124" cy="36"  r="7"   fill="#1ea4ff" opacity="0.65"/>
+  <circle cx="144" cy="80"  r="6"   fill="#1ea4ff" opacity="0.55"/>
+  <circle cx="124" cy="124" r="7"   fill="#3a88cc" opacity="0.55"/>
+  <circle cx="80"  cy="148" r="8.5" fill="#e6323a" opacity="0.82"/>
+  <circle cx="36"  cy="124" r="6"   fill="#e6323a" opacity="0.70"/>
+  <circle cx="16"  cy="80"  r="6"   fill="#1ea4ff" opacity="0.55"/>
+  <circle cx="80" cy="80" r="30" fill="#0a1628" stroke="#1ea4ff" stroke-width="1.8" opacity="0.95"/>
+  <circle cx="80" cy="80" r="20" fill="#050d1f" stroke="#1ea4ff" stroke-width="1"   opacity="0.55"/>
+  <circle cx="80" cy="80" r="9"  fill="#e6323a"/>
+  <circle cx="84" cy="76" r="3"  fill="white" opacity="0.45"/>
+  <text x="170" y="65" font-family="system-ui,-apple-system,sans-serif" font-size="52" font-weight="800" letter-spacing="-1" fill="white">SEE<tspan fill="#1ea4ff">AI</tspan></text>
+  <line x1="170" y1="78" x2="475" y2="78" stroke="#1ea4ff" stroke-width="0.8" opacity="0.25"/>
+  <text x="171" y="112" font-family="system-ui,-apple-system,sans-serif" font-size="26" font-weight="300" letter-spacing="16" fill="#7aafce">EXPLORE</text>
+  <text x="172" y="140" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="400" letter-spacing="3.5" fill="#3a5570">investigação analítica em 3d</text>
+</svg>
+      <div style="width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(30,164,255,0.3),transparent);margin:0.8rem auto 0;"></div>
+    </div>
+
+    <!-- ═══ HERO ═══════════════════════════════════════════════════ -->
+    <section class="hero" id="top">
+      <div class="hero-left">
+        <div class="explore-badge">
+          <span class="explore-badge-dot"></span>
+          Plataforma investigativa web
+        </div>
+
+        <span class="ex-slogan">Ver além dos dados · Investigar conexões · Revelar padrões</span>
+
+        <h1 class="hero-title">
+          Inteligência investigativa<br>
+          <span class="hero-highlight">para revelar conexões ocultas</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Visualize, explore e organize redes de pessoas, empresas, transações, telefones,
+          endereços e eventos em uma plataforma web criada para investigações modernas —
+          apoiando fraude, PLD, OSINT, seguros, telecom e segurança pública.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contato" class="btn btn-primary">Solicitar demonstração</a>
+          <a href="#demo" class="btn btn-secondary">Ver como funciona</a>
+        </div>
+
+        <p class="hero-meta">
+          Grafo 3D/2D interativo · Análise de vínculos · Multilinks direcionais ·
+          Casos e evidências · Banco multi-schema · Conectores de dados
+        </p>
+
+        <div class="ex-stat-row">
+          <div>
+            <div class="ex-stat-val">3<span>D</span>/2D</div>
+            <div class="ex-stat-lbl">Grafo investigativo interativo</div>
+          </div>
+          <div>
+            <div class="ex-stat-val">6<span>+</span></div>
+            <div class="ex-stat-lbl">Domínios de investigação</div>
+          </div>
+          <div>
+            <div class="ex-stat-val"><span>∞</span></div>
+            <div class="ex-stat-lbl">Expansão de vínculos por clique</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <span class="badge">Análise investigativa ao vivo</span>
+        <h2>Dados deixam de ser registros isolados e passam a revelar redes</h2>
+        <p>
+          Com SEEAI EXPLORE, dados passam a revelar conexões, hipóteses investigativas
+          e padrões que não aparecem facilmente em planilhas, consultas isoladas ou relatórios tradicionais.
+        </p>
+        <!-- ★ SUBSTITUIR PELO SCREENSHOT DO GRAFO ★ -->
+        <div class="media-slot screenshot" style="margin-top:1.4rem;border-radius:1rem;">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+            <circle cx="28" cy="28" r="9" stroke="#1ea4ff" stroke-width="1.5"/>
+            <circle cx="28" cy="28" r="4.5" fill="#e6323a"/>
+            <line x1="28" y1="28" x2="12" y2="15" stroke="#1ea4ff" stroke-width="1"/>
+            <line x1="28" y1="28" x2="44" y2="15" stroke="#1ea4ff" stroke-width="1"/>
+            <line x1="28" y1="28" x2="44" y2="41" stroke="#1ea4ff" stroke-width="1"/>
+            <line x1="28" y1="28" x2="12" y2="41" stroke="#e6323a" stroke-width="1"/>
+            <circle cx="12" cy="15" r="4" fill="#1ea4ff" opacity="0.6"/>
+            <circle cx="44" cy="15" r="4" fill="#1ea4ff" opacity="0.6"/>
+            <circle cx="44" cy="41" r="4" fill="#1ea4ff" opacity="0.5"/>
+            <circle cx="12" cy="41" r="4" fill="#e6323a" opacity="0.6"/>
+          </svg>
+          <span class="media-slot-label">Inserir screenshot — grafo investigativo</span>
+          <span class="media-slot-tag">SEEAI EXPLORE</span>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ═══ DOR ══════════════════════════════════════════════════════ -->
+    <section class="section-block alt1" id="dor">
+      <div class="section-large">
+        <span class="section-label">O problema</span>
+        <h2 class="section-title">Por que investigações com dados dispersos são difíceis</h2>
+        <p class="section-sub">
+          Dados investigativos raramente chegam prontos. Eles estão em arquivos diferentes,
+          APIs, bases isoladas e consultas pontuais — e visualizá-los como rede é o que muda a análise.
+        </p>
+        <div class="pain-grid">
+          <div class="pain-item">
+            <div class="pain-icon">📊</div>
+            <h3>Planilhas não mostram relações</h3>
+            <p>Vínculos entre pessoas, empresas, telefones, endereços e transações são difíceis de enxergar em linhas e colunas. A estrutura não revela a rede.</p>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">🔗</div>
+            <h3>Dados dispersos em múltiplas fontes</h3>
+            <p>Arquivos, bases de dados, APIs e conectores isolados impossibilitam uma visão unificada. O analista perde tempo consolidando antes de investigar.</p>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">📞</div>
+            <h3>Padrões complexos são invisíveis</h3>
+            <p>Chamadas repetidas, transações sucessivas, endereços compartilhados — vínculos que indicam fraude ou lavagem só aparecem com visualização adequada.</p>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">👥</div>
+            <h3>Colaboração sem misturar dados</h3>
+            <p>Equipes, clientes e projetos distintos precisam operar isolados. A mistura de informações entre grupos compromete a integridade das investigações.</p>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">💾</div>
+            <h3>Trabalho investigativo se perde</h3>
+            <p>Sem salvamento estruturado, casos, grafos e evidências se perdem entre sessões. A continuidade da investigação fica vulnerável.</p>
+          </div>
+          <div class="pain-item">
+            <div class="pain-icon">🖥</div>
+            <h3>Ferramentas que exigem instalação local</h3>
+            <p>Softwares locais limitam acesso, dificultam atualizações e não se integram facilmente com APIs modernas e fontes externas de dados.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PARA QUEM ════════════════════════════════════════════════ -->
+    <section class="section-block" id="para-quem">
+      <div class="section-large">
+        <span class="section-label">Audiência</span>
+        <h2 class="section-title">Criado para quem precisa enxergar o que os dados escondem</h2>
+        <p class="section-sub">Cada perfil investigativo tem sua dor específica. O SEEAI EXPLORE foi desenhado para responder a cada uma delas.</p>
+        <div class="ex-targets">
+          <div class="ex-target">
+            <div class="ex-target-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <h3>Gestores antifraude</h3>
+            <span class="pain-tag">Alto volume de dados, redes suspeitas difíceis de identificar</span>
+            <p>Detecte padrões, vínculos ocultos e grupos relacionados com mais velocidade — antes que o prejuízo se consolide.</p>
+          </div>
+          <div class="ex-target">
+            <div class="ex-target-icon"><svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
+            <h3>Analistas investigativos</h3>
+            <span class="pain-tag">Trabalho manual em planilhas e consultas isoladas</span>
+            <p>Monte, explore e preserve grafos investigativos em uma interface web interativa — sem exportações manuais ou instalações locais.</p>
+          </div>
+          <div class="ex-target">
+            <div class="ex-target-icon"><svg viewBox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+            <h3>Seguradoras e sinistros</h3>
+            <span class="pain-tag">Fraudes com beneficiários, veículos, oficinas e sinistros recorrentes</span>
+            <p>Conecte dados de seguros e visualize redes suspeitas — segurados, terceiros, oficinas e eventos relacionados — em múltiplos schemas.</p>
+          </div>
+          <div class="ex-target">
+            <div class="ex-target-icon"><svg viewBox="0 0 24 24"><path d="M3 6l9-4 9 4v6c0 5.25-3.75 10.15-9 11.25C6.75 22.15 3 17.25 3 12V6z"/></svg></div>
+            <h3>Segurança pública</h3>
+            <span class="pain-tag">Redes criminosas, telefonia, vínculos e eventos interligados</span>
+            <p>Apoie investigações com análise visual, casos estruturados, evidências preservadas e vínculos direcionais entre entidades.</p>
+          </div>
+          <div class="ex-target">
+            <div class="ex-target-icon"><svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8v1m0 11v1M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/></svg></div>
+            <h3>Compliance e PLD</h3>
+            <span class="pain-tag">Monitorar relações, sócios, contas e riscos de lavagem</span>
+            <p>Identifique conexões indiretas, entidades ponte e padrões de lavagem de dinheiro entre empresas, sócios, contas e transações.</p>
+          </div>
+          <div class="ex-target">
+            <div class="ex-target-icon"><svg viewBox="0 0 24 24"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg></div>
+            <h3>OSINT e ciberinvestigação</h3>
+            <span class="pain-tag">Relacionar usernames, e-mails, domínios, IPs e perfis digitais</span>
+            <p>Explore conexões digitais, enriqueça grafos com fontes externas e conecte identidades em múltiplas redes e plataformas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FUNCIONALIDADES ══════════════════════════════════════════ -->
+    <section class="section-block alt2" id="funcionalidades">
+      <div class="section-large">
+        <span class="section-label">Recursos</span>
+        <h2 class="section-title">O que o SEEAI EXPLORE entrega hoje</h2>
+        <p class="section-sub">Recursos disponíveis na plataforma para apoiar investigações reais, desde a visualização até a organização e exportação dos resultados.</p>
+        <div class="ex-features">
+          <div class="ex-feature">
+            <div class="ex-feat-num">01</div>
+            <div class="ex-feat-icon">🕸</div>
+            <div class="ex-feat-title">Grafo investigativo 3D/2D</div>
+            <div class="ex-feat-desc">Explore vínculos complexos com navegação visual fluida, filtros, seleção e painel de detalhes. Motor orgânico com distribuição estável e interação responsiva.</div>
+            <span class="ex-tag">3D/2D interativo</span>
+          </div>
+          <div class="ex-feature">
+            <div class="ex-feat-num">02</div>
+            <div class="ex-feat-icon">↔</div>
+            <div class="ex-feat-title">Multilinks direcionais</div>
+            <div class="ex-feat-desc">Preserve múltiplas relações entre as mesmas entidades, com direção, setas, propriedades e contexto. Nenhum vínculo paralelo se perde na visualização.</div>
+            <span class="ex-tag">Vínculos direcionais</span>
+          </div>
+          <div class="ex-feature">
+            <div class="ex-feat-num">03</div>
+            <div class="ex-feat-icon">📁</div>
+            <div class="ex-feat-title">Casos e evidências</div>
+            <div class="ex-feat-desc">Organize investigações em casos estruturados, com anotações, evidências preservadas e controle de acesso por perfil e grupo.</div>
+            <span class="ex-tag">Casos estruturados</span>
+          </div>
+          <div class="ex-feature">
+            <div class="ex-feat-num">04</div>
+            <div class="ex-feat-icon">🗄</div>
+            <div class="ex-feat-title">Banco multi-schema</div>
+            <div class="ex-feat-desc">Grave e pesquise dados respeitando schemas, grupos, usuários e permissões. Isolamento entre dados privados, de grupo e de clientes distintos.</div>
+            <span class="ex-tag">PostgreSQL</span>
+          </div>
+          <div class="ex-feature">
+            <div class="ex-feat-num">05</div>
+            <div class="ex-feat-icon">🔌</div>
+            <div class="ex-feat-title">Conectores de dados</div>
+            <div class="ex-feat-desc">Integre fontes internas e externas para enriquecer grafos investigativos. Conectores standard e dynamic com importação visual orientada por schema.</div>
+            <span class="ex-tag">APIs e fontes externas</span>
+          </div>
+          <div class="ex-feature">
+            <div class="ex-feat-num">06</div>
+            <div class="ex-feat-icon">🤖</div>
+            <div class="ex-feat-title">Base para IA investigativa</div>
+            <div class="ex-feat-desc">Plataforma preparada para detecção de coincidências, padrões suspeitos e priorização de entidades com IA explicável. Roadmap ativo.</div>
+            <span class="ex-tag">Em evolução</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CASOS DE USO ═════════════════════════════════════════════ -->
+    <section class="section-block alt1" id="casos">
+      <div class="section-large">
+        <span class="section-label">Casos de uso</span>
+        <h2 class="section-title">Investigações que o SEEAI EXPLORE apoia</h2>
+        <p class="section-sub">Da fraude cadastral ao crime organizado — a plataforma se adapta a diferentes domínios investigativos com o mesmo ambiente visual e analítico.</p>
+        <div class="use-cases">
+          <div class="use-case">
+            <span class="use-case-badge">Fraude cadastral</span>
+            <h3>Compartilhamento suspeito de dados</h3>
+            <p>Identifique cadastros que compartilham telefone, e-mail, endereço ou documentos. Visualize redes de vínculos em grafos direcionados e filtre por tipo de relação.</p>
+          </div>
+          <div class="use-case">
+            <span class="use-case-badge">Seguros</span>
+            <h3>Fraude em sinistros e beneficiários</h3>
+            <p>Relacione segurados, terceiros, veículos, oficinas, sinistros e beneficiários. Identifique estruturas suspeitas de uso repetido e relações ocultas entre envolvidos.</p>
+          </div>
+          <div class="use-case">
+            <span class="use-case-badge">PLD / AML</span>
+            <h3>Lavagem de dinheiro e compliance</h3>
+            <p>Explore empresas, sócios, contas, transações e entidades ponte entre clusters. Identifique padrões de movimentação e estruturas de ocultação de recursos.</p>
+          </div>
+          <div class="use-case">
+            <span class="use-case-badge">Telefonia</span>
+            <h3>Análise de comunicações e padrões</h3>
+            <p>Analise chamadas, múltiplos vínculos, direções e padrões de comunicação entre suspeitos. Visualize redes de contato e identifique hubs de comunicação.</p>
+          </div>
+          <div class="use-case">
+            <span class="use-case-badge">OSINT</span>
+            <h3>Inteligência de fontes abertas</h3>
+            <p>Conecte usuários, e-mails, domínios, IPs, perfis digitais e fontes abertas. Enriqueça grafos com dados externos e relacione identidades em múltiplas plataformas.</p>
+          </div>
+          <div class="use-case">
+            <span class="use-case-badge">Segurança pública</span>
+            <h3>Redes criminosas e investigação policial</h3>
+            <p>Apoie investigações com grafos, casos, vínculos, evidências e análise visual. Preserve o trabalho investigativo em casos estruturados com controle de acesso.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DEMO ══════════════════════════════════════════════════════ -->
+    <section class="section-block alt2" id="demo">
+      <div class="section-large">
+        <span class="section-label">Demonstração</span>
+        <h2 class="section-title">Veja o SEEAI EXPLORE em ação</h2>
+        <p class="section-sub">Do login à expansão de rede — como uma investigação se constrói em tempo real no grafo 3D/2D.</p>
+        <!-- ★ SUBSTITUIR PELO VÍDEO DE DEMONSTRAÇÃO ★ -->
+        <div class="media-slot video" style="margin-top:2rem;border-radius:1.4rem;">
+          <div class="play-ring">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span class="media-slot-label">Inserir vídeo de demonstração</span>
+          <span class="media-slot-tag">Demo · SEEAI EXPLORE</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SCREENSHOTS ═══════════════════════════════════════════════ -->
+    <section class="section-block" id="interface">
+      <div class="section-large">
+        <span class="section-label">Interface</span>
+        <h2 class="section-title">Projetado para analistas investigativos</h2>
+        <p class="section-sub">Interface web moderna, acessível pelo browser, com toda a profundidade analítica que investigações complexas exigem — sem instalação local.</p>
+        <div class="ex-screens">
+          <div class="media-slot screenshot" style="border-radius:1rem;">
+            <svg width="42" height="42" viewBox="0 0 42 42" fill="none"><rect x="4" y="4" width="34" height="34" rx="4" stroke="#1ea4ff" stroke-width="1"/><line x1="4" y1="13" x2="38" y2="13" stroke="#1ea4ff" stroke-width="0.8"/><circle cx="21" cy="26" r="7" stroke="#1ea4ff" stroke-width="1"/><line x1="26" y1="31" x2="31" y2="36" stroke="#1ea4ff" stroke-width="1"/></svg>
+            <span class="media-slot-label">Grafo investigativo 3D</span>
+          </div>
+          <div class="media-slot screenshot" style="border-radius:1rem;">
+            <svg width="42" height="42" viewBox="0 0 42 42" fill="none"><circle cx="21" cy="21" r="5" stroke="#1ea4ff" stroke-width="1"/><circle cx="8" cy="10" r="3.5" stroke="#1ea4ff" stroke-width="0.8"/><circle cx="34" cy="10" r="3.5" stroke="#1ea4ff" stroke-width="0.8"/><circle cx="8" cy="32" r="3.5" stroke="#e6323a" stroke-width="0.8"/><circle cx="34" cy="32" r="3.5" stroke="#1ea4ff" stroke-width="0.8"/><line x1="21" y1="21" x2="8" y2="10" stroke="#1ea4ff" stroke-width="0.8"/><line x1="21" y1="21" x2="34" y2="10" stroke="#1ea4ff" stroke-width="0.8"/><line x1="21" y1="21" x2="8" y2="32" stroke="#e6323a" stroke-width="0.8"/><line x1="21" y1="21" x2="34" y2="32" stroke="#1ea4ff" stroke-width="0.8"/></svg>
+            <span class="media-slot-label">Casos e evidências</span>
+          </div>
+          <div class="media-slot screenshot" style="border-radius:1rem;">
+            <svg width="42" height="42" viewBox="0 0 42 42" fill="none"><rect x="4" y="4" width="14" height="34" rx="2" stroke="#1ea4ff" stroke-width="1"/><rect x="22" y="4" width="16" height="34" rx="2" stroke="#1ea4ff" stroke-width="0.8"/><line x1="7" y1="12" x2="15" y2="12" stroke="#1ea4ff" stroke-width="0.8"/><line x1="7" y1="18" x2="15" y2="18" stroke="#1ea4ff" stroke-width="0.8"/><circle cx="30" cy="20" r="6" stroke="#e6323a" stroke-width="0.8"/></svg>
+            <span class="media-slot-label">Painel de detalhes e filtros</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ARTEFATOS ════════════════════════════════════════════════ -->
+    <section class="section-block alt1" id="artefatos">
+      <div class="section-large">
+        <span class="section-label">Exportação</span>
+        <h2 class="section-title">Do grafo ao documento formal</h2>
+        <p class="section-sub">Três formatos de entrega para cada necessidade — do destinatário técnico ao comitê executivo ou instância regulatória.</p>
+        <div class="ex-artifacts">
+          <div class="ex-artifact blue">
+            <div class="ex-artifact-bg">HTML</div>
+            <h3>Artefato HTML 3D</h3>
+            <p>Exporte o grafo como arquivo HTML interativo e autônomo. O destinatário abre no browser, navega e explora a rede completa — sem instalar nada, sem login.</p>
+          </div>
+          <div class="ex-artifact red">
+            <div class="ex-artifact-bg">PDF</div>
+            <h3>Exportação em PDF</h3>
+            <p>Gere PDFs com o grafo como imagem de alta qualidade. Prontos para juntada em processos, apresentações executivas e registros formais de investigação.</p>
+          </div>
+          <div class="ex-artifact purple">
+            <div class="ex-artifact-bg">REL</div>
+            <h3>Relatório Analítico</h3>
+            <p>Relatórios investigativos estruturados com entidades, vínculos, achados e narrativa. Formatados para entrega a gestores, comitês e autoridades regulatórias.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ IA ANALÍTICA ═════════════════════════════════════════════ -->
+    <section class="section-block alt2" id="ia">
+      <div class="section-large">
+        <span class="section-label">Inteligência Artificial</span>
+        <h2 class="section-title">A IA que apoia o analista, sem substituí-lo</h2>
+        <p class="section-sub">A abordagem prevista usa IA explicável baseada em fatos calculados, regras e evidências do grafo — não em conclusões automáticas. O analista permanece no centro da decisão.</p>
+        <div class="ex-ia-grid">
+          <ul class="ex-ia-list">
+            <li class="ex-ia-item">
+              <span class="ex-ia-dot"></span>
+              <div><h4>Entidades de alta conectividade</h4>
+              <p>Identifica os nós mais centrais na rede — pontos de controle, hubs de comunicação e entidades que agregam múltiplos vínculos relevantes.</p></div>
+            </li>
+            <li class="ex-ia-item">
+              <span class="ex-ia-dot"></span>
+              <div><h4>Detecção de clusters e grupos</h4>
+              <p>Agrupa entidades fortemente conectadas, revelando comunidades, organizações e estruturas de interesse investigativo que não são óbvias nos dados brutos.</p></div>
+            </li>
+            <li class="ex-ia-item">
+              <span class="ex-ia-dot red"></span>
+              <div><h4>Entidades ponte</h4>
+              <p>Localiza os nós que ligam grupos distintos — frequentemente as peças mais importantes em esquemas de fraude, lavagem e corrupção.</p></div>
+            </li>
+            <li class="ex-ia-item">
+              <span class="ex-ia-dot"></span>
+              <div><h4>Sugestões de expansão</h4>
+              <p>Recomenda quais entidades expandir com base na topologia do grafo. Direção investigativa fundamentada matematicamente.</p></div>
+            </li>
+            <li class="ex-ia-item">
+              <span class="ex-ia-dot"></span>
+              <div><h4>Narrativa investigativa</h4>
+              <p>Gera resumo analítico, achados, hipóteses e recomendações em texto estruturado — pronto para o relatório final.</p></div>
+            </li>
+          </ul>
+          <!-- ★ SUBSTITUIR PELA IMAGEM DO PAINEL IA ★ -->
+          <div class="media-slot" style="aspect-ratio:1;border-radius:1.2rem;">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="20" stroke="#1ea4ff" stroke-width="1"/><path d="M18 30 Q23 18 30 30 Q37 42 42 30" stroke="#e6323a" stroke-width="1.2" fill="none"/><circle cx="18" cy="30" r="3" fill="#1ea4ff" opacity="0.5"/><circle cx="42" cy="30" r="3" fill="#1ea4ff" opacity="0.5"/><circle cx="30" cy="16" r="2.5" fill="#e6323a" opacity="0.6"/></svg>
+            <span class="media-slot-label">Inserir imagem — painel IA analítica</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ROADMAP ══════════════════════════════════════════════════ -->
+    <section class="section-block" id="roadmap">
+      <div class="section-large">
+        <span class="section-label">O que vem a seguir</span>
+        <h2 class="section-title">Plataforma em evolução contínua</h2>
+        <p class="section-sub">Recursos planejados para versões futuras — comunicados como evolução, não como disponíveis em produção hoje.</p>
+        <div class="roadmap-grid">
+          <div class="roadmap-item">
+            <span class="roadmap-dot"></span>
+            <div>
+              <h4>IA de coincidências investigativas</h4>
+              <p>Nomes semelhantes, CPFs com atributos comuns, telefones, e-mails e endereços compartilhados detectados automaticamente.</p>
+              <span class="roadmap-badge">Em desenvolvimento</span>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <span class="roadmap-dot"></span>
+            <div>
+              <h4>Timeline investigativa</h4>
+              <p>Eventos, chamadas e transações organizados em régua temporal para análise cronológica de comportamentos e sequências suspeitas.</p>
+              <span class="roadmap-badge">Planejado</span>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <span class="roadmap-dot"></span>
+            <div>
+              <h4>Score de risco</h4>
+              <p>Priorização de entidades, vínculos e clusters com base em indicadores de risco calculados sobre os dados do grafo.</p>
+              <span class="roadmap-badge">Planejado</span>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <span class="roadmap-dot"></span>
+            <div>
+              <h4>Padrões de fraude e lavagem</h4>
+              <p>Motor de regras configurável por domínio: seguros, PLD, telecom, OSINT e fraude cadastral — com regras explicáveis.</p>
+              <span class="roadmap-badge">Em desenvolvimento</span>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <span class="roadmap-dot"></span>
+            <div>
+              <h4>Resolução de entidades e aliases</h4>
+              <p>Identificação de possíveis duplicidades, variações de nomes e entidades que representam a mesma pessoa ou empresa em fontes distintas.</p>
+              <span class="roadmap-badge">Planejado</span>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <span class="roadmap-dot"></span>
+            <div>
+              <h4>Relatórios narrativos por IA</h4>
+              <p>Geração de sínteses investigativas a partir de grafos e seleções — texto estruturado pronto para entrega a gestores e autoridades.</p>
+              <span class="roadmap-badge">Planejado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ OBJEÇÕES ════════════════════════════════════════════════ -->
+    <section class="section-block alt1" id="perguntas">
+      <div class="section-large">
+        <span class="section-label">Dúvidas frequentes</span>
+        <h2 class="section-title">Respostas para quem está avaliando</h2>
+        <p class="section-sub">As principais objeções que equipes investigativas têm ao avaliar uma nova plataforma — e como o SEEAI EXPLORE as responde.</p>
+        <div class="objections-grid">
+          <div class="objection">
+            <div class="objection-q">Já usamos planilhas para investigação.</div>
+            <div class="objection-a">Planilhas organizam dados, mas não revelam facilmente estruturas, hubs, pontes e padrões relacionais complexos. O grafo mostra o que a tabela esconde.</div>
+          </div>
+          <div class="objection">
+            <div class="objection-q">Nossos dados vêm de várias fontes diferentes.</div>
+            <div class="objection-a">O SEEAI EXPLORE foi desenhado para trabalhar com conectores, importações, banco e schemas diferentes — reunindo tudo em um único ambiente visual.</div>
+          </div>
+          <div class="objection">
+            <div class="objection-q">Precisamos controlar acesso por equipe e cliente.</div>
+            <div class="objection-a">A plataforma suporta usuários, grupos, permissões e segmentação por schema e escopo. Dados de equipes e clientes distintos ficam isolados.</div>
+          </div>
+          <div class="objection">
+            <div class="objection-q">Não quero uma IA que invente conclusões.</div>
+            <div class="objection-a">A abordagem prevista usa IA explicável baseada em fatos calculados e evidências do grafo. O analista mantém o controle e a decisão final.</div>
+          </div>
+          <div class="objection">
+            <div class="objection-q">Precisamos preservar o trabalho investigativo entre sessões.</div>
+            <div class="objection-a">O produto possui autosave, múltiplas áreas de trabalho, casos estruturados e mecanismos de recuperação após login para garantir continuidade.</div>
+          </div>
+          <div class="objection">
+            <div class="objection-q">Isso substitui as plataformas que já usamos?</div>
+            <div class="objection-a">O posicionamento é complementar: o SEEAI EXPLORE integra, moderniza e amplia a exploração visual — sem exigir abandono de sistemas existentes.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SEGURANÇA ════════════════════════════════════════════════ -->
+    <section class="section-block" id="seguranca">
+      <div class="section-large">
+        <span class="section-label">Governança</span>
+        <h2 class="section-title">Segurança e controle para ambientes corporativos</h2>
+        <p class="section-sub">Estruturado para ambientes multiusuário e multicliente, com separação real entre grupos, permissões, schemas e escopos de dados.</p>
+        <div class="ex-security">
+          <div class="ex-sec-item"><h4>Sessão isolada</h4><p>Cada analista opera em sessão completamente isolada. Nenhum dado vaza entre usuários, mesmo em sessões simultâneas.</p></div>
+          <div class="ex-sec-item"><h4>Grupos e permissões</h4><p>Grupos de trabalho para separar clientes, equipes ou áreas. Permissões configuráveis por perfil e schema de dados.</p></div>
+          <div class="ex-sec-item"><h4>Trilha de auditoria</h4><p>Cada login, pesquisa e expansão registrados com data, hora, usuário e ação. Conformidade real para compliance e auditoria interna.</p></div>
+          <div class="ex-sec-item"><h4>Painel administrativo</h4><p>Gestão de usuários, grupos, permissões, auditoria por perfil e histórico de ações. Controle operacional centralizado.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CTA FINAL ════════════════════════════════════════════════ -->
+    <section class="section-block alt3" id="contato">
+      <div class="section-large ex-cta-strip">
+        <span class="section-label" style="display:block;text-align:center;">Próximo passo</span>
+        <h2 class="section-title">Agende uma apresentação técnica</h2>
+        <p class="section-sub">
+          Mostramos o SEEAI EXPLORE com dados do seu contexto investigativo —
+          fraude, PLD, seguros, OSINT ou segurança pública.
+          Sem compromisso, sem script genérico.
+        </p>
+        <div class="ex-cta-btns">
+          <a href="index.html#contato" class="btn btn-primary">Solicitar demonstração</a>
+          <a href="index.html#contato" class="btn btn-secondary">Falar com um especialista</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+      <div class="footer-inner">
+        <span class="footer-copyright">© <span id="year"></span> SEEAI · SEEAI EXPLORE — Inteligência investigativa para revelar conexões ocultas</span>
+      </div>
+      <div class="footer-partner">
+        <img src="img/Logoi2_2024_invertifo.png" alt="IBM i2" class="footer-i2-logo">
+        <span class="footer-partner-label">Parceiro Oficial</span>
+      </div>
+    </footer>
+  </div>
+
+  <a class="whatsapp-float" href="https://wa.me/5511978596000" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+    <span class="whatsapp-float__ring" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.14 6.44 2.14 11.9c0 1.74.46 3.44 1.34 4.95L2 22l5.26-1.38a9.86 9.86 0 004.78 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.29c-.24.67-1.18 1.28-1.63 1.35-.41.06-.93.09-1.5-.1-.35-.11-.8-.26-1.38-.51-2.43-1.05-4.02-3.48-4.14-3.65-.12-.17-.99-1.32-.99-2.52 0-1.2.63-1.79.85-2.03.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.48.7 1.67.76 1.79.06.12.1.26.02.42-.08.17-.12.26-.24.4-.12.14-.25.31-.35.42-.12.12-.25.26-.1.51.15.26.66 1.1 1.42 1.78.98.88 1.81 1.15 2.07 1.28.26.12.41.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.5.71 1.76.84.26.13.43.2.49.31.06.11.06.65-.18 1.32z"/></svg>
+  </a>
+
+  <script>
+  (function(){
+    const b=document.getElementById("cookie-banner"),a=document.getElementById("cookie-accept"),d=document.getElementById("cookie-decline");
+    if(!b)return;
+    if(localStorage.getItem("cookieConsent")){b.style.display="none";return;}
+    a.addEventListener("click",()=>{localStorage.setItem("cookieConsent","accepted");b.style.display="none";});
+    d.addEventListener("click",()=>{localStorage.setItem("cookieConsent","declined");b.style.display="none";});
+  })();
+
+  document.getElementById("year").textContent=new Date().getFullYear();
+
+  const canvas=document.getElementById("network-bg"),ctx=canvas.getContext("2d");
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  resize();window.addEventListener("resize",resize);
+  let nodes=[];const N=90,D=150;
+  function init(){nodes=[];for(let i=0;i<N;i++)nodes.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6});}
+  init();
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="rgba(5,13,31,1)";ctx.fillRect(0,0,canvas.width,canvas.height);
+    nodes.forEach(n=>{
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>canvas.width)n.vx*=-1;
+      if(n.y<0||n.y>canvas.height)n.vy*=-1;
+      ctx.beginPath();ctx.arc(n.x,n.y,3,0,Math.PI*2);ctx.fillStyle="#1ea4ff";ctx.fill();
+      if(Math.random()<.003){ctx.beginPath();ctx.arc(n.x,n.y,4,0,Math.PI*2);ctx.fillStyle="#e6323a";ctx.fill();}
+    });
+    for(let a=0;a<N;a++)for(let b=a+1;b<N;b++){
+      const dx=nodes[a].x-nodes[b].x,dy=nodes[a].y-nodes[b].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<D){ctx.strokeStyle="rgba(30,164,255,"+(1-d/D)+")";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(nodes[a].x,nodes[a].y);ctx.lineTo(nodes[b].x,nodes[b].y);ctx.stroke();}
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+  </script>
+</body>
+</html>
