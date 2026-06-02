@@ -639,25 +639,39 @@ function saveRegistrants(list){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 }
 
-document.getElementById('reg-form').addEventListener('submit', async function(e){
-  e.preventDefault();
-  const btn = document.getElementById('btn-submit');
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
+// Validação
+  function showErr(id,msg){var f=document.getElementById(id);f.style.borderColor='#dc2626';var s=f.nextElementSibling;if(!s||!s.classList.contains('ferr')){s=document.createElement('span');s.className='ferr';s.style.cssText='color:#ef4444;font-size:.75rem;margin-top:3px;display:block';f.parentNode.appendChild(s);}s.textContent=msg;}
+  function clearErr(id){var f=document.getElementById(id);f.style.borderColor='';var s=f.nextElementSibling;if(s&&s.classList.contains('ferr'))s.textContent='';}
+  function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);}
+  function validPhone(v){return v.replace(/\D/g,'').length>=10;}
 
-  const data = {
-    nome:      document.getElementById('f-nome').value.trim(),
-    sobrenome: document.getElementById('f-sobrenome').value.trim(),
-    cargo:     document.getElementById('f-cargo').value.trim(),
-    orgao:     document.getElementById('f-orgao').value.trim(),
-    telefone:  document.getElementById('f-tel').value.trim(),
-    email:     document.getElementById('f-email').value.trim(),
-    area:      document.getElementById('f-area').value,
-    obs:       document.getElementById('f-obs').value.trim(),
-    data:      new Date().toLocaleString('pt-BR'),
-    status:    'pendente',
-    id:        Date.now()
-  };
+  document.getElementById('reg-form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var nome=document.getElementById('f-nome').value.trim();
+    var sobrenome=document.getElementById('f-sobrenome').value.trim();
+    var cargo=document.getElementById('f-cargo').value.trim();
+    var orgao=document.getElementById('f-orgao').value.trim();
+    var telefone=document.getElementById('f-tel').value.trim();
+    var email=document.getElementById('f-email').value.trim();
+    ['f-nome','f-sobrenome','f-cargo','f-orgao','f-tel','f-email'].forEach(clearErr);
+    var ok=true;
+    if(nome.length<2){showErr('f-nome','Informe seu nome.');ok=false;}
+    if(sobrenome.length<2){showErr('f-sobrenome','Informe seu sobrenome.');ok=false;}
+    if(cargo.length<2){showErr('f-cargo','Informe seu cargo.');ok=false;}
+    if(orgao.length<2){showErr('f-orgao','Informe sua empresa ou órgão.');ok=false;}
+    if(!validPhone(telefone)){showErr('f-tel','Telefone inválido — mínimo 10 dígitos.');ok=false;}
+    if(!validEmail(email)){showErr('f-email','E-mail inválido.');ok=false;}
+    if(!ok)return;
+    var btn=document.getElementById('btn-submit');
+    btn.disabled=true; btn.textContent='Enviando...';
+    var data={
+      nome:nome, sobrenome:sobrenome, cargo:cargo, orgao:orgao,
+      telefone:telefone, email:email,
+      area:document.getElementById('f-area').value,
+      obs:document.getElementById('f-obs').value.trim(),
+      data:new Date().toLocaleString('pt-BR'),
+      status:'pendente', id:Date.now()
+    };
 
   // Salvar localmente (backup)
   const list = getRegistrants();
