@@ -659,27 +659,19 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
     id:        Date.now()
   };
 
-  // Salvar localmente
+  // Salvar localmente (backup)
   const list = getRegistrants();
   list.push(data);
   saveRegistrants(list);
 
-  // Enviar para Formspree (configure seu endpoint)
-  const FORMSPREE_ID = 'SEU_FORMSPREE_ID'; // ← substitua após criar conta gratuita em formspree.io
-  if(FORMSPREE_ID !== 'SEU_FORMSPREE_ID'){
-    try{
-      await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body: JSON.stringify({
-          ...data,
-          _subject: `Nova inscrição: ${data.nome} ${data.sobrenome} — i2 UG SP 2026`,
-          _replyto: data.email,
-          _next: window.location.href + '#inscricao'
-        })
-      });
-    }catch(err){ console.warn('Formspree error:', err); }
-  }
+  // Enviar para Google Apps Script (Gmail + Google Sheets)
+  try{
+    await fetch('https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+  }catch(err){ console.warn('Apps Script error:', err); }
 
   // Mostrar sucesso
   document.getElementById('reg-form').style.display = 'none';
