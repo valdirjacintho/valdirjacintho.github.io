@@ -697,151 +697,152 @@ function saveRegistrants(list){
   btn.textContent = 'CONFIRMAR INSCRIÇÃO';
 });
 
-// ══ ADMIN ═══════════════════════════════════════════════════════════
+// ══ ADMIN — lê da planilha Google Sheets ══════════════════════════
+const GAS_URL   = 'https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec';
 const ADMIN_PWD = 'seeai2026';
-let clickCount = 0;
-let clickTimer;
+let adminData   = [];
+let clickCount  = 0, clickTimer;
 
 document.getElementById('footer-copy').addEventListener('click', function(){
   clickCount++;
   clearTimeout(clickTimer);
-  clickTimer = setTimeout(()=>{ clickCount=0; }, 2000);
+  clickTimer = setTimeout(function(){ clickCount=0; }, 2000);
   if(clickCount >= 5){
     clickCount = 0;
     document.getElementById('admin-panel').style.display = 'block';
     document.getElementById('admin-panel').scrollIntoView({behavior:'smooth'});
   }
 });
-
-// Atalho via hash
-if(window.location.hash === '#admin'){
-  setTimeout(()=>{
-    document.getElementById('admin-panel').style.display = 'block';
-  }, 500);
-}
+if(window.location.hash === '#admin')
+  setTimeout(function(){ document.getElementById('admin-panel').style.display='block'; }, 500);
 
 function adminLogin(){
-  const pwd = document.getElementById('admin-pwd').value;
-  if(pwd === ADMIN_PWD){
+  if(document.getElementById('admin-pwd').value === ADMIN_PWD){
     document.getElementById('admin-login-area').style.display = 'none';
-    document.getElementById('admin-content').style.display = 'block';
+    document.getElementById('admin-content').style.display    = 'block';
     renderAdmin();
-  } else {
-    document.getElementById('admin-err').style.display = 'block';
-  }
+  } else { document.getElementById('admin-err').style.display = 'block'; }
 }
-document.getElementById('admin-pwd').addEventListener('keydown', e=>{
-  if(e.key==='Enter') adminLogin();
-});
+document.getElementById('admin-pwd').addEventListener('keydown', function(e){ if(e.key==='Enter') adminLogin(); });
 
 function closeAdmin(){
-  document.getElementById('admin-panel').style.display = 'none';
-  document.getElementById('admin-content').style.display = 'none';
+  document.getElementById('admin-panel').style.display    = 'none';
+  document.getElementById('admin-content').style.display  = 'none';
   document.getElementById('admin-login-area').style.display = 'block';
   document.getElementById('admin-pwd').value = '';
   document.getElementById('admin-err').style.display = 'none';
 }
 
-function renderAdmin(){
-  const list = getRegistrants();
-  const stats = document.getElementById('admin-stats');
-  const pend  = list.filter(r=>r.status==='pendente').length;
-  const conf  = list.filter(r=>r.status==='confirmado').length;
-  stats.innerHTML = `
-    <div class="admin-stat"><div class="n">${list.length}</div><div class="l">Total</div></div>
-    <div class="admin-stat"><div class="n">${conf}</div><div class="l">Confirmados</div></div>
-    <div class="admin-stat"><div class="n">${pend}</div><div class="l">Pendentes</div></div>
-    <div class="admin-stat"><div class="n">${new Set(list.map(r=>r.area||'—')).size}</div><div class="l">Áreas</div></div>
-  `;
+// Busca todos os inscritos da planilha
+async function fetchFromSheet(){
   const tbody = document.getElementById('reg-tbody');
-  if(list.length === 0){
-    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:2rem">Nenhuma inscrição ainda.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = list.map((r,i)=>`
-    <tr>
-      <td style="color:var(--muted)">${i+1}</td>
-      <td><strong>${r.nome} ${r.sobrenome}</strong></td>
-      <td>${r.cargo||'—'}</td>
-      <td>${r.orgao||'—'}</td>
-      <td>${r.telefone||'—'}</td>
-      <td>${r.email||'—'}</td>
-      <td>${r.area||'—'}</td>
-      <td style="color:var(--muted);font-size:0.78rem">${r.data||'—'}</td>
-      <td>${r.status==='confirmado' ? '<span class="badge-confirmed">Confirmado</span>' : r.status==='rejeitado' ? '<span style="background:rgba(239,68,68,.15);color:#f87171;padding:.15rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700">Rejeitado</span>' : '<span class="badge-pending">Pendente</span>'}</td>
-      <td>
-        ${r.status==='pendente' ? `<button class='btn-confirm-reg' onclick='confirmReg(${r.id})' title='Confirmar e enviar e-mail'>✓ Confirmar</button> <button class='btn-del-reg' style='background:rgba(245,158,11,.1);color:#fbbf24;border-color:rgba(245,158,11,.3)' onclick='rejectReg(${r.id})' title='Não aceitar'>✕ Rejeitar</button>` : r.status==='confirmado' ? `<span style='color:#4ade80;font-size:.75rem'>✓ E-mail enviado</span>` : ''}
-        <button class='btn-del-reg' onclick='deleteReg(${r.id})' title='Remover'>🗑</button>
-      </td>
-    </tr>
-  `).join('');
+  tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:2rem">Carregando dados da planilha...</td></tr>';
+  try{
+    const res  = await fetch(GAS_URL + '?action=list');
+    const json = await res.json();
+    if(json.ok && json.data){ adminData = json.data; return; }
+  }catch(e){ console.warn('Sheets falhou, usando localStorage:', e); }
+  // Fallback localStorage
+  adminData = getRegistrants().map(function(r,i){ return Object.assign({},r,{rowNum:r.id||(i+2)}); });
 }
 
-function confirmReg(id){
-  const list = getRegistrants();
-  const r = list.find(x=>x.id===id);
-  if(!r) return;
-  r.status='confirmado';
-  saveRegistrants(list);
-  renderAdmin();
-  // Enviar e-mail de confirmação via Apps Script
-  const p = new URLSearchParams({
-    action:'confirm',
-    nome:r.nome||'', sobrenome:r.sobrenome||'',
-    cargo:r.cargo||'', orgao:r.orgao||'',
-    telefone:r.telefone||'', email:r.email||'',
-    area:r.area||'', obs:r.obs||''
-  });
-  fetch('https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec?' + p.toString(), {mode:'no-cors'})
-    .catch(function(e){ console.warn('Confirm email error:',e); });
-  // Atualizar status na planilha
-  const reg = new URLSearchParams({action:'update_status',
-    email:r.email||'', status:'confirmado'});
-  fetch('https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec?' + reg.toString(), {mode:'no-cors'})
-    .catch(function(e){});
+async function renderAdmin(){
+  await fetchFromSheet();
+  const pend = adminData.filter(function(r){ return /pendente/i.test(r.status||''); }).length;
+  const conf = adminData.filter(function(r){ return /confirmado/i.test(r.status||''); }).length;
+  const rej  = adminData.filter(function(r){ return /rejeitado/i.test(r.status||''); }).length;
+  document.getElementById('admin-stats').innerHTML =
+    '<div class="admin-stat"><div class="n">'+adminData.length+'</div><div class="l">Total</div></div>'+
+    '<div class="admin-stat"><div class="n">'+conf+'</div><div class="l">Confirmados</div></div>'+
+    '<div class="admin-stat"><div class="n">'+pend+'</div><div class="l">Pendentes</div></div>'+
+    '<div class="admin-stat"><div class="n">'+rej+'</div><div class="l">Rejeitados</div></div>';
+  const tbody = document.getElementById('reg-tbody');
+  if(!adminData.length){
+    tbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:2rem">Nenhuma inscrição ainda.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = adminData.map(function(r,i){
+    const badge = /confirmado/i.test(r.status||'')
+      ? '<span class="badge-confirmed">Confirmado</span>'
+      : /rejeitado/i.test(r.status||'')
+      ? '<span style="background:rgba(239,68,68,.15);color:#f87171;padding:.15rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700">Rejeitado</span>'
+      : '<span class="badge-pending">Pendente</span>';
+    const btns = /pendente/i.test(r.status||'')
+      ? '<button class="btn-confirm-reg" onclick="confirmReg('+i+')" title="Confirmar e enviar e-mail">✓ Confirmar</button> '
+        +'<button class="btn-del-reg" style="background:rgba(245,158,11,.1);color:#fbbf24;border-color:rgba(245,158,11,.3)" onclick="rejectReg('+i+')" title="Rejeitar">✕ Rejeitar</button>'
+      : /confirmado/i.test(r.status||'') ? '<span style="color:#4ade80;font-size:.75rem">E-mail enviado</span>' : '';
+    return '<tr>'
+      +'<td style="color:var(--muted)">'+(i+1)+'</td>'
+      +'<td><strong>'+(r.nome||'')+' '+(r.sobrenome||'')+'</strong></td>'
+      +'<td>'+(r.cargo||'&mdash;')+'</td>'
+      +'<td>'+(r.orgao||'&mdash;')+'</td>'
+      +'<td>'+(r.telefone||'&mdash;')+'</td>'
+      +'<td>'+(r.email||'&mdash;')+'</td>'
+      +'<td>'+(r.area||'&mdash;')+'</td>'
+      +'<td style="color:var(--muted);font-size:.78rem">'+(r.data||'&mdash;')+'</td>'
+      +'<td>'+badge+'</td>'
+      +'<td>'+btns+' <button class="btn-del-reg" onclick="deleteReg('+i+')" title="Apagar da planilha">🗑</button></td>'
+      +'</tr>';
+  }).join('');
 }
-function rejectReg(id){
-  const list = getRegistrants();
-  const r = list.find(x=>x.id===id);
-  if(!r) return;
-  r.status='rejeitado';
-  saveRegistrants(list);
-  renderAdmin();
-  // Atualizar status na planilha
-  const p = new URLSearchParams({action:'update_status',
-    email:r.email||'', status:'rejeitado'});
-  fetch('https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec?' + p.toString(), {mode:'no-cors'})
-    .catch(function(e){});
+
+function confirmReg(idx){
+  const r = adminData[idx]; if(!r) return;
+  if(!confirm('Confirmar inscrição de '+r.nome+' '+r.sobrenome+' e enviar e-mail?')) return;
+  r.status = 'confirmado'; renderAdmin();
+  const p = new URLSearchParams({action:'confirm',rowNum:r.rowNum||'',
+    nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
+    orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
+    area:r.area||'',obs:r.obs||''});
+  fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(e){console.warn(e);});
 }
-function deleteReg(id){
-  if(!confirm('Remover esta inscrição?')) return;
-  const list = getRegistrants().filter(x=>x.id!==id);
-  saveRegistrants(list); renderAdmin();
+
+function rejectReg(idx){
+  const r = adminData[idx]; if(!r) return;
+  if(!confirm('Rejeitar inscrição de '+r.nome+' '+r.sobrenome+'?')) return;
+  r.status = 'rejeitado'; renderAdmin();
+  fetch(GAS_URL+'?action=reject&rowNum='+(r.rowNum||''),{mode:'no-cors'}).catch(function(e){});
 }
-function clearAll(){
-  if(!confirm('Remover TODAS as inscrições? Esta ação não pode ser desfeita.')) return;
-  saveRegistrants([]); renderAdmin();
+
+function deleteReg(idx){
+  const r = adminData[idx]; if(!r) return;
+  if(!confirm('Apagar inscrição de '+r.nome+' '+r.sobrenome+'?\nIsso também remove da planilha Google.')) return;
+  fetch(GAS_URL+'?action=delete&rowNum='+(r.rowNum||''),{mode:'no-cors'}).catch(function(e){});
+  adminData.splice(idx,1); renderAdmin();
 }
+
 function sendConfirmAll(){
-  const list = getRegistrants();
-  list.forEach(r=>r.status='confirmado');
-  saveRegistrants(list); renderAdmin();
-  alert(`${list.length} inscrições marcadas como confirmadas.`);
+  const pend = adminData.filter(function(r){ return /pendente/i.test(r.status||''); });
+  if(!pend.length){ alert('Nenhum inscrito pendente.'); return; }
+  if(!confirm('Confirmar e enviar e-mail para os '+pend.length+' pendentes?')) return;
+  pend.forEach(function(r,i){
+    r.status = 'confirmado';
+    setTimeout(function(){
+      const p = new URLSearchParams({action:'confirm',rowNum:r.rowNum||'',
+        nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
+        orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
+        area:r.area||'',obs:r.obs||''});
+      fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(e){});
+    }, i*2000);
+  });
+  renderAdmin(); alert(pend.length+' confirmações disparadas!');
 }
+
 function exportCSV(){
-  const list = getRegistrants();
-  if(list.length===0){ alert('Nenhuma inscrição para exportar.'); return; }
-  const headers = ['#','Nome','Sobrenome','Cargo','Órgão/Empresa','Telefone','E-mail','Área','Observações','Data','Status'];
-  const rows = list.map((r,i)=>[
-    i+1, r.nome, r.sobrenome, r.cargo, r.orgao,
-    r.telefone, r.email, r.area||'', r.obs||'', r.data, r.status
-  ].map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(','));
-  const csv = [headers.join(','), ...rows].join('\n');
-  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url; a.download = 'i2ugsp2026_inscritos.csv'; a.click();
-  URL.revokeObjectURL(url);
+  if(!adminData.length){ alert('Nenhuma inscrição para exportar.'); return; }
+  const h = ['#','Nome','Sobrenome','Cargo','Orgao','Telefone','Email','Area','Obs','Data','Status'];
+  const rows = adminData.map(function(r,i){
+    return [i+1,r.nome,r.sobrenome,r.cargo,r.orgao,r.telefone,r.email,r.area||'',r.obs||'',r.data,r.status]
+      .map(function(v){ return '"'+String(v||'').replace(/"/g,'""')+'"'; }).join(',');
+  });
+  const blob = new Blob(['﻿'+[h.join(',')].concat(rows).join('
+')],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='i2ugsp2026_inscritos.csv'; a.click();
+}
+
+function clearAll(){
+  alert('Para apagar registros use o botão 🗑 em cada linha — isso garante que a planilha seja atualizada.');
 }
 </script>
 </body>
