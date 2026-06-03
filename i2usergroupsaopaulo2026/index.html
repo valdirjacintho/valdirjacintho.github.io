@@ -609,241 +609,221 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2rem 3
 <script>
 // ══ CONTADOR REGRESSIVO ══════════════════════════════════════════════
 function updateCounter(){
-  const ev = new Date('2026-09-09T09:00:00-03:00');
-  const now = new Date();
-  const diff = ev - now;
-  if(diff <= 0){
-    ['cnt-dias','cnt-horas','cnt-min','cnt-seg'].forEach(id=>document.getElementById(id).textContent='0');
-    return;
-  }
-  const d = Math.floor(diff/86400000);
-  const h = Math.floor((diff%86400000)/3600000);
-  const m = Math.floor((diff%3600000)/60000);
-  const s = Math.floor((diff%60000)/1000);
-  document.getElementById('cnt-dias').textContent  = String(d).padStart(2,'0');
-  document.getElementById('cnt-horas').textContent = String(h).padStart(2,'0');
-  document.getElementById('cnt-min').textContent   = String(m).padStart(2,'0');
-  document.getElementById('cnt-seg').textContent   = String(s).padStart(2,'0');
+  var ev=new Date('2026-09-09T09:00:00-03:00'), now=new Date(), diff=ev-now;
+  if(diff<=0){['cnt-dias','cnt-horas','cnt-min','cnt-seg'].forEach(function(id){document.getElementById(id).textContent='0';});return;}
+  document.getElementById('cnt-dias').textContent  = String(Math.floor(diff/86400000)).padStart(2,'0');
+  document.getElementById('cnt-horas').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('cnt-min').textContent   = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  document.getElementById('cnt-seg').textContent   = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
 }
-setInterval(updateCounter, 1000);
-updateCounter();
+setInterval(updateCounter,1000); updateCounter();
 
-// ══ INSCRIÇÃO ════════════════════════════════════════════════════════
-const STORAGE_KEY = 'i2ugsp2026_registrants';
+// ══ LOCALSTORAGE (backup local) ═════════════════════════════════════
+var STORAGE_KEY='i2ugsp2026_registrants';
+function getRegistrants(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return[];}}
+function saveRegistrants(list){localStorage.setItem(STORAGE_KEY,JSON.stringify(list));}
 
-function getRegistrants(){
-  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]; }
-  catch{ return []; }
-}
-function saveRegistrants(list){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-}
+// ══ VALIDAÇÃO DO FORMULÁRIO ══════════════════════════════════════════
+function showErr(id,msg){var f=document.getElementById(id);f.style.borderColor='#dc2626';var s=f.nextElementSibling;if(!s||!s.classList.contains('ferr')){s=document.createElement('span');s.className='ferr';s.style.cssText='color:#ef4444;font-size:.75rem;margin-top:3px;display:block';f.parentNode.appendChild(s);}s.textContent=msg;}
+function clearErr(id){var f=document.getElementById(id);f.style.borderColor='';var s=f.nextElementSibling;if(s&&s.classList.contains('ferr'))s.textContent='';}
+function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);}
+function validPhone(v){return v.replace(/\D/g,'').length>=10;}
 
-// Validação
-  function showErr(id,msg){var f=document.getElementById(id);f.style.borderColor='#dc2626';var s=f.nextElementSibling;if(!s||!s.classList.contains('ferr')){s=document.createElement('span');s.className='ferr';s.style.cssText='color:#ef4444;font-size:.75rem;margin-top:3px;display:block';f.parentNode.appendChild(s);}s.textContent=msg;}
-  function clearErr(id){var f=document.getElementById(id);f.style.borderColor='';var s=f.nextElementSibling;if(s&&s.classList.contains('ferr'))s.textContent='';}
-  function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);}
-  function validPhone(v){return v.replace(/\D/g,'').length>=10;}
-
-  document.getElementById('reg-form').addEventListener('submit', async function(e){
-    e.preventDefault();
-    var nome=document.getElementById('f-nome').value.trim();
-    var sobrenome=document.getElementById('f-sobrenome').value.trim();
-    var cargo=document.getElementById('f-cargo').value.trim();
-    var orgao=document.getElementById('f-orgao').value.trim();
-    var telefone=document.getElementById('f-tel').value.trim();
-    var email=document.getElementById('f-email').value.trim();
-    ['f-nome','f-sobrenome','f-cargo','f-orgao','f-tel','f-email'].forEach(clearErr);
-    var ok=true;
-    if(nome.length<2){showErr('f-nome','Informe seu nome.');ok=false;}
-    if(sobrenome.length<2){showErr('f-sobrenome','Informe seu sobrenome.');ok=false;}
-    if(cargo.length<2){showErr('f-cargo','Informe seu cargo.');ok=false;}
-    if(orgao.length<2){showErr('f-orgao','Informe sua empresa ou órgão.');ok=false;}
-    if(!validPhone(telefone)){showErr('f-tel','Telefone inválido — mínimo 10 dígitos.');ok=false;}
-    if(!validEmail(email)){showErr('f-email','E-mail inválido.');ok=false;}
-    if(!ok)return;
-    var btn=document.getElementById('btn-submit');
-    btn.disabled=true; btn.textContent='Enviando...';
-    var data={
-      nome:nome, sobrenome:sobrenome, cargo:cargo, orgao:orgao,
-      telefone:telefone, email:email,
-      area:document.getElementById('f-area').value,
-      obs:document.getElementById('f-obs').value.trim(),
-      data:new Date().toLocaleString('pt-BR'),
-      status:'pendente', id:Date.now()
-    };
-
-  // Salvar localmente (backup)
-  const list = getRegistrants();
-  list.push(data);
-  saveRegistrants(list);
-
-  // Enviar ao Apps Script apenas para registrar (sem e-mail)
+document.getElementById('reg-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var nome=document.getElementById('f-nome').value.trim();
+  var sobrenome=document.getElementById('f-sobrenome').value.trim();
+  var cargo=document.getElementById('f-cargo').value.trim();
+  var orgao=document.getElementById('f-orgao').value.trim();
+  var telefone=document.getElementById('f-tel').value.trim();
+  var email=document.getElementById('f-email').value.trim();
+  ['f-nome','f-sobrenome','f-cargo','f-orgao','f-tel','f-email'].forEach(clearErr);
+  var ok=true;
+  if(nome.length<2){showErr('f-nome','Informe seu nome.');ok=false;}
+  if(sobrenome.length<2){showErr('f-sobrenome','Informe seu sobrenome.');ok=false;}
+  if(cargo.length<2){showErr('f-cargo','Informe seu cargo.');ok=false;}
+  if(orgao.length<2){showErr('f-orgao','Informe sua empresa ou órgão.');ok=false;}
+  if(!validPhone(telefone)){showErr('f-tel','Telefone inválido — mínimo 10 dígitos.');ok=false;}
+  if(!validEmail(email)){showErr('f-email','E-mail inválido.');ok=false;}
+  if(!ok)return;
+  var btn=document.getElementById('btn-submit');
+  btn.disabled=true; btn.textContent='Enviando...';
+  var data={nome:nome,sobrenome:sobrenome,cargo:cargo,orgao:orgao,
+    telefone:telefone,email:email,
+    area:document.getElementById('f-area').value,
+    obs:document.getElementById('f-obs').value.trim(),
+    data:new Date().toLocaleString('pt-BR'),status:'Pendente',id:Date.now()};
+  // Backup local
+  var list=getRegistrants(); list.push(data); saveRegistrants(list);
+  // Enviar ao Apps Script (register only)
   try{
-    var params = new URLSearchParams();
-    Object.entries(data).forEach(function(kv){ params.append(kv[0], kv[1]||''); });
+    var params=new URLSearchParams();
+    Object.keys(data).forEach(function(k){params.append(k,data[k]||'');});
     params.append('action','register');
-    fetch('https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec', {
-      method:'POST', mode:'no-cors', body:params
-    });
-  }catch(err){ console.warn('Registro error:', err); }
-
-  // Mostrar sucesso
-  document.getElementById('reg-form').style.display = 'none';
-  const s = document.getElementById('form-success');
-  s.style.display = 'block';
-  document.getElementById('success-name').textContent = data.nome;
-  btn.disabled = false;
-  btn.textContent = 'CONFIRMAR INSCRIÇÃO';
+    fetch('https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec',{method:'POST',mode:'no-cors',body:params});
+  }catch(err){console.warn('Apps Script error:',err);}
+  document.getElementById('reg-form').style.display='none';
+  var s=document.getElementById('form-success');
+  s.style.display='block';
+  document.getElementById('success-name').textContent=data.nome;
+  btn.disabled=false; btn.textContent='CONFIRMAR INSCRIÇÃO';
 });
 
-// ══ ADMIN — lê da planilha Google Sheets ══════════════════════════
-const GAS_URL   = 'https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec';
-const ADMIN_PWD = 'seeai2026';
-let adminData   = [];
-let clickCount  = 0, clickTimer;
+// ══ ADMIN ════════════════════════════════════════════════════════════
+var GAS_URL='https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec';
+var ADMIN_PWD='seeai2026';
+var adminData=[];
 
-document.getElementById('footer-copy').addEventListener('click', function(){
-  clickCount++;
-  clearTimeout(clickTimer);
-  clickTimer = setTimeout(function(){ clickCount=0; }, 2000);
-  if(clickCount >= 5){
-    clickCount = 0;
-    document.getElementById('admin-panel').style.display = 'block';
-    document.getElementById('admin-panel').scrollIntoView({behavior:'smooth'});
-  }
+// Abrir admin: 5 cliques no rodapé OU URL com #admin
+var _clicks=0,_timer;
+document.getElementById('footer-copy').addEventListener('click',function(){
+  _clicks++;
+  clearTimeout(_timer);
+  _timer=setTimeout(function(){_clicks=0;},2000);
+  if(_clicks>=5){_clicks=0;openAdminPanel();}
 });
-if(window.location.hash === '#admin')
-  setTimeout(function(){ document.getElementById('admin-panel').style.display='block'; }, 500);
+function openAdminPanel(){
+  document.getElementById('admin-panel').style.display='block';
+  document.getElementById('admin-panel').scrollIntoView({behavior:'smooth'});
+}
+if(window.location.hash==='#admin'){
+  setTimeout(openAdminPanel,600);
+}
 
 function adminLogin(){
-  if(document.getElementById('admin-pwd').value === ADMIN_PWD){
-    document.getElementById('admin-login-area').style.display = 'none';
-    document.getElementById('admin-content').style.display    = 'block';
-    renderAdmin();
-  } else { document.getElementById('admin-err').style.display = 'block'; }
+  var pwd=document.getElementById('admin-pwd').value;
+  if(pwd===ADMIN_PWD){
+    document.getElementById('admin-login-area').style.display='none';
+    document.getElementById('admin-content').style.display='block';
+    loadAndRender();
+  }else{
+    document.getElementById('admin-err').style.display='block';
+  }
 }
-document.getElementById('admin-pwd').addEventListener('keydown', function(e){ if(e.key==='Enter') adminLogin(); });
+document.getElementById('admin-pwd').addEventListener('keydown',function(e){if(e.key==='Enter')adminLogin();});
 
 function closeAdmin(){
-  document.getElementById('admin-panel').style.display    = 'none';
-  document.getElementById('admin-content').style.display  = 'none';
-  document.getElementById('admin-login-area').style.display = 'block';
-  document.getElementById('admin-pwd').value = '';
-  document.getElementById('admin-err').style.display = 'none';
+  document.getElementById('admin-panel').style.display='none';
+  document.getElementById('admin-content').style.display='none';
+  document.getElementById('admin-login-area').style.display='block';
+  document.getElementById('admin-pwd').value='';
+  document.getElementById('admin-err').style.display='none';
 }
 
-// Busca todos os inscritos da planilha
-async function fetchFromSheet(){
-  const tbody = document.getElementById('reg-tbody');
-  tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:2rem">Carregando dados da planilha...</td></tr>';
-  try{
-    const res  = await fetch(GAS_URL + '?action=list');
-    const json = await res.json();
-    if(json.ok && json.data){ adminData = json.data; return; }
-  }catch(e){ console.warn('Sheets falhou, usando localStorage:', e); }
-  // Fallback localStorage
-  adminData = getRegistrants().map(function(r,i){ return Object.assign({},r,{rowNum:r.id||(i+2)}); });
+// Carrega dados da planilha e renderiza
+function loadAndRender(){
+  var tbody=document.getElementById('reg-tbody');
+  tbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:2rem">Carregando da planilha...</td></tr>';
+  // Tentar buscar da planilha via Apps Script
+  fetch(GAS_URL+'?action=list')
+    .then(function(res){return res.json();})
+    .then(function(json){
+      if(json.ok && json.data){
+        adminData=json.data;
+      } else {
+        adminData=getFallback();
+      }
+      renderTable();
+    })
+    .catch(function(err){
+      console.warn('Sheets indisponível, usando localStorage:',err);
+      adminData=getFallback();
+      renderTable();
+    });
 }
 
-async function renderAdmin(){
-  await fetchFromSheet();
-  const pend = adminData.filter(function(r){ return /pendente/i.test(r.status||''); }).length;
-  const conf = adminData.filter(function(r){ return /confirmado/i.test(r.status||''); }).length;
-  const rej  = adminData.filter(function(r){ return /rejeitado/i.test(r.status||''); }).length;
-  document.getElementById('admin-stats').innerHTML =
+function getFallback(){
+  return getRegistrants().map(function(r,i){return Object.assign({},r,{rowNum:r.id||(i+2)});});
+}
+
+function renderTable(){
+  var pend=adminData.filter(function(r){return /pendente/i.test(r.status||'');}).length;
+  var conf=adminData.filter(function(r){return /confirmado/i.test(r.status||'');}).length;
+  var rej =adminData.filter(function(r){return /rejeitado/i.test(r.status||'');}).length;
+  document.getElementById('admin-stats').innerHTML=
     '<div class="admin-stat"><div class="n">'+adminData.length+'</div><div class="l">Total</div></div>'+
     '<div class="admin-stat"><div class="n">'+conf+'</div><div class="l">Confirmados</div></div>'+
     '<div class="admin-stat"><div class="n">'+pend+'</div><div class="l">Pendentes</div></div>'+
     '<div class="admin-stat"><div class="n">'+rej+'</div><div class="l">Rejeitados</div></div>';
-  const tbody = document.getElementById('reg-tbody');
+  var tbody=document.getElementById('reg-tbody');
   if(!adminData.length){
     tbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:2rem">Nenhuma inscrição ainda.</td></tr>';
     return;
   }
-  tbody.innerHTML = adminData.map(function(r,i){
-    const badge = /confirmado/i.test(r.status||'')
-      ? '<span class="badge-confirmed">Confirmado</span>'
-      : /rejeitado/i.test(r.status||'')
-      ? '<span style="background:rgba(239,68,68,.15);color:#f87171;padding:.15rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700">Rejeitado</span>'
-      : '<span class="badge-pending">Pendente</span>';
-    const btns = /pendente/i.test(r.status||'')
-      ? '<button class="btn-confirm-reg" onclick="confirmReg('+i+')" title="Confirmar e enviar e-mail">✓ Confirmar</button> '
-        +'<button class="btn-del-reg" style="background:rgba(245,158,11,.1);color:#fbbf24;border-color:rgba(245,158,11,.3)" onclick="rejectReg('+i+')" title="Rejeitar">✕ Rejeitar</button>'
-      : /confirmado/i.test(r.status||'') ? '<span style="color:#4ade80;font-size:.75rem">E-mail enviado</span>' : '';
+  tbody.innerHTML=adminData.map(function(r,i){
+    var badge=/confirmado/i.test(r.status||'')?'<span class="badge-confirmed">Confirmado</span>'
+      :/rejeitado/i.test(r.status||'')?'<span style="background:rgba(239,68,68,.15);color:#f87171;padding:.15rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700">Rejeitado</span>'
+      :'<span class="badge-pending">Pendente</span>';
+    var btns=/pendente/i.test(r.status||'')
+      ?'<button class="btn-confirm-reg" onclick="doConfirm('+i+')">✓ Confirmar</button> <button class="btn-del-reg" style="background:rgba(245,158,11,.1);color:#fbbf24;border-color:rgba(245,158,11,.3)" onclick="doReject('+i+')">✕ Rejeitar</button>'
+      :/confirmado/i.test(r.status||'')?'<span style="color:#4ade80;font-size:.75rem">✓ E-mail enviado</span>':'';
     return '<tr>'
       +'<td style="color:var(--muted)">'+(i+1)+'</td>'
       +'<td><strong>'+(r.nome||'')+' '+(r.sobrenome||'')+'</strong></td>'
-      +'<td>'+(r.cargo||'&mdash;')+'</td>'
-      +'<td>'+(r.orgao||'&mdash;')+'</td>'
-      +'<td>'+(r.telefone||'&mdash;')+'</td>'
-      +'<td>'+(r.email||'&mdash;')+'</td>'
-      +'<td>'+(r.area||'&mdash;')+'</td>'
-      +'<td style="color:var(--muted);font-size:.78rem">'+(r.data||'&mdash;')+'</td>'
+      +'<td>'+(r.cargo||'—')+'</td>'+'<td>'+(r.orgao||'—')+'</td>'
+      +'<td>'+(r.telefone||'—')+'</td>'+'<td>'+(r.email||'—')+'</td>'
+      +'<td>'+(r.area||'—')+'</td>'
+      +'<td style="color:var(--muted);font-size:.78rem">'+(r.data||'—')+'</td>'
       +'<td>'+badge+'</td>'
-      +'<td>'+btns+' <button class="btn-del-reg" onclick="deleteReg('+i+')" title="Apagar da planilha">🗑</button></td>'
+      +'<td>'+btns+' <button class="btn-del-reg" onclick="doDelete('+i+')" title="Apagar">🗑</button></td>'
       +'</tr>';
   }).join('');
 }
 
-function confirmReg(idx){
-  const r = adminData[idx]; if(!r) return;
-  if(!confirm('Confirmar inscrição de '+r.nome+' '+r.sobrenome+' e enviar e-mail?')) return;
-  r.status = 'confirmado'; renderAdmin();
-  const p = new URLSearchParams({action:'confirm',rowNum:r.rowNum||'',
+function doConfirm(idx){
+  var r=adminData[idx]; if(!r)return;
+  if(!confirm('Confirmar e enviar e-mail para '+r.nome+' '+r.sobrenome+'?'))return;
+  r.status='confirmado'; renderTable();
+  var p=new URLSearchParams({action:'confirm',rowNum:r.rowNum||'',
     nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
     orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
     area:r.area||'',obs:r.obs||''});
-  fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(e){console.warn(e);});
+  fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
 }
-
-function rejectReg(idx){
-  const r = adminData[idx]; if(!r) return;
-  if(!confirm('Rejeitar inscrição de '+r.nome+' '+r.sobrenome+'?')) return;
-  r.status = 'rejeitado'; renderAdmin();
-  fetch(GAS_URL+'?action=reject&rowNum='+(r.rowNum||''),{mode:'no-cors'}).catch(function(e){});
+function doReject(idx){
+  var r=adminData[idx]; if(!r)return;
+  if(!confirm('Rejeitar inscrição de '+r.nome+' '+r.sobrenome+'?'))return;
+  r.status='rejeitado'; renderTable();
+  fetch(GAS_URL+'?action=reject&rowNum='+(r.rowNum||''),{mode:'no-cors'}).catch(function(){});
 }
-
-function deleteReg(idx){
-  const r = adminData[idx]; if(!r) return;
-  if(!confirm('Apagar inscrição de '+r.nome+' '+r.sobrenome+'?\nIsso também remove da planilha Google.')) return;
-  fetch(GAS_URL+'?action=delete&rowNum='+(r.rowNum||''),{mode:'no-cors'}).catch(function(e){});
-  adminData.splice(idx,1); renderAdmin();
+function doDelete(idx){
+  var r=adminData[idx]; if(!r)return;
+  if(!confirm('Apagar '+r.nome+' '+r.sobrenome+'? Remove também da planilha.'))return;
+  fetch(GAS_URL+'?action=delete&rowNum='+(r.rowNum||''),{mode:'no-cors'}).catch(function(){});
+  adminData.splice(idx,1); renderTable();
 }
-
 function sendConfirmAll(){
-  const pend = adminData.filter(function(r){ return /pendente/i.test(r.status||''); });
-  if(!pend.length){ alert('Nenhum inscrito pendente.'); return; }
-  if(!confirm('Confirmar e enviar e-mail para os '+pend.length+' pendentes?')) return;
+  var pend=adminData.filter(function(r){return /pendente/i.test(r.status||'');});
+  if(!pend.length){alert('Nenhum pendente.');return;}
+  if(!confirm('Confirmar '+pend.length+' inscrição(ões) e enviar e-mails?'))return;
   pend.forEach(function(r,i){
-    r.status = 'confirmado';
+    r.status='confirmado';
     setTimeout(function(){
-      const p = new URLSearchParams({action:'confirm',rowNum:r.rowNum||'',
+      var p=new URLSearchParams({action:'confirm',rowNum:r.rowNum||'',
         nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
         orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
         area:r.area||'',obs:r.obs||''});
-      fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(e){});
-    }, i*2000);
+      fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
+    },i*2000);
   });
-  renderAdmin(); alert(pend.length+' confirmações disparadas!');
+  renderTable(); alert(pend.length+' confirmação(ões) disparada(s)!');
 }
-
 function exportCSV(){
-  if(!adminData.length){ alert('Nenhuma inscrição para exportar.'); return; }
-  const h = ['#','Nome','Sobrenome','Cargo','Orgao','Telefone','Email','Area','Obs','Data','Status'];
-  const rows = adminData.map(function(r,i){
+  if(!adminData.length){alert('Nenhuma inscrição para exportar.');return;}
+  var h=['#','Nome','Sobrenome','Cargo','Orgao','Telefone','Email','Area','Obs','Data','Status'];
+  var rows=adminData.map(function(r,i){
     return [i+1,r.nome,r.sobrenome,r.cargo,r.orgao,r.telefone,r.email,r.area||'',r.obs||'',r.data,r.status]
-      .map(function(v){ return '"'+String(v||'').replace(/"/g,'""')+'"'; }).join(',');
+      .map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');
   });
-  const blob = new Blob(['﻿'+[h.join(',')].concat(rows).join('
-')],{type:'text/csv;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href=URL.createObjectURL(blob); a.download='i2ugsp2026_inscritos.csv'; a.click();
+  var blob=new Blob(['﻿'+[h.join(',')].concat(rows).join('\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='i2ugsp2026_inscritos.csv'; a.click();
 }
-
 function clearAll(){
-  alert('Para apagar registros use o botão 🗑 em cada linha — isso garante que a planilha seja atualizada.');
+  alert('Use o botão 🗑 em cada linha para apagar — garante que a planilha seja atualizada.');
 }
+// Alias para botão "Atualizar log" no admin
+function renderAdmin(){ loadAndRender(); }
 </script>
 </body>
 </html>
