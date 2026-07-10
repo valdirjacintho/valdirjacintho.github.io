@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Confirme sua presença · i2 User Group São Paulo 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1220; --navy2:#111827; --border:#1e293b;
+    --red:#dc2626; --red2:#ef4444; --blue:#2563eb; --blue2:#3b82f6;
+    --green:#16a34a; --green2:#22c55e;
+    --text:#e5e7eb; --muted:#94a3b8; --dim:#64748b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Barlow',system-ui,-apple-system,sans-serif;
+    background:var(--navy);
+    color:var(--text);
+    min-height:100dvh;
+    display:flex;align-items:center;justify-content:center;
+    padding:1.25rem;
+    line-height:1.6;
+    position:relative;overflow-x:hidden;
+  }
+  /* malha de grafo ao fundo */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(37,99,235,.10), transparent 42%),
+      radial-gradient(circle at 82% 78%, rgba(220,38,38,.10), transparent 42%),
+      radial-gradient(rgba(148,163,184,.08) 1px, transparent 1px);
+    background-size:auto,auto,26px 26px;
+  }
+  .card{
+    position:relative;z-index:1;
+    width:100%;max-width:560px;
+    background:var(--navy2);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.45);
+  }
+  .accent{height:6px;background:linear-gradient(90deg,var(--red) 0 50%,var(--blue) 50% 100%)}
+  .head{
+    padding:1.5rem 1.6rem 1.25rem;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);
+  }
+  .logos{display:flex;align-items:center;justify-content:center;gap:1.1rem;margin-bottom:.9rem;min-height:34px}
+  .logos img{height:30px;width:auto;display:block;filter:none}
+  .logos .sep{width:1px;height:24px;background:var(--border)}
+  .eyebrow{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--red2)}
+  .evt{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;line-height:1;letter-spacing:.01em;margin:.35rem 0 .35rem;color:#fff}
+  .evt-sub{font-size:.85rem;color:var(--muted)}
+  .body{padding:1.6rem}
+
+  /* estados */
+  .state{display:none}
+  .state.on{display:block;animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* loading */
+  .spin{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--blue2);border-radius:50%;margin:1rem auto;animation:rot .8s linear infinite}
+  @keyframes rot{to{transform:rotate(360deg)}}
+  .center{text-align:center}
+
+  h1.title{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;letter-spacing:.01em;color:#fff;line-height:1.05;margin-bottom:.5rem}
+  h1.title .hl{color:var(--green2)}
+  h1.title .rd{color:var(--red2)}
+  p.lead{color:var(--text);font-size:.98rem;margin-bottom:1.1rem}
+  p.note{color:var(--muted);font-size:.86rem;margin-top:.9rem}
+
+  .data{background:rgba(255,255,255,.03);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:10px;padding:.9rem 1rem;margin:0 0 1.15rem}
+  .data .row{display:flex;gap:.6rem;font-size:.9rem;padding:.18rem 0}
+  .data .k{color:var(--dim);min-width:74px;flex:0 0 74px}
+  .data .v{color:#fff;font-weight:600;word-break:break-word}
+
+  .facts{background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.22);border-radius:10px;padding:.85rem 1rem;margin:0 0 1.2rem}
+  .facts .f{font-size:.87rem;color:var(--text);padding:.16rem 0}
+  .facts .f b{color:#fff}
+
+  .prev{background:rgba(37,99,235,.10);border:1px solid rgba(37,99,235,.3);color:#bfdbfe;font-size:.83rem;border-radius:8px;padding:.55rem .75rem;margin:0 0 1rem}
+
+  .btns{display:flex;flex-direction:column;gap:.6rem}
+  .btn{display:block;width:100%;text-align:center;font-family:'Barlow',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.01em;border:none;border-radius:10px;padding:.9rem 1rem;cursor:pointer;transition:transform .12s ease,filter .12s ease,background .12s ease;text-decoration:none}
+  .btn:hover{filter:brightness(1.08)}
+  .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:3px solid var(--blue2);outline-offset:2px}
+  .btn-yes{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
+  .btn-yes.dim{background:rgba(34,197,94,.14);color:#86efac;border:1px solid rgba(34,197,94,.4)}
+  .btn-no{background:transparent;color:#fca5a5;border:1px solid rgba(239,68,68,.4)}
+  .btn-no:hover{background:rgba(239,68,68,.1);filter:none}
+  .btn-no.dim{opacity:.85}
+  .btn-cal{background:#1e293b;color:#e2e8f0;border:1px solid var(--border);font-weight:600;font-size:.9rem}
+  .btn-cal:hover{background:#243044;filter:none}
+
+  .emphasize{box-shadow:0 0 0 2px rgba(34,197,94,.35),0 8px 22px rgba(22,163,74,.28)}
+  .emphasize-no{box-shadow:0 0 0 2px rgba(239,68,68,.3)}
+
+  .linkish{background:none;border:none;color:var(--muted);font-size:.85rem;text-decoration:underline;cursor:pointer;font-family:inherit;padding:.3rem;margin-top:.4rem}
+  .linkish:hover{color:#cbd5e1}
+
+  .icon{font-size:2.4rem;line-height:1;margin-bottom:.6rem;display:block}
+  .foot{padding:1rem 1.6rem 1.3rem;text-align:center;border-top:1px solid var(--border);color:var(--dim);font-size:.78rem}
+  .foot a{color:var(--muted);text-decoration:none}
+  .err-inline{color:#fca5a5;font-size:.85rem;margin-top:.7rem;min-height:1.1rem}
+
+  @media (max-width:420px){
+    .evt{font-size:1.55rem}
+    h1.title{font-size:1.55rem}
+    .body{padding:1.3rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .spin{animation:none;border-top-color:var(--blue2)}
+    .state.on{animation:none}
+    .btn{transition:none}
+  }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="accent"></div>
+  <div class="head">
+    <div class="logos">
+      <img src="Logoi2%202024%20invertifo.png" alt="i2 Group" onerror="this.style.display='none'">
+      <span class="sep"></span>
+      <img src="Logo%204.gif" alt="SEEAI" onerror="this.style.display='none'">
+    </div>
+    <div class="eyebrow">Confirmação de presença</div>
+    <div class="evt">i2 User Group<br>São Paulo 2026</div>
+    <div class="evt-sub">09 de Setembro · RAÇA Morumbi · São Paulo</div>
+  </div>
+
+  <div class="body">
+
+    <!-- 1. CARREGANDO -->
+    <section id="st-loading" class="state on center">
+      <div class="spin" role="status" aria-label="Carregando"></div>
+      <p class="lead" style="margin:0">Carregando seus dados…</p>
+    </section>
+
+    <!-- 2. PEDIR CONFIRMAÇÃO -->
+    <section id="st-ask" class="state">
+      <h1 class="title">Olá, <span id="ask-nome" class="rd">participante</span>!</h1>
+      <p class="lead">Você está <b>confirmado(a)</b> no i2 User Group São Paulo 2026. Para organizarmos os lugares e a lista de espera, confirme abaixo se poderá comparecer.</p>
+
+      <div id="ask-prev" class="prev" style="display:none"></div>
+
+      <div class="data">
+        <div class="row"><span class="k">Nome</span><span class="v" id="d-nome">—</span></div>
+        <div class="row" id="row-cargo"><span class="k">Cargo</span><span class="v" id="d-cargo">—</span></div>
+        <div class="row" id="row-orgao"><span class="k">Órgão</span><span class="v" id="d-orgao">—</span></div>
+        <div class="row"><span class="k">E-mail</span><span class="v" id="d-email">—</span></div>
+      </div>
+
+      <div class="facts">
+        <div class="f">📅 <b>09 de setembro de 2026</b> (quarta-feira) · início 9h00</div>
+        <div class="f">📍 <b>RAÇA Restaurante</b> — Estádio do Morumbi</div>
+        <div class="f">🏟️ Praça Roberto Gomes Pedrosa, 1 — Morumbi, SP</div>
+      </div>
+
+      <div class="btns">
+        <button id="btn-yes" class="btn btn-yes" onclick="rsvp('confirm')">✓ Confirmo minha presença</button>
+        <button id="btn-no" class="btn btn-no" onclick="rsvp('decline')">Não poderei comparecer</button>
+      </div>
+      <div id="ask-err" class="err-inline" aria-live="polite"></div>
+    </section>
+
+    <!-- 3. PRESENÇA CONFIRMADA -->
+    <section id="st-yes" class="state center">
+      <span class="icon">🎉</span>
+      <h1 class="title">Presença <span class="hl">confirmada!</span></h1>
+      <p class="lead">Obrigado, <span id="yes-nome">participante</span>! Sua vaga está garantida. Nos vemos no Morumbi. 👊</p>
+      <div class="facts" style="text-align:left">
+        <div class="f">📅 <b>09/09/2026</b> · 9h00 (credenciamento a partir das 9h)</div>
+        <div class="f">📍 <b>RAÇA</b> — Estádio do Morumbi · Praça Roberto Gomes Pedrosa, 1</div>
+      </div>
+      <div class="btns">
+        <a class="btn btn-cal" id="cal-g" target="_blank" rel="noopener">＋ Adicionar ao Google Agenda</a>
+        <a class="btn btn-cal" id="cal-o" target="_blank" rel="noopener">＋ Adicionar ao Outlook</a>
+      </div>
+      <button class="linkish" onclick="showAsk('confirm')">Preciso mudar minha resposta</button>
+    </section>
+
+    <!-- 4. VAGA LIBERADA (DESISTIU) -->
+    <section id="st-no" class="state center">
+      <span class="icon">🙏</span>
+      <h1 class="title">Tudo certo, <span class="rd">obrigado por avisar.</span></h1>
+      <p class="lead">Registramos que você <b>não poderá comparecer</b> e sua vaga foi liberada para quem está na lista de espera. Esperamos você numa próxima!</p>
+      <p class="note">Mudou de ideia? Se ainda houver vaga, você pode voltar a confirmar.</p>
+      <div class="btns" style="margin-top:.9rem">
+        <button class="btn btn-yes dim" onclick="showAsk('confirm')">Quero voltar a confirmar</button>
+      </div>
+    </section>
+
+    <!-- 5. LINK INVÁLIDO / ERRO -->
+    <section id="st-error" class="state center">
+      <span class="icon">🔒</span>
+      <h1 class="title">Não conseguimos validar<br>este link.</h1>
+      <p class="lead" id="err-msg">O link pode ter expirado ou estar incompleto. Abra o link diretamente do e-mail de reconfirmação que você recebeu.</p>
+      <p class="note">Se o problema continuar, fale com a organização: <a href="mailto:comercial@seeaidata.com.br" style="color:#fca5a5;text-decoration:none">comercial@seeaidata.com.br</a></p>
+    </section>
+
+  </div>
+
+  <div class="foot">
+    SEEAI · <a href="https://www.seeaidata.com.br" target="_blank" rel="noopener">www.seeaidata.com.br</a> · i2 User Group São Paulo 2026
+  </div>
+</main>
+
+<script>
+  // ── Config ──────────────────────────────────────────────
+  var GAS_URL = 'https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec';
+  var GCAL = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=i2+User+Group+S%C3%A3o+Paulo+2026&dates=20260909T090000/20260909T140000&ctz=America%2FSao_Paulo&details=Encontro+de+usuarios+i2+e+SEEAI+no+Morumbi&location=RACA+Restaurante+-+Estadio+do+Morumbi+-+Sao+Paulo';
+  var OUTLOOK = 'https://outlook.office.com/calendar/deeplink/compose?subject=i2%20User%20Group%20Sao%20Paulo%202026&startdt=2026-09-09T09%3A00%3A00&enddt=2026-09-09T14%3A00%3A00&body=Encontro%20de%20usuarios%20i2%20-%20SEEAI%20-%20Morumbi&location=RACA%20Restaurante%20-%20Estadio%20do%20Morumbi%20-%20Sao%20Paulo';
+
+  // ── Params ──────────────────────────────────────────────
+  var qs = new URLSearchParams(location.search);
+  var EMAIL = (qs.get('e') || '').trim();
+  var TOKEN = (qs.get('t') || '').trim();
+  var HINT  = (qs.get('a') || '').trim();  // 'confirm' | 'decline' (só destaca; não age sozinho)
+  var participant = null;
+  var busy = false;
+
+  function show(id){
+    ['st-loading','st-ask','st-yes','st-no','st-error'].forEach(function(s){
+      document.getElementById(s).classList.toggle('on', s===id);
+    });
+  }
+  function esc(s){ return String(s==null?'':s); }
+
+  // Liga botões de calendário
+  document.getElementById('cal-g').href = GCAL;
+  document.getElementById('cal-o').href = OUTLOOK;
+
+  // ── Início ──────────────────────────────────────────────
+  if(!EMAIL || !TOKEN){
+    show('st-error');
+  } else {
+    carregar();
+  }
+
+  function carregar(){
+    show('st-loading');
+    fetch(GAS_URL+'?action=getparticipant&e='+encodeURIComponent(EMAIL)+'&t='+encodeURIComponent(TOKEN))
+      .then(function(r){return r.json();})
+      .then(function(j){
+        if(!j || !j.ok || !j.participant){
+          document.getElementById('err-msg').textContent =
+            (j && j.error==='nao_encontrado')
+              ? 'Não encontramos sua inscrição. Verifique se está usando o link mais recente do e-mail.'
+              : 'O link pode ter expirado ou estar incompleto. Abra o link diretamente do e-mail de reconfirmação que você recebeu.';
+          show('st-error'); return;
+        }
+        participant = j.participant;
+        preencher();
+        // Se já respondeu antes, mostra o estado atual (mas permite alterar)
+        var pres = (participant.presenca||'').toString().toLowerCase();
+        if(pres.indexOf('confirmada')>-1){ renderYes(); }
+        else if(pres.indexOf('desist')>-1){ renderNo(); }
+        else { showAsk(HINT); }
+      })
+      .catch(function(){
+        document.getElementById('err-msg').textContent =
+          'Não conseguimos falar com o servidor agora. Verifique sua conexão e tente novamente em instantes.';
+        show('st-error');
+      });
+  }
+
+  function preencher(){
+    var p = participant;
+    var nome = esc(p.nome) + (p.sobrenome? ' '+esc(p.sobrenome):'');
+    document.getElementById('ask-nome').textContent = esc(p.nome)||'participante';
+    document.getElementById('yes-nome').textContent = esc(p.nome)||'participante';
+    document.getElementById('d-nome').textContent  = nome || '—';
+    document.getElementById('d-email').textContent = esc(p.email) || '—';
+    if(p.cargo){ document.getElementById('d-cargo').textContent = esc(p.cargo); }
+    else { document.getElementById('row-cargo').style.display='none'; }
+    if(p.orgao){ document.getElementById('d-orgao').textContent = esc(p.orgao); }
+    else { document.getElementById('row-orgao').style.display='none'; }
+  }
+
+  function showAsk(hint){
+    document.getElementById('ask-err').textContent='';
+    // aviso se já havia resposta
+    var prev = document.getElementById('ask-prev');
+    var pres = (participant && participant.presenca||'').toString().toLowerCase();
+    if(pres.indexOf('confirmada')>-1){
+      prev.style.display='block';
+      prev.innerHTML='ℹ️ Você já havia <b>confirmado</b>. Pode manter ou alterar sua resposta abaixo.';
+    } else if(pres.indexOf('desist')>-1){
+      prev.style.display='block';
+      prev.innerHTML='ℹ️ Você havia informado que <b>não poderia comparecer</b>. Pode voltar a confirmar abaixo.';
+    } else { prev.style.display='none'; }
+    // destaque conforme o botão clicado no e-mail (sem agir sozinho)
+    var by=document.getElementById('btn-yes'), bn=document.getElementById('btn-no');
+    by.classList.toggle('emphasize', hint==='confirm');
+    bn.classList.toggle('emphasize-no', hint==='decline');
+    show('st-ask');
+  }
+
+  function rsvp(kind){
+    if(busy) return;
+    busy=true;
+    var by=document.getElementById('btn-yes'), bn=document.getElementById('btn-no');
+    var errEl=document.getElementById('ask-err');
+    errEl.textContent='';
+    by.disabled=true; bn.disabled=true;
+    var lbl = kind==='confirm' ? by.textContent : bn.textContent;
+    (kind==='confirm'?by:bn).textContent = 'Registrando…';
+    var act = kind==='confirm' ? 'rsvp_confirm' : 'rsvp_decline';
+    fetch(GAS_URL+'?action='+act+'&e='+encodeURIComponent(EMAIL)+'&t='+encodeURIComponent(TOKEN))
+      .then(function(r){return r.json();})
+      .then(function(j){
+        busy=false; by.disabled=false; bn.disabled=false;
+        by.textContent='✓ Confirmo minha presença'; bn.textContent='Não poderei comparecer';
+        if(!j || !j.ok){
+          errEl.textContent = 'Não foi possível registrar agora. Tente novamente.';
+          return;
+        }
+        if(participant) participant.presenca = j.presenca || (kind==='confirm'?'Confirmada':'Desistiu');
+        if(kind==='confirm') renderYes(); else renderNo();
+      })
+      .catch(function(){
+        busy=false; by.disabled=false; bn.disabled=false;
+        by.textContent='✓ Confirmo minha presença'; bn.textContent='Não poderei comparecer';
+        errEl.textContent = 'Falha de conexão. Verifique sua internet e tente novamente.';
+      });
+  }
+
+  function renderYes(){ show('st-yes'); }
+  function renderNo(){ show('st-no'); }
+</script>
+</body>
+</html>

@@ -603,7 +603,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2rem 3
           <button class="btn-sm btn-export" onclick="exportCSV()">Exportar CSV</button>
           <button class="btn-sm" style="background:var(--blue);color:#fff" onclick="sendConfirmAll()">Confirmar Todos</button>
           <button class="btn-sm" style="background:#f59e0b;color:#0b1220" onclick="sendWaitlistAll()">Lista de Espera (pendentes)</button>
-          <button class="btn-sm" style="background:#2563eb;color:#fff" onclick="sendReminderAll()">Enviar Lembrete (confirmados)</button>
+          <button class="btn-sm" style="background:#2563eb;color:#fff" onclick="sendReminderAll()">📩 Reconfirmação (confirmados)</button>
           <button class="btn-sm btn-clear" onclick="clearAll()">Limpar tudo</button>
           <button class="btn-sm" style="background:var(--border);color:var(--muted)" onclick="closeAdmin()">Fechar</button>
         </div>
@@ -758,9 +758,13 @@ function renderTable(){
   var conf=adminData.filter(function(r){return /confirmado/i.test(r.status||'');}).length;
   var rej =adminData.filter(function(r){return /rejeitado/i.test(r.status||'');}).length;
   var esp =adminData.filter(function(r){return /espera/i.test(r.status||'');}).length;
+  var presOk=adminData.filter(function(r){return /confirmada/i.test(r.presenca||'');}).length;
+  var vagas =adminData.filter(function(r){return /desist/i.test(r.presenca||'');}).length;
   document.getElementById('admin-stats').innerHTML=
     '<div class="admin-stat"><div class="n">'+adminData.length+'</div><div class="l">Total</div></div>'+
     '<div class="admin-stat"><div class="n">'+conf+'</div><div class="l">Confirmados</div></div>'+
+    '<div class="admin-stat"><div class="n" style="color:#4ade80">'+presOk+'</div><div class="l">Presença OK</div></div>'+
+    '<div class="admin-stat"><div class="n" style="color:#f87171">'+vagas+'</div><div class="l">Vagas liberadas</div></div>'+
     '<div class="admin-stat"><div class="n">'+pend+'</div><div class="l">Pendentes</div></div>'+
     '<div class="admin-stat"><div class="n">'+esp+'</div><div class="l">Em espera</div></div>'+
     '<div class="admin-stat"><div class="n">'+rej+'</div><div class="l">Rejeitados</div></div>';
@@ -770,7 +774,11 @@ function renderTable(){
     return;
   }
   tbody.innerHTML=adminData.map(function(r,i){
-    var badge=/confirmado/i.test(r.status||'')?'<span class="badge-confirmed">Confirmado</span>'
+    var pres=(r.presenca||'').toString();
+    var presTag=/confirmada/i.test(pres)?' <span style="background:rgba(74,222,128,.15);color:#4ade80;padding:.1rem .38rem;border-radius:4px;font-size:.64rem;font-weight:700;white-space:nowrap">✓ presença</span>'
+      :/desist/i.test(pres)?' <span style="background:rgba(239,68,68,.15);color:#f87171;padding:.1rem .38rem;border-radius:4px;font-size:.64rem;font-weight:700;white-space:nowrap">✕ desistiu</span>'
+      :' <span style="background:rgba(148,163,184,.13);color:#94a3b8;padding:.1rem .38rem;border-radius:4px;font-size:.64rem;white-space:nowrap">RSVP pendente</span>';
+    var badge=/confirmado/i.test(r.status||'')?'<span class="badge-confirmed">Confirmado</span>'+presTag
       :/espera/i.test(r.status||'')?'<span style="background:rgba(245,158,11,.15);color:#fbbf24;padding:.15rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700">Em espera</span>'
       :/rejeitado/i.test(r.status||'')?'<span style="background:rgba(239,68,68,.15);color:#f87171;padding:.15rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700">Rejeitado</span>'
       :'<span class="badge-pending">Pendente</span>';
@@ -778,8 +786,8 @@ function renderTable(){
       ?'<button class="btn-confirm-reg" onclick="doConfirm('+i+')">✓ Confirmar</button> '
        +'<button onclick="doWaitlist('+i+')" style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.45);color:#fbbf24;padding:.2rem .5rem;border-radius:4px;font-size:.72rem;cursor:pointer">⏳ Lista de espera</button> '
        +'<button class="btn-del-reg" style="background:rgba(239,68,68,.08);color:#f87171;border-color:rgba(239,68,68,.3)" onclick="doReject('+i+')">✕ Rejeitar</button>'
-      :/confirmado/i.test(r.status||'')?'<span style="color:#4ade80;font-size:.75rem">✓ Confirmado</span> <button onclick="doReminder('+i+')" style="background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.45);color:#60a5fa;padding:.2rem .5rem;border-radius:4px;font-size:.72rem;cursor:pointer">📅 Lembrete</button>'
-      :/espera/i.test(r.status||'')?'<span style="color:#fbbf24;font-size:.75rem">⏳ E-mail de espera enviado</span>'
+      :/confirmado/i.test(r.status||'')?'<button onclick="doReminder('+i+')" style="background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.45);color:#60a5fa;padding:.2rem .5rem;border-radius:4px;font-size:.72rem;cursor:pointer">📩 Reconfirmação</button>'
+      :/espera/i.test(r.status||'')?'<span style="color:#fbbf24;font-size:.72rem;margin-right:.35rem">⏳ Em espera</span> <button class="btn-confirm-reg" onclick="doConfirm('+i+')">✓ Confirmar (promover)</button>'
       :/rejeitado/i.test(r.status||'')?'<span style="color:#f87171;font-size:.75rem">✕ Rejeitado</span>':'';
     return '<tr>'
       +'<td style="color:var(--muted)">'+(i+1)+'</td>'
@@ -860,18 +868,18 @@ function sendWaitlistAll(){
 }
 function doReminder(idx){
   var r=adminData[idx]; if(!r)return;
-  if(!confirm('Enviar LEMBRETE do evento para '+r.nome+' '+r.sobrenome+'?'))return;
+  if(!confirm('Enviar RECONFIRMAÇÃO (lembrete + confirmar presença) para '+r.nome+' '+r.sobrenome+'?'))return;
   var p=new URLSearchParams({action:'reminder',rowNum:r.rowNum||'',
     nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
     orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
     area:r.area||'',obs:r.obs||''});
   fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
-  alert('Lembrete enviado para '+r.nome+'!');
+  alert('Reconfirmação enviada para '+r.nome+'!');
 }
 function sendReminderAll(){
   var conf=adminData.filter(function(r){return /confirmado/i.test(r.status||'');});
   if(!conf.length){alert('Nenhum inscrito confirmado para enviar lembrete.');return;}
-  if(!confirm('Enviar LEMBRETE do evento para '+conf.length+' inscrito(s) confirmado(s)?'))return;
+  if(!confirm('Enviar RECONFIRMAÇÃO para '+conf.length+' confirmado(s)? (lembrete + pedido de confirmar presença)'))return;
   conf.forEach(function(r,i){
     setTimeout(function(){
       var p=new URLSearchParams({action:'reminder',rowNum:r.rowNum||'',
@@ -881,7 +889,7 @@ function sendReminderAll(){
       fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
     },i*2000);
   });
-  alert(conf.length+' lembrete(s) disparado(s)!');
+  alert(conf.length+' reconfirmação(ões) disparada(s)!');
 }
 function exportCSV(){
   if(!adminData.length){alert('Nenhuma inscrição para exportar.');return;}
