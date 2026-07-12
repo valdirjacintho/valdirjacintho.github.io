@@ -199,6 +199,29 @@ textarea{resize:vertical;min-height:80px}
 .badge-pending{background:rgba(245,158,11,0.15);color:#fbbf24;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.72rem;font-weight:700}
 .btn-confirm-reg{background:transparent;border:1px solid rgba(22,163,74,0.4);color:#4ade80;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.72rem;cursor:pointer}
 .btn-del-reg{background:transparent;border:1px solid rgba(220,38,38,0.3);color:var(--red2);padding:0.2rem 0.5rem;border-radius:4px;font-size:0.72rem;cursor:pointer;margin-left:0.3rem}
+/* lotação */
+.admin-cap{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.9rem 1.1rem;margin-bottom:1rem}
+.admin-cap .cap-top{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.55rem}
+.admin-cap .cap-lab{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.72rem;color:var(--muted)}
+.admin-cap .cap-num{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--white);line-height:1}
+.admin-cap .cap-side{font-size:.78rem;color:var(--muted)}
+.admin-cap .cap-bar{height:12px;border-radius:8px;background:rgba(148,163,184,.14);overflow:hidden}
+.admin-cap .cap-fill{height:100%;border-radius:8px;transition:width .45s ease}
+.admin-cap .cap-foot{margin-top:.5rem;font-size:.75rem;color:#64748b}
+/* busca + filtros */
+.admin-toolbar{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;flex-wrap:wrap}
+.adm-search{flex:1;min-width:250px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--white);padding:.55rem .8rem;font-family:'Barlow',sans-serif;font-size:.85rem;outline:none}
+.adm-search::placeholder{color:#64748b}
+.adm-search:focus{border-color:var(--blue)}
+.adm-pill{display:inline-flex;align-items:center;gap:.45rem;background:rgba(37,99,235,.14);border:1px solid rgba(37,99,235,.45);color:#93c5fd;border-radius:999px;padding:.32rem .7rem;font-size:.76rem;font-weight:600;white-space:nowrap}
+.adm-pill button{background:none;border:none;color:#93c5fd;cursor:pointer;font-size:.85rem;line-height:1;padding:0}
+#adm-count{font-size:.78rem;color:var(--muted);white-space:nowrap}
+/* cards viram filtros */
+.admin-stat{cursor:pointer;transition:border-color .15s ease}
+.admin-stat:hover{border-color:#334155}
+.admin-stat.on{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+/* aviso */
+.admin-warn{background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.35);border-left:3px solid #f59e0b;border-radius:8px;padding:.7rem .9rem;margin-bottom:1rem;font-size:.82rem;color:#fcd34d;line-height:1.5}
 .admin-login{text-align:center;padding:3rem;background:var(--card);border:1px solid var(--border);border-radius:14px;max-width:400px;margin:0 auto}
 .admin-login h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);margin-bottom:1rem}
 .admin-login input{margin-bottom:0.8rem}
@@ -618,11 +641,20 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2rem 3
           <button class="btn-sm" style="background:var(--blue);color:#fff" onclick="sendConfirmAll()">Confirmar Todos</button>
           <button class="btn-sm" style="background:#f59e0b;color:#0b1220" onclick="sendWaitlistAll()">Lista de Espera (pendentes)</button>
           <button class="btn-sm" style="background:#2563eb;color:#fff" onclick="sendReminderAll()">📩 Reconfirmação (confirmados)</button>
+          <button class="btn-sm" style="background:rgba(37,99,235,.16);color:#93c5fd;border:1px solid rgba(37,99,235,.5)" onclick="sendRsvpPending()">🔔 Só quem não respondeu</button>
+          <button class="btn-sm" style="background:var(--border);color:#cbd5e1" onclick="loadAndRender()">🔄 Atualizar</button>
           <button class="btn-sm btn-clear" onclick="clearAll()">Limpar tudo</button>
           <button class="btn-sm" style="background:var(--border);color:var(--muted)" onclick="closeAdmin()">Fechar</button>
         </div>
       </div>
       <div class="admin-stats" id="admin-stats"></div>
+      <div id="admin-capacity"></div>
+      <div id="admin-dupes"></div>
+      <div class="admin-toolbar">
+        <input id="adm-q" class="adm-search" type="search" placeholder="Buscar por nome, e-mail, empresa, cargo ou área…" oninput="renderTable()"/>
+        <span id="adm-filter-pill"></span>
+        <span id="adm-count"></span>
+      </div>
       <div class="admin-table-wrap">
         <table class="registrants-table" id="reg-table">
           <thead><tr>
@@ -702,8 +734,22 @@ document.getElementById('reg-form').addEventListener('submit',async function(e){
 
 // ══ ADMIN ════════════════════════════════════════════════════════════
 var GAS_URL='https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec';
-var ADMIN_PWD='seeai2026';
+// A senha NAO fica mais no codigo. Voce digita ao entrar; ela e guardada so em memoria
+// e enviada como chave em cada chamada — o Apps Script e quem valida.
+var ADMIN_KEY='';
 var adminData=[];
+
+// ── Capacidade do evento ───────────────────────────────────────────
+var CAP_LUGARES=50;                          // lugares no RAÇA
+var CAP_STAFF=10;                            // staff + palestrantes
+var CAP_VAGAS=CAP_LUGARES-CAP_STAFF;         // vagas para convidados (40)
+
+// Monta a URL do Apps Script já com a chave do admin
+function gasUrl(params){
+  var p=(params instanceof URLSearchParams)?params:new URLSearchParams(params);
+  p.set('key',ADMIN_KEY);
+  return GAS_URL+'?'+p.toString();
+}
 
 // Abrir admin: 5 cliques no rodapé OU URL com #admin
 var _clicks=0,_timer;
@@ -723,17 +769,34 @@ if(window.location.hash==='#admin'){
 
 function adminLogin(){
   var pwd=document.getElementById('admin-pwd').value;
-  if(pwd===ADMIN_PWD){
-    document.getElementById('admin-login-area').style.display='none';
-    document.getElementById('admin-content').style.display='block';
-    loadAndRender();
-  }else{
-    document.getElementById('admin-err').style.display='block';
-  }
+  var err=document.getElementById('admin-err');
+  if(!pwd){return;}
+  ADMIN_KEY=pwd;
+  err.style.color='var(--muted)'; err.textContent='Verificando…'; err.style.display='block';
+  fetch(gasUrl({action:'list'}))
+    .then(function(r){return r.json();})
+    .then(function(j){
+      if(j && j.ok && j.data){
+        err.style.display='none';
+        document.getElementById('admin-login-area').style.display='none';
+        document.getElementById('admin-content').style.display='block';
+        adminData=j.data; renderTable();
+      }else{
+        ADMIN_KEY='';
+        err.style.color='var(--red2)'; err.textContent='Senha incorreta.'; err.style.display='block';
+      }
+    })
+    .catch(function(){
+      ADMIN_KEY='';
+      err.style.color='var(--red2)';
+      err.textContent='Não foi possível falar com o servidor. Tente novamente.';
+      err.style.display='block';
+    });
 }
 document.getElementById('admin-pwd').addEventListener('keydown',function(e){if(e.key==='Enter')adminLogin();});
 
 function closeAdmin(){
+  ADMIN_KEY='';
   document.getElementById('admin-panel').style.display='none';
   document.getElementById('admin-content').style.display='none';
   document.getElementById('admin-login-area').style.display='block';
@@ -746,7 +809,7 @@ function loadAndRender(){
   var tbody=document.getElementById('reg-tbody');
   tbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:2rem">Carregando da planilha...</td></tr>';
   // Tentar buscar da planilha via Apps Script
-  fetch(GAS_URL+'?action=list')
+  fetch(gasUrl({action:'list'}))
     .then(function(res){return res.json();})
     .then(function(json){
       if(json.ok && json.data){
@@ -779,27 +842,116 @@ function fmtData(v){
   return s.replace(/:\d{2}$/,'');
 }
 
+// ── helpers de status/presença ─────────────────────────────────────
+function isConf(r){return /confirmado/i.test(r.status||'');}
+function isEsp(r){return /espera/i.test(r.status||'');}
+function isPend(r){return /pendente/i.test(r.status||'');}
+function isRej(r){return /rejeitado/i.test(r.status||'');}
+function presOK(r){return /confirmada/i.test(r.presenca||'');}
+function presNo(r){return /desist/i.test(r.presenca||'');}
+function rsvpPend(r){return isConf(r) && !String(r.presenca||'').trim();}
+
+var admFilter='todos';
+var FILTROS={todos:'Todos',confirmados:'Confirmados',presenca_ok:'Presença OK',
+  rsvp_pendente:'RSVP pendente',desistiu:'Vagas liberadas',pendentes:'Pendentes',
+  espera:'Em espera',rejeitados:'Rejeitados'};
+function matchFilter(r){
+  switch(admFilter){
+    case 'confirmados':   return isConf(r);
+    case 'presenca_ok':   return presOK(r);
+    case 'rsvp_pendente': return rsvpPend(r);
+    case 'desistiu':      return presNo(r);
+    case 'pendentes':     return isPend(r);
+    case 'espera':        return isEsp(r);
+    case 'rejeitados':    return isRej(r);
+    default:              return true;
+  }
+}
+function setFilter(f){ admFilter=(admFilter===f && f!=='todos')?'todos':f; renderTable(); }
+function limparFiltro(){ admFilter='todos'; document.getElementById('adm-q').value=''; renderTable(); }
+// e-mails repetidos (quebram o RSVP, que identifica a pessoa pelo e-mail)
+function dupeSet(){
+  var c={},d={};
+  adminData.forEach(function(r){
+    var e=String(r.email||'').toLowerCase().trim(); if(!e)return;
+    c[e]=(c[e]||0)+1; if(c[e]>1) d[e]=1;
+  });
+  return d;
+}
+
 function renderTable(){
-  var pend=adminData.filter(function(r){return /pendente/i.test(r.status||'');}).length;
-  var conf=adminData.filter(function(r){return /confirmado/i.test(r.status||'');}).length;
-  var rej =adminData.filter(function(r){return /rejeitado/i.test(r.status||'');}).length;
-  var esp =adminData.filter(function(r){return /espera/i.test(r.status||'');}).length;
-  var presOk=adminData.filter(function(r){return /confirmada/i.test(r.presenca||'');}).length;
-  var vagas =adminData.filter(function(r){return /desist/i.test(r.presenca||'');}).length;
+  var pend=adminData.filter(isPend).length;
+  var conf=adminData.filter(isConf).length;
+  var rej =adminData.filter(isRej).length;
+  var esp =adminData.filter(isEsp).length;
+  var presOk=adminData.filter(presOK).length;
+  var vagasLib=adminData.filter(presNo).length;
+  var rsvpP=adminData.filter(rsvpPend).length;
+
+  // ── cards (clique = filtro) ──
+  function card(key,val,lab,cor){
+    return '<div class="admin-stat'+(admFilter===key?' on':'')+'" onclick="setFilter(\''+key+'\')" title="Filtrar: '+lab+'">'
+      +'<div class="n"'+(cor?' style="color:'+cor+'"':'')+'>'+val+'</div><div class="l">'+lab+'</div></div>';
+  }
   document.getElementById('admin-stats').innerHTML=
-    '<div class="admin-stat"><div class="n">'+adminData.length+'</div><div class="l">Total</div></div>'+
-    '<div class="admin-stat"><div class="n">'+conf+'</div><div class="l">Confirmados</div></div>'+
-    '<div class="admin-stat"><div class="n" style="color:#4ade80">'+presOk+'</div><div class="l">Presença OK</div></div>'+
-    '<div class="admin-stat"><div class="n" style="color:#f87171">'+vagas+'</div><div class="l">Vagas liberadas</div></div>'+
-    '<div class="admin-stat"><div class="n">'+pend+'</div><div class="l">Pendentes</div></div>'+
-    '<div class="admin-stat"><div class="n">'+esp+'</div><div class="l">Em espera</div></div>'+
-    '<div class="admin-stat"><div class="n">'+rej+'</div><div class="l">Rejeitados</div></div>';
+    card('todos',adminData.length,'Total')+
+    card('confirmados',conf,'Confirmados')+
+    card('presenca_ok',presOk,'Presença OK','#4ade80')+
+    card('rsvp_pendente',rsvpP,'RSVP pendente','#94a3b8')+
+    card('desistiu',vagasLib,'Vagas liberadas','#f87171')+
+    card('pendentes',pend,'Pendentes')+
+    card('espera',esp,'Em espera','#fbbf24')+
+    card('rejeitados',rej,'Rejeitados');
+
+  // ── lotação: ocupa vaga quem está confirmado e NÃO desistiu ──
+  var ocup=adminData.filter(function(r){return isConf(r) && !presNo(r);}).length;
+  var livres=CAP_VAGAS-ocup;
+  var pct=Math.max(0,Math.min(100,Math.round(ocup/CAP_VAGAS*100)));
+  var cor = ocup>=CAP_VAGAS ? '#dc2626' : (pct>=80 ? '#f59e0b' : '#16a34a');
+  var msg;
+  if(livres<0)        msg='<span style="color:#f87171">⚠ '+Math.abs(livres)+' acima da capacidade — reveja os confirmados.</span>';
+  else if(livres===0) msg='<span style="color:#fbbf24">Lotado — novas inscrições devem ir para a lista de espera.</span>';
+  else if(esp>0)      msg='<span style="color:#4ade80">'+livres+' vaga(s) livre(s)</span> · dá para promover até '+Math.min(livres,esp)+' da lista de espera.';
+  else                msg='<span style="color:#4ade80">'+livres+' vaga(s) livre(s)</span> · ninguém na lista de espera.';
+  document.getElementById('admin-capacity').innerHTML=
+    '<div class="admin-cap">'
+     +'<div class="cap-top">'
+       +'<span class="cap-lab">Lotação</span>'
+       +'<span class="cap-num"><b>'+ocup+'</b> / '+CAP_VAGAS+' vagas ocupadas</span>'
+       +'<span class="cap-side">'+esp+' na lista de espera</span>'
+     +'</div>'
+     +'<div class="cap-bar"><div class="cap-fill" style="width:'+pct+'%;background:'+cor+'"></div></div>'
+     +'<div class="cap-foot">'+msg+' <span style="opacity:.65">· '+CAP_LUGARES+' lugares no RAÇA − '+CAP_STAFF+' staff/palestrantes = '+CAP_VAGAS+' vagas</span></div>'
+    +'</div>';
+
+  // ── e-mails duplicados ──
+  var dup=dupeSet(), dk=Object.keys(dup);
+  document.getElementById('admin-dupes').innerHTML = dk.length
+    ? '<div class="admin-warn">⚠ <b>'+dk.length+' e-mail(s) repetido(s):</b> '+dk.join(', ')
+      +' — a reconfirmação identifica a pessoa pelo e-mail, então o RSVP do 2º cadastro não funciona. Apague o duplicado ou corrija o e-mail na planilha.</div>'
+    : '';
+
+  // ── filtro + busca (preservando o índice original de cada linha) ──
+  var q=(document.getElementById('adm-q').value||'').toLowerCase().trim();
+  var vis=adminData.map(function(r,i){return {r:r,i:i};}).filter(function(o){
+    if(!matchFilter(o.r)) return false;
+    if(!q) return true;
+    var r=o.r;
+    return ((r.nome||'')+' '+(r.sobrenome||'')+' '+(r.email||'')+' '+(r.orgao||'')+' '+(r.cargo||'')+' '+(r.area||''))
+             .toLowerCase().indexOf(q)>-1;
+  });
+  document.getElementById('adm-filter-pill').innerHTML = (admFilter!=='todos')
+    ? '<span class="adm-pill">'+FILTROS[admFilter]+'<button onclick="limparFiltro()" title="Limpar filtro">✕</button></span>' : '';
+  document.getElementById('adm-count').textContent='Mostrando '+vis.length+' de '+adminData.length;
+
   var tbody=document.getElementById('reg-tbody');
-  if(!adminData.length){
-    tbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:2rem">Nenhuma inscrição ainda.</td></tr>';
+  if(!vis.length){
+    tbody.innerHTML='<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:2rem">'
+      +(adminData.length?'Nenhum inscrito para esse filtro/busca.':'Nenhuma inscrição ainda.')+'</td></tr>';
     return;
   }
-  tbody.innerHTML=adminData.map(function(r,i){
+  tbody.innerHTML=vis.map(function(o){
+    var r=o.r, i=o.i;
     var pres=(r.presenca||'').toString();
     var presTag=/confirmada/i.test(pres)?' <span style="background:rgba(74,222,128,.15);color:#4ade80;padding:.1rem .38rem;border-radius:4px;font-size:.64rem;font-weight:700;white-space:nowrap">✓ presença</span>'
       :/desist/i.test(pres)?' <span style="background:rgba(239,68,68,.15);color:#f87171;padding:.1rem .38rem;border-radius:4px;font-size:.64rem;font-weight:700;white-space:nowrap">✕ desistiu</span>'
@@ -815,9 +967,11 @@ function renderTable(){
       :/confirmado/i.test(r.status||'')?'<button onclick="doReminder('+i+')" style="background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.45);color:#60a5fa;padding:.2rem .5rem;border-radius:4px;font-size:.72rem;cursor:pointer">📩 Reconfirmação</button>'
       :/espera/i.test(r.status||'')?'<span style="color:#fbbf24;font-size:.72rem;margin-right:.35rem">⏳ Em espera</span> <button class="btn-confirm-reg" onclick="doConfirm('+i+')">✓ Confirmar (promover)</button>'
       :/rejeitado/i.test(r.status||'')?'<span style="color:#f87171;font-size:.75rem">✕ Rejeitado</span>':'';
+    var dupTag = dup[String(r.email||'').toLowerCase().trim()]
+      ? ' <span title="E-mail repetido — o RSVP desta pessoa pode falhar" style="color:#fbbf24">⚠</span>' : '';
     return '<tr>'
       +'<td style="color:var(--muted)">'+(i+1)+'</td>'
-      +'<td><strong>'+(r.nome||'')+' '+(r.sobrenome||'')+'</strong></td>'
+      +'<td><strong>'+(r.nome||'')+' '+(r.sobrenome||'')+'</strong>'+dupTag+'</td>'
       +'<td>'+(r.cargo||'—')+'</td>'+'<td>'+(r.orgao||'—')+'</td>'
       +'<td>'+(r.telefone||'—')+'</td>'+'<td>'+(r.email||'—')+'</td>'
       +'<td>'+(r.area||'—')+'</td>'
@@ -836,18 +990,18 @@ function doConfirm(idx){
     nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
     orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
     area:r.area||'',obs:r.obs||''});
-  fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
+  fetch(gasUrl(p),{mode:'no-cors'}).catch(function(){});
 }
 function doReject(idx){
   var r=adminData[idx]; if(!r)return;
   if(!confirm('Rejeitar inscrição de '+r.nome+' '+r.sobrenome+'?'))return;
   r.status='rejeitado'; renderTable();
-  fetch(GAS_URL+'?action=reject&rowNum='+(r.rowNum||''),{mode:'no-cors'}).catch(function(){});
+  fetch(gasUrl({action:'reject',rowNum:r.rowNum||''}),{mode:'no-cors'}).catch(function(){});
 }
 function doDelete(idx){
   var r=adminData[idx]; if(!r)return;
   if(!confirm('Apagar '+r.nome+' '+r.sobrenome+'? Remove também da planilha.'))return;
-  fetch(GAS_URL+'?action=delete&rowNum='+(r.rowNum||''),{mode:'no-cors'}).catch(function(){});
+  fetch(gasUrl({action:'delete',rowNum:r.rowNum||''}),{mode:'no-cors'}).catch(function(){});
   adminData.splice(idx,1); renderTable();
 }
 function sendConfirmAll(){
@@ -861,7 +1015,7 @@ function sendConfirmAll(){
         nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
         orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
         area:r.area||'',obs:r.obs||''});
-      fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
+      fetch(gasUrl(p),{mode:'no-cors'}).catch(function(){});
     },i*2000);
   });
   renderTable(); alert(pend.length+' confirmação(ões) disparada(s)!');
@@ -874,7 +1028,7 @@ function doWaitlist(idx){
     nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
     orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
     area:r.area||'',obs:r.obs||''});
-  fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
+  fetch(gasUrl(p),{mode:'no-cors'}).catch(function(){});
 }
 function sendWaitlistAll(){
   var pend=adminData.filter(function(r){return /pendente/i.test(r.status||'');});
@@ -887,7 +1041,7 @@ function sendWaitlistAll(){
         nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
         orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
         area:r.area||'',obs:r.obs||''});
-      fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
+      fetch(gasUrl(p),{mode:'no-cors'}).catch(function(){});
     },i*2000);
   });
   renderTable(); alert(pend.length+' e-mail(s) de lista de espera disparado(s)!');
@@ -899,7 +1053,7 @@ function doReminder(idx){
     nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
     orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
     area:r.area||'',obs:r.obs||''});
-  fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
+  fetch(gasUrl(p),{mode:'no-cors'}).catch(function(){});
   alert('Reconfirmação enviada para '+r.nome+'!');
 }
 function sendReminderAll(){
@@ -912,16 +1066,31 @@ function sendReminderAll(){
         nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
         orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
         area:r.area||'',obs:r.obs||''});
-      fetch(GAS_URL+'?'+p.toString(),{mode:'no-cors'}).catch(function(){});
+      fetch(gasUrl(p),{mode:'no-cors'}).catch(function(){});
     },i*2000);
   });
   alert(conf.length+' reconfirmação(ões) disparada(s)!');
 }
+function sendRsvpPending(){
+  var alvo=adminData.filter(rsvpPend);
+  if(!alvo.length){alert('Todos os confirmados já responderam o RSVP. 🎉');return;}
+  if(!confirm('Reenviar a reconfirmação para '+alvo.length+' pessoa(s) que ainda NÃO responderam?\n\nQuem já confirmou ou desistiu não recebe nada.'))return;
+  alvo.forEach(function(r,i){
+    setTimeout(function(){
+      var p=new URLSearchParams({action:'reminder',rowNum:r.rowNum||'',
+        nome:r.nome||'',sobrenome:r.sobrenome||'',cargo:r.cargo||'',
+        orgao:r.orgao||'',telefone:r.telefone||'',email:r.email||'',
+        area:r.area||'',obs:r.obs||''});
+      fetch(gasUrl(p),{mode:'no-cors'}).catch(function(){});
+    },i*2000);
+  });
+  alert(alvo.length+' reconfirmação(ões) reenviada(s) — só para quem não respondeu.');
+}
 function exportCSV(){
   if(!adminData.length){alert('Nenhuma inscrição para exportar.');return;}
-  var h=['#','Nome','Sobrenome','Cargo','Orgao','Telefone','Email','Area','Obs','Data','Status'];
+  var h=['#','Nome','Sobrenome','Cargo','Orgao','Telefone','Email','Area','Obs','Data','Status','Presenca'];
   var rows=adminData.map(function(r,i){
-    return [i+1,r.nome,r.sobrenome,r.cargo,r.orgao,r.telefone,r.email,r.area||'',r.obs||'',r.data,r.status]
+    return [i+1,r.nome,r.sobrenome,r.cargo,r.orgao,r.telefone,r.email,r.area||'',r.obs||'',r.data,r.status,r.presenca||'']
       .map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');
   });
   var blob=new Blob(['﻿'+[h.join(',')].concat(rows).join('\n')],{type:'text/csv;charset=utf-8'});
