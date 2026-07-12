@@ -166,21 +166,35 @@ textarea{resize:vertical;min-height:80px}
 
 /* ── ADMIN ── */
 .admin-panel{display:none;background:var(--navy);padding:60px 3rem;border-top:3px solid var(--red)}
-.admin-inner{max-width:1100px;margin:0 auto}
+.admin-inner{max-width:1500px;margin:0 auto}
 .admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
 .admin-title{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--red2)}
 .admin-actions{display:flex;gap:0.8rem;flex-wrap:wrap}
 .btn-sm{padding:0.5rem 1rem;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border:none}
 .btn-export{background:var(--green);color:#fff}
 .btn-clear{background:transparent;color:var(--red2);border:1px solid rgba(220,38,38,0.3)}
-.admin-stats{display:flex;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap}
-.admin-stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem 1.5rem;text-align:center}
-.admin-stat .n{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--white)}
-.admin-stat .l{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
-.registrants-table{width:100%;border-collapse:collapse;font-size:0.85rem}
-.registrants-table th{background:var(--card);padding:0.75rem 1rem;text-align:left;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.1em;text-transform:uppercase;font-size:0.72rem;color:var(--muted);border-bottom:1px solid var(--border)}
-.registrants-table td{padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--white)}
+.admin-stats{display:flex;gap:0.7rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.admin-stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.6rem 1rem;text-align:center;min-width:94px}
+.admin-stat .n{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;color:var(--white);line-height:1.15}
+.admin-stat .l{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+/* grade compacta: tudo em uma linha + rolagem horizontal */
+.admin-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--navy)}
+.admin-table-wrap::-webkit-scrollbar{height:10px}
+.admin-table-wrap::-webkit-scrollbar-track{background:rgba(255,255,255,.03);border-radius:6px}
+.admin-table-wrap::-webkit-scrollbar-thumb{background:#334155;border-radius:6px}
+.admin-table-wrap::-webkit-scrollbar-thumb:hover{background:#475569}
+.registrants-table{width:100%;border-collapse:collapse;font-size:0.78rem;white-space:nowrap}
+.registrants-table th{background:var(--card);padding:0.5rem 0.7rem;text-align:left;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.08em;text-transform:uppercase;font-size:0.68rem;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
+.registrants-table td{padding:0.42rem 0.7rem;border-bottom:1px solid var(--border);color:var(--white);white-space:nowrap;vertical-align:middle}
 .registrants-table tr:hover td{background:rgba(255,255,255,0.02)}
+/* colunas Status + Ações sempre visíveis (fixas à direita) */
+.registrants-table th.acts,.registrants-table td.acts{position:sticky;right:0;width:340px;min-width:340px;box-shadow:-10px 0 12px -8px rgba(0,0,0,.55)}
+.registrants-table th.st,.registrants-table td.st{position:sticky;right:340px}
+.registrants-table th.acts,.registrants-table th.st{z-index:3;background:var(--card)}
+.registrants-table td.acts,.registrants-table td.st{z-index:2;background:var(--navy)}
+.registrants-table tr:hover td.acts,.registrants-table tr:hover td.st{background:#0e1425}
+.row-btns{display:flex;align-items:center;gap:.3rem;flex-wrap:nowrap;min-width:318px;justify-content:flex-start}
+.registrants-table .row-btns button{font-size:.7rem !important;padding:.2rem .5rem !important;line-height:1.3;margin:0 !important;white-space:nowrap}
 .badge-confirmed{background:rgba(22,163,74,0.15);color:#4ade80;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.72rem;font-weight:700}
 .badge-pending{background:rgba(245,158,11,0.15);color:#fbbf24;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.72rem;font-weight:700}
 .btn-confirm-reg{background:transparent;border:1px solid rgba(22,163,74,0.4);color:#4ade80;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.72rem;cursor:pointer}
@@ -609,12 +623,12 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2rem 3
         </div>
       </div>
       <div class="admin-stats" id="admin-stats"></div>
-      <div style="overflow-x:auto">
+      <div class="admin-table-wrap">
         <table class="registrants-table" id="reg-table">
           <thead><tr>
             <th>#</th><th>Nome</th><th>Cargo</th><th>Órgão/Empresa</th>
             <th>Telefone</th><th>E-mail</th><th>Área</th>
-            <th>Data</th><th>Status</th><th>Ações</th>
+            <th>Data</th><th class="st">Status</th><th class="acts">Ações</th>
           </tr></thead>
           <tbody id="reg-tbody"></tbody>
         </table>
@@ -753,6 +767,18 @@ function getFallback(){
   return getRegistrants().map(function(r,i){return Object.assign({},r,{rowNum:r.id||(i+2)});});
 }
 
+// formata a data só para exibição na grade (não afeta a planilha nem o CSV)
+function fmtData(v){
+  if(!v) return '—';
+  var s=String(v);
+  var d=new Date(s);
+  if(!isNaN(d.getTime()) && /\d{4}-\d{2}-\d{2}T/.test(s)){
+    var p=function(n){return (n<10?'0':'')+n;};
+    return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+String(d.getFullYear()).slice(2)+' '+p(d.getHours())+':'+p(d.getMinutes());
+  }
+  return s.replace(/:\d{2}$/,'');
+}
+
 function renderTable(){
   var pend=adminData.filter(function(r){return /pendente/i.test(r.status||'');}).length;
   var conf=adminData.filter(function(r){return /confirmado/i.test(r.status||'');}).length;
@@ -795,9 +821,9 @@ function renderTable(){
       +'<td>'+(r.cargo||'—')+'</td>'+'<td>'+(r.orgao||'—')+'</td>'
       +'<td>'+(r.telefone||'—')+'</td>'+'<td>'+(r.email||'—')+'</td>'
       +'<td>'+(r.area||'—')+'</td>'
-      +'<td style="color:var(--muted);font-size:.78rem">'+(r.data||'—')+'</td>'
-      +'<td>'+badge+'</td>'
-      +'<td>'+btns+' <button class="btn-del-reg" onclick="doDelete('+i+')" title="Apagar">🗑</button></td>'
+      +'<td style="color:var(--muted);font-size:.72rem">'+fmtData(r.data)+'</td>'
+      +'<td class="st">'+badge+'</td>'
+      +'<td class="acts"><div class="row-btns">'+btns+'<button class="btn-del-reg" onclick="doDelete('+i+')" title="Apagar">🗑</button></div></td>'
       +'</tr>';
   }).join('');
 }
