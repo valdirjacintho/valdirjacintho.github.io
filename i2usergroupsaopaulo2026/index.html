@@ -642,6 +642,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2rem 3
           <button class="btn-sm" style="background:#f59e0b;color:#0b1220" onclick="sendWaitlistAll()">Lista de Espera (pendentes)</button>
           <button class="btn-sm" style="background:#2563eb;color:#fff" onclick="sendReminderAll()">📩 Reconfirmação (confirmados)</button>
           <button class="btn-sm" style="background:rgba(37,99,235,.16);color:#93c5fd;border:1px solid rgba(37,99,235,.5)" onclick="sendRsvpPending()">🔔 Só quem não respondeu</button>
+          <button class="btn-sm" style="background:rgba(245,158,11,.16);color:#fbbf24;border:1px solid rgba(245,158,11,.5)" onclick="sendVouchersPendentes()">🎟 Vouchers pendentes</button>
           <button class="btn-sm" style="background:var(--border);color:#cbd5e1" onclick="loadAndRender()">🔄 Atualizar</button>
           <button class="btn-sm btn-clear" onclick="clearAll()">Limpar tudo</button>
           <button class="btn-sm" style="background:var(--border);color:var(--muted)" onclick="closeAdmin()">Fechar</button>
@@ -850,15 +851,22 @@ function isRej(r){return /rejeitado/i.test(r.status||'');}
 function presOK(r){return /confirmada/i.test(r.presenca||'');}
 function presNo(r){return /desist/i.test(r.presenca||'');}
 function rsvpPend(r){return isConf(r) && !String(r.presenca||'').trim();}
+function temVoucher(r){return !!String(r.voucher||'').trim();}
+function veio(r){return !!String(r.checkin||'').trim();}
+// quem confirmou o RSVP mas ainda nao recebeu o voucher
+function voucherPend(r){return presOK(r) && !temVoucher(r);}
 
 var admFilter='todos';
 var FILTROS={todos:'Todos',confirmados:'Confirmados',presenca_ok:'Presença OK',
+  compareceram:'Compareceram',voucher_pend:'Voucher pendente',
   rsvp_pendente:'RSVP pendente',desistiu:'Vagas liberadas',pendentes:'Pendentes',
   espera:'Em espera',rejeitados:'Rejeitados'};
 function matchFilter(r){
   switch(admFilter){
     case 'confirmados':   return isConf(r);
     case 'presenca_ok':   return presOK(r);
+    case 'compareceram':  return veio(r);
+    case 'voucher_pend':  return voucherPend(r);
     case 'rsvp_pendente': return rsvpPend(r);
     case 'desistiu':      return presNo(r);
     case 'pendentes':     return isPend(r);
@@ -887,6 +895,8 @@ function renderTable(){
   var presOk=adminData.filter(presOK).length;
   var vagasLib=adminData.filter(presNo).length;
   var rsvpP=adminData.filter(rsvpPend).length;
+  var vieram=adminData.filter(veio).length;
+  var vchP=adminData.filter(voucherPend).length;
 
   // ── cards (clique = filtro) ──
   function card(key,val,lab,cor){
@@ -897,6 +907,8 @@ function renderTable(){
     card('todos',adminData.length,'Total')+
     card('confirmados',conf,'Confirmados')+
     card('presenca_ok',presOk,'Presença OK','#4ade80')+
+    card('compareceram',vieram,'Compareceram','#22d3ee')+
+    card('voucher_pend',vchP,'Voucher pendente','#fbbf24')+
     card('rsvp_pendente',rsvpP,'RSVP pendente','#94a3b8')+
     card('desistiu',vagasLib,'Vagas liberadas','#f87171')+
     card('pendentes',pend,'Pendentes')+
@@ -956,7 +968,11 @@ function renderTable(){
     var presTag=/confirmada/i.test(pres)?' <span style="background:rgba(74,222,128,.15);color:#4ade80;padding:.1rem .38rem;border-radius:4px;font-size:.64rem;font-weight:700;white-space:nowrap">✓ presença</span>'
       :/desist/i.test(pres)?' <span style="background:rgba(239,68,68,.15);color:#f87171;padding:.1rem .38rem;border-radius:4px;font-size:.64rem;font-weight:700;white-space:nowrap">✕ desistiu</span>'
       :' <span style="background:rgba(148,163,184,.13);color:#94a3b8;padding:.1rem .38rem;border-radius:4px;font-size:.64rem;white-space:nowrap">RSVP pendente</span>';
-    var badge=/confirmado/i.test(r.status||'')?'<span class="badge-confirmed">Confirmado</span>'+presTag
+    var vchTag = temVoucher(r)
+      ? ' <span title="Voucher enviado em '+r.voucher+'" style="background:rgba(245,158,11,.15);color:#fbbf24;padding:.1rem .34rem;border-radius:4px;font-size:.64rem;font-weight:700">🎟</span>' : '';
+    var ckTag = veio(r)
+      ? ' <span title="Check-in em '+r.checkin+'" style="background:rgba(34,211,238,.15);color:#22d3ee;padding:.1rem .38rem;border-radius:4px;font-size:.64rem;font-weight:700;white-space:nowrap">✅ PRESENTE</span>' : '';
+    var badge=/confirmado/i.test(r.status||'')?'<span class="badge-confirmed">Confirmado</span>'+presTag+vchTag+ckTag
       :/espera/i.test(r.status||'')?'<span style="background:rgba(245,158,11,.15);color:#fbbf24;padding:.15rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700">Em espera</span>'
       :/rejeitado/i.test(r.status||'')?'<span style="background:rgba(239,68,68,.15);color:#f87171;padding:.15rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700">Rejeitado</span>'
       :'<span class="badge-pending">Pendente</span>';
@@ -965,6 +981,7 @@ function renderTable(){
        +'<button onclick="doWaitlist('+i+')" style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.45);color:#fbbf24;padding:.2rem .5rem;border-radius:4px;font-size:.72rem;cursor:pointer">⏳ Lista de espera</button> '
        +'<button class="btn-del-reg" style="background:rgba(239,68,68,.08);color:#f87171;border-color:rgba(239,68,68,.3)" onclick="doReject('+i+')">✕ Rejeitar</button>'
       :/confirmado/i.test(r.status||'')?'<button onclick="doReminder('+i+')" style="background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.45);color:#60a5fa;padding:.2rem .5rem;border-radius:4px;font-size:.72rem;cursor:pointer">📩 Reconfirmação</button>'
+       +(presOK(r)?' <button onclick="doVoucher('+i+')" title="'+(temVoucher(r)?'Reenviar o voucher':'Enviar o voucher')+'" style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.45);color:#fbbf24;padding:.2rem .5rem;border-radius:4px;font-size:.72rem;cursor:pointer">🎟 '+(temVoucher(r)?'Reenviar':'Voucher')+'</button>':'')
       :/espera/i.test(r.status||'')?'<span style="color:#fbbf24;font-size:.72rem;margin-right:.35rem">⏳ Em espera</span> <button class="btn-confirm-reg" onclick="doConfirm('+i+')">✓ Confirmar (promover)</button>'
       :/rejeitado/i.test(r.status||'')?'<span style="color:#f87171;font-size:.75rem">✕ Rejeitado</span>':'';
     var dupTag = dup[String(r.email||'').toLowerCase().trim()]
@@ -1071,6 +1088,40 @@ function sendReminderAll(){
   });
   alert(conf.length+' reconfirmação(ões) disparada(s)!');
 }
+// Envia (ou reenvia) o voucher com QR para uma pessoa
+function doVoucher(idx){
+  var r=adminData[idx]; if(!r)return;
+  if(!presOK(r)){alert('O voucher só é enviado para quem confirmou a presença (RSVP).');return;}
+  var reenvio=temVoucher(r);
+  if(!confirm((reenvio?'REENVIAR':'Enviar')+' o voucher com QR Code para '+r.nome+' '+r.sobrenome+'?\n\n'+r.email))return;
+  fetch(gasUrl({action:'voucher',email:r.email||''}))
+    .then(function(x){return x.json();})
+    .then(function(j){
+      if(j && j.ok){
+        r.voucher=new Date().toLocaleString('pt-BR');
+        renderTable();
+        alert('🎟 Voucher enviado para '+r.nome+'!\n\nCódigo: '+(j.code||'—'));
+      }else{
+        alert('Não foi possível enviar. Tente novamente.');
+      }
+    })
+    .catch(function(){ alert('Erro de conexão ao enviar o voucher.'); });
+}
+// Envia o voucher a todos que confirmaram presença e ainda não receberam
+function sendVouchersPendentes(){
+  var alvo=adminData.filter(voucherPend);
+  if(!alvo.length){alert('Todos que confirmaram presença já receberam o voucher. 🎟');return;}
+  if(!confirm('Enviar o voucher com QR Code para '+alvo.length+' pessoa(s) que confirmaram presença e ainda não receberam?'))return;
+  alvo.forEach(function(r,i){
+    setTimeout(function(){
+      fetch(gasUrl({action:'voucher',email:r.email||''}))
+        .then(function(x){return x.json();})
+        .then(function(j){ if(j && j.ok){ r.voucher=new Date().toLocaleString('pt-BR'); renderTable(); } })
+        .catch(function(){});
+    },i*2500);
+  });
+  alert(alvo.length+' voucher(s) em envio. A lista vai se atualizando conforme cada um sai.');
+}
 function sendRsvpPending(){
   var alvo=adminData.filter(rsvpPend);
   if(!alvo.length){alert('Todos os confirmados já responderam o RSVP. 🎉');return;}
@@ -1088,9 +1139,9 @@ function sendRsvpPending(){
 }
 function exportCSV(){
   if(!adminData.length){alert('Nenhuma inscrição para exportar.');return;}
-  var h=['#','Nome','Sobrenome','Cargo','Orgao','Telefone','Email','Area','Obs','Data','Status','Presenca'];
+  var h=['#','Nome','Sobrenome','Cargo','Orgao','Telefone','Email','Area','Obs','Data','Status','Presenca','Voucher','Check-in'];
   var rows=adminData.map(function(r,i){
-    return [i+1,r.nome,r.sobrenome,r.cargo,r.orgao,r.telefone,r.email,r.area||'',r.obs||'',r.data,r.status,r.presenca||'']
+    return [i+1,r.nome,r.sobrenome,r.cargo,r.orgao,r.telefone,r.email,r.area||'',r.obs||'',r.data,r.status,r.presenca||'',r.voucher||'',r.checkin||'']
       .map(function(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}).join(',');
   });
   var blob=new Blob(['﻿'+[h.join(',')].concat(rows).join('\n')],{type:'text/csv;charset=utf-8'});
