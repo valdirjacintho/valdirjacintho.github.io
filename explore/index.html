@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>SEEAI EXPLORE | Inteligência Investigativa para Revelar Conexões Ocultas</title>
-  <meta name="description" content="Plataforma web investigativa que transforma dados complexos em grafos visuais interativos 3D/2D. Análise de vínculos, prevenção a fraudes, crimes financeiros, lavagem de dinheiro, OSINT e segurança pública." />
-  <meta name="keywords" content="análise de vínculos, análise investigativa, grafo 3D investigativo, prevenção a fraudes, investigação de lavagem de dinheiro, inteligência investigativa, OSINT e análise de redes, link analysis, fraude em seguros, crimes financeiros, visualização de dados investigativos, análise de telefonia, análise de transações financeiras, SEEAI EXPLORE" />
+  <title>SEEAI EXPLORE | Inteligência Investigativa para Compreender Relações e Apoiar Decisões</title>
+  <meta name="description" content="Plataforma de inteligência investigativa que transforma dados conectados em contexto. Exploração de grafos 3D, analytics investigativo, IA com fundamento e evidências visuais 2D — para fraude, PLD/FT, OSINT, seguros, compliance e segurança pública." />
+  <meta name="keywords" content="inteligência investigativa, análise de vínculos, contexto investigativo, grafo 3D investigativo, analytics de grafo, prevenção a fraudes, investigação de lavagem de dinheiro, PLD FT, OSINT e análise de redes, link analysis, fraude em seguros, crimes financeiros, evidência visual, IA investigativa explicável, SEEAI EXPLORE" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://www.seeaidata.com.br/seeaiexplore" />
-  <meta property="og:title" content="SEEAI EXPLORE | Inteligência investigativa para revelar conexões ocultas" />
-  <meta property="og:description" content="Visualize, explore e organize redes de pessoas, empresas, transações, telefones, endereços e eventos em uma plataforma web criada para investigações modernas." />
+  <meta property="og:title" content="SEEAI EXPLORE | Inteligência investigativa para compreender relações e apoiar decisões" />
+  <meta property="og:description" content="Dos dados ao contexto. Do contexto à decisão. Explore relações, entenda o que a rede revela e chegue às evidências que sustentam a análise." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.seeaidata.com.br/seeaiexplore" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -474,13 +474,10 @@ header {
   border: 1px solid #192643;
   overflow: hidden;
   position: relative;
-
-  /* ✅ FIX: evita “esticar” imprevisível */
   min-height: 220px;
   aspect-ratio: 16 / 9;
 }
 
-/* classe extra usada no datahub para fix “ainda mais previsível” */
 .network.network--fixed {
   min-height: 240px;
   height: auto;
@@ -1059,17 +1056,14 @@ footer {
   margin: 0 auto;
   z-index: 200;
   padding: 1.2rem 1.4rem;
-
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
   justify-content: space-between;
-
   background: rgba(5, 13, 31, 0.95);
   border: 1px solid rgba(255,255,255,0.12);
   backdrop-filter: blur(12px);
-
   box-shadow: 0 20px 50px rgba(0,0,0,0.55);
 }
 
@@ -1088,6 +1082,11 @@ footer {
 .cookie-actions {
   display: flex;
   gap: 0.6rem;
+}
+
+.small-btn {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.78rem;
 }
 
 @media (max-width: 640px) {
@@ -1111,9 +1110,9 @@ footer {
     bottom: calc(12px + env(safe-area-inset-bottom));
   }
 }
+
 /* =========================
    HEADER FIXO NO DESKTOP
-   (mantém o menu sempre visível)
    ========================= */
 @media (min-width: 901px) {
   header {
@@ -1123,8 +1122,6 @@ footer {
     right: 0;
     z-index: 9999 !important;
   }
-
-  /* Compensa a altura do header fixo para não cobrir o conteúdo */
   .content-wrapper {
     padding-top: 86px;
   }
@@ -1297,8 +1294,6 @@ footer {
   border-color: rgba(230,50,58,0.3);
 }
 
-
-
 /* ===== SCREENSHOT DE PRODUTO ===== */
 .product-screenshot {
   margin-top: 2.8rem;
@@ -1378,9 +1373,6 @@ footer {
   text-align: center;
 }
 
-
-
-
 /* ===== FOOTER COM PARCEIRO OFICIAL i2 ===== */
 footer {
   padding: 1.8rem 2rem;
@@ -1418,7 +1410,6 @@ footer {
   opacity: 0.55;
   white-space: nowrap;
 }
-
 
 /* ══ EXPLORE EXTRAS ══════════════════════════════════════════════ */
 .ex-header {
@@ -1670,6 +1661,180 @@ footer {
 .ex-cta-strip .section-title { max-width: 680px; margin: 0 auto 1rem; }
 .ex-cta-strip .section-sub   { margin: 0 auto 2rem; text-align: center; }
 .ex-cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ══ PILARES (EXPLORE → ANALYZE → UNDERSTAND → EVIDENCE) ═══════════ */
+.pillars {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-top: 2.5rem;
+}
+@media(max-width:1200px){ .pillars { grid-template-columns: repeat(3,1fr); } }
+@media(max-width:768px){ .pillars { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .pillars { grid-template-columns: 1fr; } }
+.pillar { padding: 1.5rem 1.3rem; }
+.pillar-name { font-size: 1.1rem; }
+.pillar {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 1.2rem; padding: 1.8rem 1.6rem; position: relative; overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.pillar:hover { transform: translateY(-3px); border-color: rgba(30,164,255,0.35); }
+.pillar::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--red));
+}
+.pillar-step {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--blue); opacity: 0.55; margin-bottom: 0.7rem;
+}
+.pillar-name {
+  font-size: 1.25rem; font-weight: 800; color: var(--white);
+  letter-spacing: 0.02em; margin-bottom: 0.3rem;
+}
+.pillar-tagline {
+  font-size: 0.88rem; color: var(--muted); font-weight: 600; margin-bottom: 1rem;
+}
+.pillar-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.pillar-tags span {
+  font-size: 0.66rem; letter-spacing: 0.04em;
+  padding: 0.2rem 0.5rem; border-radius: 5px;
+  background: rgba(30,164,255,0.07); color: var(--muted);
+  border: 1px solid rgba(30,164,255,0.14);
+}
+.pillar-arrow {
+  display: flex; align-items: center; justify-content: center;
+  color: var(--blue); opacity: 0.4; font-size: 1.4rem; font-weight: 700;
+}
+@media(max-width:900px){ .pillar-arrow { display: none; } }
+
+/* ══ CASOS INVESTIGATIVOS ════════════════════════════════════════ */
+.cases-hero {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem;
+  align-items: center; margin-top: 2.5rem;
+}
+@media(max-width:900px){ .cases-hero { grid-template-columns: 1fr; gap: 2rem; } }
+.cases-hero-text h3 {
+  font-size: 1.5rem; color: var(--white); font-weight: 800;
+  line-height: 1.2; margin-bottom: 1rem;
+}
+.cases-hero-text p { color: var(--muted); line-height: 1.75; font-size: 1rem; margin-bottom: 1rem; }
+.cases-hero-text p:last-child { margin-bottom: 0; }
+.cases-hero-text strong { color: var(--white); }
+.cases-diagram {
+  background: radial-gradient(circle at top, #132a54, #0c1b36 60%);
+  border: 1px solid var(--border); border-radius: 1.4rem; padding: 2rem;
+  box-shadow: 0 18px 55px rgba(0,0,0,0.5);
+}
+.case-node {
+  display: flex; align-items: center; gap: 0.9rem;
+  padding: 0.85rem 1rem; border-radius: 0.8rem;
+  border: 1px solid var(--border); background: rgba(5,9,22,0.4);
+  margin-bottom: 0.6rem;
+}
+.case-node:last-child { margin-bottom: 0; }
+.case-node.accent { border-color: rgba(230,50,58,0.35); background: rgba(230,50,58,0.06); }
+.case-node-ico {
+  width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+  background: rgba(30,164,255,0.1); border: 1px solid rgba(30,164,255,0.2);
+  display: flex; align-items: center; justify-content: center; font-size: 1rem;
+}
+.case-node.accent .case-node-ico { background: rgba(230,50,58,0.12); border-color: rgba(230,50,58,0.3); }
+.case-node-txt { font-size: 0.9rem; color: var(--white); font-weight: 600; }
+.case-node-sub { font-size: 0.74rem; color: var(--muted); }
+.case-connector { text-align: center; color: var(--blue); opacity: 0.4; font-size: 0.9rem; line-height: 0.5; margin: 0.1rem 0; }
+
+.cases-caps {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 2.5rem;
+}
+@media(max-width:900px){ .cases-caps { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:600px){ .cases-caps { grid-template-columns: 1fr; } }
+.case-cap {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 1.2rem; padding: 1.6rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.case-cap:hover { border-color: rgba(30,164,255,0.3); transform: translateY(-2px); }
+.case-cap-ico { font-size: 1.4rem; margin-bottom: 0.7rem; }
+.case-cap h4 { font-size: 0.92rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+.case-cap p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+/* ══ ANÁLISE IA ↔ MINIGRAFO (lado a lado) ════════════════════════ */
+.ia-evidence {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.5rem;
+  align-items: center; margin-top: 2.5rem;
+}
+@media(max-width:900px){ .ia-evidence { grid-template-columns: 1fr; } }
+.ia-ev-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 1.2rem; padding: 1.8rem; height: 100%;
+}
+.ia-ev-card.analysis { border-left: 3px solid var(--blue); }
+.ia-ev-card.evidence { border-left: 3px solid var(--red); }
+.ia-ev-label {
+  font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--blue); font-weight: 700; margin-bottom: 0.8rem;
+}
+.ia-ev-card.evidence .ia-ev-label { color: var(--red); }
+.ia-ev-quote {
+  font-size: 0.95rem; color: var(--white); line-height: 1.5;
+  font-style: italic; padding: 0.8rem 1rem;
+  background: rgba(30,164,255,0.05); border-radius: 0.6rem;
+  border: 1px solid rgba(30,164,255,0.12);
+}
+.ia-ev-arrow { color: var(--blue); opacity: 0.5; font-size: 1.8rem; text-align: center; }
+@media(max-width:900px){ .ia-ev-arrow { transform: rotate(90deg); } }
+.ia-ev-mini {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.5rem; padding: 1rem; flex-wrap: wrap;
+}
+.mini-comm {
+  padding: 0.5rem 0.9rem; border-radius: 0.6rem; font-size: 0.8rem; font-weight: 700;
+  border: 1px solid rgba(30,164,255,0.3); background: rgba(30,164,255,0.08); color: var(--white);
+}
+.mini-comm.red { border-color: rgba(230,50,58,0.35); background: rgba(230,50,58,0.08); }
+.mini-rel { color: var(--muted); font-size: 0.72rem; white-space: nowrap; }
+
+/* ══ CICLO CONNECT / COINCIDÊNCIAS (mini-fluxo) ══════════════════ */
+.cycle-flow {
+  display: flex; align-items: stretch; justify-content: center;
+  flex-wrap: wrap; margin-top: 2.5rem;
+  border: 1px solid var(--border); border-radius: 1.2rem; overflow: hidden;
+}
+.cycle-node {
+  flex: 1; min-width: 140px; background: var(--navy);
+  padding: 1.4rem 1rem; text-align: center;
+  border-right: 1px solid var(--border);
+}
+.cycle-node:last-child { border-right: none; }
+.cycle-node.accent { background: linear-gradient(180deg, rgba(30,164,255,0.08), var(--navy)); }
+.cycle-ico { font-size: 1.3rem; margin-bottom: 0.5rem; }
+.cycle-title { font-size: 0.88rem; font-weight: 700; color: var(--white); }
+@media(max-width:768px){
+  .cycle-node { border-right: none; border-bottom: 1px solid var(--border); }
+  .cycle-node:last-child { border-bottom: none; }
+}
+
+/* ══ FLUXO (Da visão geral à evidência) ══════════════════════════ */
+.flow-strip {
+  display: flex; align-items: stretch; justify-content: center;
+  flex-wrap: wrap; gap: 0; margin-top: 2.5rem;
+  border: 1px solid var(--border); border-radius: 1.2rem; overflow: hidden;
+}
+.flow-node {
+  flex: 1; min-width: 150px; background: var(--navy);
+  padding: 1.6rem 1.2rem; text-align: center; position: relative;
+  border-right: 1px solid var(--border);
+}
+.flow-node:last-child { border-right: none; }
+.flow-node.accent { background: linear-gradient(180deg, rgba(230,50,58,0.08), var(--navy)); }
+.flow-num {
+  font-size: 0.62rem; letter-spacing: 0.16em; color: var(--blue);
+  opacity: 0.5; margin-bottom: 0.5rem;
+}
+.flow-title { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; }
+.flow-desc  { font-size: 0.76rem; color: var(--muted); line-height: 1.55; }
+@media(max-width:768px){
+  .flow-node { border-right: none; border-bottom: 1px solid var(--border); }
+  .flow-node:last-child { border-bottom: none; }
+}
   </style>
 </head>
 
@@ -1728,7 +1893,7 @@ footer {
   <text x="170" y="65" font-family="system-ui,-apple-system,sans-serif" font-size="52" font-weight="800" letter-spacing="-1" fill="white">SEE<tspan fill="#1ea4ff">AI</tspan></text>
   <line x1="170" y1="78" x2="475" y2="78" stroke="#1ea4ff" stroke-width="0.8" opacity="0.25"/>
   <text x="171" y="112" font-family="system-ui,-apple-system,sans-serif" font-size="26" font-weight="300" letter-spacing="16" fill="#7aafce">EXPLORE</text>
-  <text x="172" y="140" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="400" letter-spacing="3.5" fill="#3a5570">investigação analítica em 3d</text>
+  <text x="172" y="140" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="400" letter-spacing="3.5" fill="#3a5570">inteligência investigativa</text>
 </svg>
       <div style="width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(30,164,255,0.3),transparent);margin:0.8rem auto 0;"></div>
     </div>
@@ -1738,20 +1903,25 @@ footer {
       <div class="hero-left">
         <div class="explore-badge">
           <span class="explore-badge-dot"></span>
-          Plataforma investigativa web
+          Plataforma de inteligência investigativa
         </div>
 
-        <span class="ex-slogan">Ver além dos dados · Investigar conexões · Revelar padrões</span>
+        <span class="ex-slogan">Explorar relações · Revelar contextos · Apoiar decisões</span>
 
         <h1 class="hero-title">
           Inteligência investigativa<br>
-          <span class="hero-highlight">para revelar conexões ocultas</span>
+          <span class="hero-highlight">para compreender relações, revelar contextos e apoiar decisões</span>
         </h1>
 
         <p class="hero-subtitle">
-          Visualize, explore e organize redes de pessoas, empresas, transações, telefones,
-          endereços e eventos em uma plataforma web criada para investigações modernas —
-          apoiando fraude, PLD, OSINT, seguros, telecom e segurança pública.
+          O SEEAI EXPLORE reúne exploração visual de redes, analytics, inteligência artificial, conectores,
+          casos e evidências em um único ambiente. Transforma registros dispersos em relações compreensíveis,
+          organiza descobertas em <strong style="color:#fff">Casos Investigativos persistentes</strong> e ajuda
+          o analista a decidir — em fraude, PLD/FT, OSINT, seguros, compliance e segurança pública.
+        </p>
+
+        <p style="margin-top:1.1rem;font-size:1.05rem;color:var(--blue);font-weight:700;letter-spacing:0.01em;">
+          Da informação ao contexto. Do contexto à investigação. Da investigação à decisão.
         </p>
 
         <div class="hero-actions">
@@ -1760,32 +1930,32 @@ footer {
         </div>
 
         <p class="hero-meta">
-          Grafo 3D/2D interativo · Análise de vínculos · Multilinks direcionais ·
-          Casos e evidências · Banco multi-schema · Conectores de dados
+          Grafo 3D/2D · Analytics investigativo · IA fundamentada ·
+          Casos Investigativos · Conectores · Evidência visual 2D
         </p>
 
         <div class="ex-stat-row">
           <div>
-            <div class="ex-stat-val">3<span>D</span>/2D</div>
-            <div class="ex-stat-lbl">Grafo investigativo interativo</div>
+            <div class="ex-stat-val">6</div>
+            <div class="ex-stat-lbl">Explore · Connect · Analyze · Understand · Investigate · Evidence</div>
           </div>
           <div>
             <div class="ex-stat-val">6<span>+</span></div>
             <div class="ex-stat-lbl">Domínios de investigação</div>
           </div>
           <div>
-            <div class="ex-stat-val"><span>∞</span></div>
-            <div class="ex-stat-lbl">Expansão de vínculos por clique</div>
+            <div class="ex-stat-val">1</div>
+            <div class="ex-stat-lbl">Ambiente único: dados, análise, casos e evidências</div>
           </div>
         </div>
       </div>
 
       <aside class="hero-panel">
-        <span class="badge">Análise investigativa ao vivo</span>
-        <h2>Dados deixam de ser registros isolados e passam a revelar redes</h2>
+        <span class="badge">Do dado ao contexto</span>
+        <h2>Dados deixam de ser registros isolados e passam a revelar contexto</h2>
         <p>
-          Com SEEAI EXPLORE, dados passam a revelar conexões, hipóteses investigativas
-          e padrões que não aparecem facilmente em planilhas, consultas isoladas ou relatórios tradicionais.
+          Mais do que exibir entidades e vínculos, o SEEAI EXPLORE ajuda o analista a compreender
+          estruturas, comunidades, caminhos e evidências — construindo o contexto que sustenta a decisão.
         </p>
         <!-- ★ SUBSTITUIR PELO SCREENSHOT DO GRAFO ★ -->
         <div class="media-slot screenshot" style="margin-top:1.4rem;border-radius:1rem;">
@@ -1807,6 +1977,75 @@ footer {
       </aside>
     </section>
 
+    <!-- ═══ PILARES: EXPLORE → CONNECT → ANALYZE → UNDERSTAND → INVESTIGATE → EVIDENCE ═══ -->
+    <section class="section-block" id="pilares">
+      <div class="section-large">
+        <span class="section-label">A arquitetura de valor</span>
+        <h2 class="section-title">Seis movimentos: dos dados à decisão</h2>
+        <p class="section-sub">
+          O SEEAI EXPLORE não é apenas visualização de redes. É um ciclo investigativo completo — explorar
+          relações, ampliar o contexto com novas fontes, analisar a estrutura, entender o que os dados revelam,
+          conduzir a investigação em casos persistentes e sustentar cada conclusão com evidências rastreáveis.
+        </p>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-step">01 · Explore</div>
+            <div class="pillar-name">EXPLORE</div>
+            <div class="pillar-tagline">Veja a rede.</div>
+            <div class="pillar-tags">
+              <span>Grafo 3D</span><span>Grafo 2D</span><span>Busca</span>
+              <span>Filtros</span><span>Propriedades</span><span>Layouts</span><span>Timeline</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-step">02 · Connect</div>
+            <div class="pillar-name">CONNECT</div>
+            <div class="pillar-tagline">Amplie o contexto.</div>
+            <div class="pillar-tags">
+              <span>Banco</span><span>Importações</span><span>Pesquisa</span>
+              <span>Conectores</span><span>Expansão contextual</span><span>Coincidências</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-step">03 · Analyze</div>
+            <div class="pillar-name">ANALYZE</div>
+            <div class="pillar-tagline">Descubra a estrutura.</div>
+            <div class="pillar-tags">
+              <span>Conectividade</span><span>Hubs</span><span>Pontes</span><span>Caminhos</span>
+              <span>Comunidades</span><span>Temporal</span><span>Geográfico</span><span>Transacional</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-step">04 · Understand</div>
+            <div class="pillar-name">UNDERSTAND</div>
+            <div class="pillar-tagline">Entenda o que os dados revelam.</div>
+            <div class="pillar-tags">
+              <span>Análise IA</span><span>Achados</span><span>Hipóteses</span>
+              <span>Contexto</span><span>Interpretação fundamentada</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-step">05 · Investigate</div>
+            <div class="pillar-name">INVESTIGATE</div>
+            <div class="pillar-tagline">Preserve e conduza a investigação.</div>
+            <div class="pillar-tags">
+              <span>Casos Investigativos</span><span>Atividades</span><span>Equipes</span>
+              <span>Anotações</span><span>Evidências</span><span>Continuidade</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-step">06 · Evidence</div>
+            <div class="pillar-name">EVIDENCE</div>
+            <div class="pillar-tagline">Sustente a análise.</div>
+            <div class="pillar-tags">
+              <span>Evidência Visual 2D</span><span>Vínculos factuais</span><span>Contexto</span>
+              <span>Proveniência</span><span>Artefatos e relatórios</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══ DOR ══════════════════════════════════════════════════════ -->
     <section class="section-block alt1" id="dor">
       <div class="section-large">
@@ -1814,7 +2053,7 @@ footer {
         <h2 class="section-title">Por que investigações com dados dispersos são difíceis</h2>
         <p class="section-sub">
           Dados investigativos raramente chegam prontos. Eles estão em arquivos diferentes,
-          APIs, bases isoladas e consultas pontuais — e visualizá-los como rede é o que muda a análise.
+          APIs, bases isoladas e consultas pontuais — e transformá-los em contexto é o que muda a análise.
         </p>
         <div class="pain-grid">
           <div class="pain-item">
@@ -1851,11 +2090,51 @@ footer {
       </div>
     </section>
 
+    <!-- ═══ FLUXO: DA VISÃO GERAL À EVIDÊNCIA ════════════════════════ -->
+    <section class="section-block alt2" id="fluxo">
+      <div class="section-large">
+        <span class="section-label">Investigação navegável</span>
+        <h2 class="section-title">Da visão geral à evidência</h2>
+        <p class="section-sub">
+          Uma investigação pode começar com milhares de entidades e vínculos. O SEEAI EXPLORE permite
+          partir dessa visão ampla e avançar progressivamente para comunidades, caminhos, entidades relevantes,
+          eventos e transações — até a evidência específica que realmente merece atenção.
+        </p>
+        <div class="flow-strip">
+          <div class="flow-node">
+            <div class="flow-num">01</div>
+            <div class="flow-title">Grafo completo</div>
+            <div class="flow-desc">Milhares de entidades e vínculos em uma visão ampla da rede.</div>
+          </div>
+          <div class="flow-node">
+            <div class="flow-num">02</div>
+            <div class="flow-title">Análise</div>
+            <div class="flow-desc">Estrutura, comunidades, centralidade, caminhos e padrões.</div>
+          </div>
+          <div class="flow-node">
+            <div class="flow-num">03</div>
+            <div class="flow-title">Achado</div>
+            <div class="flow-desc">Elementos relevantes que merecem atenção investigativa.</div>
+          </div>
+          <div class="flow-node">
+            <div class="flow-num">04</div>
+            <div class="flow-title">Contexto</div>
+            <div class="flow-desc">Interpretação que conecta o achado ao caso investigado.</div>
+          </div>
+          <div class="flow-node accent">
+            <div class="flow-num">05</div>
+            <div class="flow-title">Evidência 2D</div>
+            <div class="flow-desc">MiniGrafo com as entidades e vínculos que sustentam o resultado.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══ PARA QUEM ════════════════════════════════════════════════ -->
-    <section class="section-block" id="para-quem">
+    <section class="section-block alt1" id="para-quem">
       <div class="section-large">
         <span class="section-label">Audiência</span>
-        <h2 class="section-title">Criado para quem precisa enxergar o que os dados escondem</h2>
+        <h2 class="section-title">Criado para quem precisa transformar dados em contexto</h2>
         <p class="section-sub">Cada perfil investigativo tem sua dor específica. O SEEAI EXPLORE foi desenhado para responder a cada uma delas.</p>
         <div class="ex-targets">
           <div class="ex-target">
@@ -1884,7 +2163,7 @@ footer {
           </div>
           <div class="ex-target">
             <div class="ex-target-icon"><svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8v1m0 11v1M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/></svg></div>
-            <h3>Compliance e PLD</h3>
+            <h3>Compliance e PLD/FT</h3>
             <span class="pain-tag">Monitorar relações, sócios, contas e riscos de lavagem</span>
             <p>Identifique conexões indiretas, entidades ponte e padrões de lavagem de dinheiro entre empresas, sócios, contas e transações.</p>
           </div>
@@ -1901,61 +2180,224 @@ footer {
     <!-- ═══ FUNCIONALIDADES ══════════════════════════════════════════ -->
     <section class="section-block alt2" id="funcionalidades">
       <div class="section-large">
-        <span class="section-label">Recursos</span>
+        <span class="section-label">Capacidades</span>
         <h2 class="section-title">O que o SEEAI EXPLORE entrega hoje</h2>
-        <p class="section-sub">Recursos disponíveis na plataforma para apoiar investigações reais, desde a visualização até a organização e exportação dos resultados.</p>
+        <p class="section-sub">Capacidades disponíveis na plataforma para apoiar investigações reais — da exploração visual às análises sobre o grafo e às evidências que sustentam cada resultado.</p>
         <div class="ex-features">
           <div class="ex-feature">
             <div class="ex-feat-num">01</div>
             <div class="ex-feat-icon">🕸</div>
-            <div class="ex-feat-title">Grafo investigativo 3D/2D</div>
-            <div class="ex-feat-desc">Explore vínculos complexos com navegação visual fluida, filtros, seleção e painel de detalhes. Motor orgânico com distribuição estável e interação responsiva.</div>
+            <div class="ex-feat-title">Investigação visual em grafos 3D/2D</div>
+            <div class="ex-feat-desc">Explore redes complexas de entidades e vínculos em um ambiente interativo. Navegue, selecione, filtre e organize informações para compreender estruturas difíceis de perceber em visualizações tradicionais.</div>
             <span class="ex-tag">3D/2D interativo</span>
           </div>
           <div class="ex-feature">
             <div class="ex-feat-num">02</div>
-            <div class="ex-feat-icon">↔</div>
-            <div class="ex-feat-title">Multilinks direcionais</div>
-            <div class="ex-feat-desc">Preserve múltiplas relações entre as mesmas entidades, com direção, setas, propriedades e contexto. Nenhum vínculo paralelo se perde na visualização.</div>
-            <span class="ex-tag">Vínculos direcionais</span>
+            <div class="ex-feat-icon">📈</div>
+            <div class="ex-feat-title">Analytics investigativo sobre o grafo</div>
+            <div class="ex-feat-desc">A plataforma analisa características reais da rede para revelar entidades mais conectadas, pontos de articulação, estruturas relevantes, comunidades, caminhos, vizinhanças e componentes do grafo.</div>
+            <span class="ex-tag">Estrutura e centralidade</span>
           </div>
           <div class="ex-feature">
             <div class="ex-feat-num">03</div>
-            <div class="ex-feat-icon">📁</div>
-            <div class="ex-feat-title">Casos e evidências</div>
-            <div class="ex-feat-desc">Organize investigações em casos estruturados, com anotações, evidências preservadas e controle de acesso por perfil e grupo.</div>
-            <span class="ex-tag">Casos estruturados</span>
+            <div class="ex-feat-icon">🧭</div>
+            <div class="ex-feat-title">Comunidades e caminhos</div>
+            <div class="ex-feat-desc">Identifique agrupamentos naturais de entidades, compare comunidades e investigue como duas entidades estão relacionadas — quais elementos participam de uma determinada cadeia de vínculos.</div>
+            <span class="ex-tag">Comunidades · Caminhos</span>
           </div>
           <div class="ex-feature">
             <div class="ex-feat-num">04</div>
-            <div class="ex-feat-icon">🗄</div>
-            <div class="ex-feat-title">Banco multi-schema</div>
-            <div class="ex-feat-desc">Grave e pesquise dados respeitando schemas, grupos, usuários e permissões. Isolamento entre dados privados, de grupo e de clientes distintos.</div>
-            <span class="ex-tag">PostgreSQL</span>
+            <div class="ex-feat-icon">⏱</div>
+            <div class="ex-feat-title">Análise temporal, geográfica e transacional</div>
+            <div class="ex-feat-desc">Explore acontecimentos na sua dimensão temporal, acrescente contexto espacial a partir de localizações e examine participantes, relações e padrões presentes em informações transacionais.</div>
+            <span class="ex-tag">Tempo · Lugar · Transação</span>
           </div>
           <div class="ex-feature">
             <div class="ex-feat-num">05</div>
-            <div class="ex-feat-icon">🔌</div>
-            <div class="ex-feat-title">Conectores de dados</div>
-            <div class="ex-feat-desc">Integre fontes internas e externas para enriquecer grafos investigativos. Conectores standard e dynamic com importação visual orientada por schema.</div>
-            <span class="ex-tag">APIs e fontes externas</span>
+            <div class="ex-feat-icon">🤖</div>
+            <div class="ex-feat-title">Análise IA avançada</div>
+            <div class="ex-feat-desc">A IA atua sobre resultados analíticos produzidos pelo SEEAI para ajudar a interpretar estruturas, relações e situações relevantes — apresentando achados, hipóteses e contextos que merecem atenção, sem substituir a análise humana.</div>
+            <span class="ex-tag">IA com fundamento</span>
           </div>
           <div class="ex-feature">
             <div class="ex-feat-num">06</div>
-            <div class="ex-feat-icon">🤖</div>
-            <div class="ex-feat-title">Base para IA investigativa</div>
-            <div class="ex-feat-desc">Plataforma preparada para detecção de coincidências, padrões suspeitos e priorização de entidades com IA explicável. Roadmap ativo.</div>
-            <span class="ex-tag">Em evolução</span>
+            <div class="ex-feat-icon">🔎</div>
+            <div class="ex-feat-title">Evidência visual 2D</div>
+            <div class="ex-feat-desc">Resultados relevantes da Análise IA se materializam em MiniGrafos 2D contextuais, apresentando as entidades e os vínculos que sustentam aquele resultado específico — uma representação clara para leitura investigativa.</div>
+            <span class="ex-tag">MiniGrafo 2D</span>
+          </div>
+          <div class="ex-feature">
+            <div class="ex-feat-num">07</div>
+            <div class="ex-feat-icon">🎯</div>
+            <div class="ex-feat-title">Fidelidade entre análise e evidência</div>
+            <div class="ex-feat-desc">Entidades, vínculos, direções, comunidades e quantidades representam o contexto factual analisado. A plataforma preserva a correspondência entre o que a análise identificou e o que é apresentado — sem criar relações artificiais para melhorar a aparência.</div>
+            <span class="ex-tag">Rastreabilidade</span>
+          </div>
+          <div class="ex-feature">
+            <div class="ex-feat-num">08</div>
+            <div class="ex-feat-icon">🔌</div>
+            <div class="ex-feat-title">Conectores e enriquecimento</div>
+            <div class="ex-feat-desc">Consulte fontes e serviços externos por meio de conectores, enriquecendo a investigação com novas entidades, propriedades e relacionamentos conforme as fontes disponíveis e autorizadas.</div>
+            <span class="ex-tag">APIs e fontes externas</span>
+          </div>
+          <div class="ex-feature">
+            <div class="ex-feat-num">09</div>
+            <div class="ex-feat-icon">🗄</div>
+            <div class="ex-feat-title">Casos, evidências e banco multi-schema</div>
+            <div class="ex-feat-desc">Organize investigações em casos estruturados, com evidências preservadas e controle de acesso. Grave e pesquise dados respeitando schemas, grupos, usuários e permissões, com isolamento entre dados privados, de grupo e de clientes.</div>
+            <span class="ex-tag">Casos · PostgreSQL</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══ CASOS DE USO ═════════════════════════════════════════════ -->
-    <section class="section-block alt1" id="casos">
+    <!-- ═══ CASOS INVESTIGATIVOS (nova seção principal) ══════════════ -->
+    <section class="section-block alt1" id="casos-investigativos">
       <div class="section-large">
-        <span class="section-label">Casos de uso</span>
-        <h2 class="section-title">Investigações que o SEEAI EXPLORE apoia</h2>
+        <span class="section-label">O diferencial</span>
+        <h2 class="section-title">Da análise ao caso investigativo</h2>
+        <p class="section-sub">
+          Uma investigação não termina quando uma conexão é encontrada. Em vez de análises isoladas,
+          o SEEAI EXPLORE transforma descobertas em uma investigação persistente e contextualizada.
+        </p>
+
+        <div class="cases-hero">
+          <div class="cases-hero-text">
+            <h3>O Caso é o espaço onde a investigação vive</h3>
+            <p>
+              O SEEAI EXPLORE permite organizar o trabalho em <strong>Casos Investigativos</strong>,
+              preservando contexto, participantes, atividades, grafos e evidências ao longo da investigação.
+            </p>
+            <p>
+              O Caso funciona como um espaço estruturado para manter o trabalho investigativo organizado
+              e permitir sua <strong>continuidade entre analistas e sessões</strong> — sem reconstruir todo
+              o raciocínio a cada retomada.
+            </p>
+          </div>
+          <div class="cases-diagram">
+            <div class="case-node accent">
+              <div class="case-node-ico">📁</div>
+              <div><div class="case-node-txt">Caso Investigativo</div><div class="case-node-sub">Operação, ocorrência, fraude, suspeita…</div></div>
+            </div>
+            <div class="case-connector">╎</div>
+            <div class="case-node"><div class="case-node-ico">🎯</div><div><div class="case-node-txt">Targets</div><div class="case-node-sub">Entidades de interesse</div></div></div>
+            <div class="case-node"><div class="case-node-ico">🕸</div><div><div class="case-node-txt">Grafos associados</div><div class="case-node-sub">O contexto visual acompanha o caso</div></div></div>
+            <div class="case-node"><div class="case-node-ico">📋</div><div><div class="case-node-txt">Atividades</div><div class="case-node-sub">Ações, responsáveis, períodos</div></div></div>
+            <div class="case-node"><div class="case-node-ico">🔖</div><div><div class="case-node-txt">Evidências e anotações</div><div class="case-node-sub">Elementos relevantes preservados</div></div></div>
+          </div>
+        </div>
+
+        <div class="cases-caps">
+          <div class="case-cap">
+            <div class="case-cap-ico">📁</div>
+            <h4>Casos estruturados</h4>
+            <p>Organize investigações por assunto, operação, ocorrência, suspeita, fraude ou qualquer contexto definido pela organização.</p>
+          </div>
+          <div class="case-cap">
+            <div class="case-cap-ico">👥</div>
+            <h4>Analistas e grupos de trabalho</h4>
+            <p>Associe usuários autorizados aos casos, respeitando grupos, clientes e permissões do ambiente.</p>
+          </div>
+          <div class="case-cap">
+            <div class="case-cap-ico">📋</div>
+            <h4>Atividades investigativas</h4>
+            <p>Registre e acompanhe ações relacionadas à investigação, com responsáveis e períodos de execução.</p>
+          </div>
+          <div class="case-cap">
+            <div class="case-cap-ico">🕸</div>
+            <h4>Grafos associados à investigação</h4>
+            <p>O contexto visual acompanha o Caso, permitindo que a investigação evolua sem perder o vínculo com a análise realizada.</p>
+          </div>
+          <div class="case-cap">
+            <div class="case-cap-ico">🔖</div>
+            <h4>Evidências e anotações</h4>
+            <p>Registre elementos relevantes encontrados durante a investigação e preserve o contexto necessário para análise posterior.</p>
+          </div>
+          <div class="case-cap">
+            <div class="case-cap-ico">🔄</div>
+            <h4>Continuidade investigativa</h4>
+            <p>O trabalho permanece disponível entre sessões, permitindo retomar a investigação sem reconstruir todo o raciocínio.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ANÁLISE IA → MINIGRAFO 2D (lado a lado) ══════════════════ -->
+    <section class="section-block alt2" id="evidencia-visual">
+      <div class="section-large">
+        <span class="section-label">Da interpretação à prova</span>
+        <h2 class="section-title">Da análise à evidência visual</h2>
+        <p class="section-sub">
+          Resultados relevantes da Análise IA podem ser materializados em <strong style="color:#fff">MiniGrafos 2D
+          contextuais</strong>, permitindo visualizar exatamente as entidades e relações associadas àquele contexto
+          investigativo. A visualização preserva entidades, vínculos, direções, comunidades e quantidades presentes
+          na análise — ajudando o analista a confrontar interpretação e evidência.
+        </p>
+
+        <div class="ia-evidence">
+          <div class="ia-ev-card analysis">
+            <div class="ia-ev-label">🤖 Análise IA</div>
+            <div class="ia-ev-quote">"A Comunidade 2 apresenta conexão relevante com a Comunidade 3, através de entidades ponte."</div>
+          </div>
+          <div class="ia-ev-arrow">→</div>
+          <div class="ia-ev-card evidence">
+            <div class="ia-ev-label">🔎 MiniGrafo 2D · Evidência</div>
+            <div class="ia-ev-mini">
+              <span class="mini-comm">Comunidade 2</span>
+              <span class="mini-rel">← relações reais →</span>
+              <span class="mini-comm red">Comunidade 3</span>
+            </div>
+            <p style="font-size:0.78rem;color:var(--muted);margin-top:0.6rem;text-align:center;line-height:1.5;">Entidades, vínculos e direções factuais — sem relações artificiais.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONNECT: enriquecimento como ciclo ═══════════════════════ -->
+    <section class="section-block" id="conectores">
+      <div class="section-large">
+        <span class="section-label">Connect · Enriquecimento</span>
+        <h2 class="section-title">Enriqueça a investigação sem sair do contexto</h2>
+        <p class="section-sub">
+          O SEEAI EXPLORE pode integrar fontes internas e externas por meio de conectores, permitindo pesquisar
+          e incorporar novas informações à investigação a partir do próprio ambiente visual. A expansão contextual
+          ajuda o analista a sair de uma informação inicial e construir progressivamente uma rede investigativa
+          mais completa.
+        </p>
+        <div class="cycle-flow">
+          <div class="cycle-node"><div class="cycle-ico">🔍</div><div class="cycle-title">Encontrou uma entidade</div></div>
+          <div class="cycle-node"><div class="cycle-ico">🔌</div><div class="cycle-title">Consulta fonte autorizada</div></div>
+          <div class="cycle-node"><div class="cycle-ico">📥</div><div class="cycle-title">Recebe novos dados</div></div>
+          <div class="cycle-node"><div class="cycle-ico">✔</div><div class="cycle-title">Revisa</div></div>
+          <div class="cycle-node accent"><div class="cycle-ico">🕸</div><div class="cycle-title">Adiciona ao contexto</div></div>
+          <div class="cycle-node"><div class="cycle-ico">➜</div><div class="cycle-title">Continua a investigação</div></div>
+        </div>
+
+        <!-- COINCIDÊNCIAS -->
+        <div style="margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid var(--border);">
+          <h3 style="font-size:1.3rem;color:var(--white);font-weight:700;margin-bottom:0.8rem;">Identifique informações coincidentes</h3>
+          <p class="section-sub" style="margin-bottom:1.5rem;">
+            Telefones, documentos, endereços, contas, veículos ou outros atributos compartilhados podem revelar
+            relações que não são evidentes quando os registros são analisados separadamente. O SEEAI EXPLORE
+            permite utilizar essas coincidências como apoio à investigação e à expansão controlada do grafo.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.7rem;">
+            <span class="ex-tag" style="font-size:0.8rem;padding:0.4rem 0.8rem;">📞 Telefones</span>
+            <span class="ex-tag" style="font-size:0.8rem;padding:0.4rem 0.8rem;">🪪 Documentos</span>
+            <span class="ex-tag" style="font-size:0.8rem;padding:0.4rem 0.8rem;">📍 Endereços</span>
+            <span class="ex-tag" style="font-size:0.8rem;padding:0.4rem 0.8rem;">💳 Contas</span>
+            <span class="ex-tag" style="font-size:0.8rem;padding:0.4rem 0.8rem;">🚗 Veículos</span>
+            <span class="ex-tag" style="font-size:0.8rem;padding:0.4rem 0.8rem;">🔗 Outros atributos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ APLICAÇÕES INVESTIGATIVAS (antes "Casos de uso") ═════════ -->
+    <section class="section-block alt1" id="aplicacoes">
+      <div class="section-large">
+        <span class="section-label">Aplicações investigativas</span>
+        <h2 class="section-title">Onde o SEEAI EXPLORE pode ser aplicado</h2>
         <p class="section-sub">Da fraude cadastral ao crime organizado — a plataforma se adapta a diferentes domínios investigativos com o mesmo ambiente visual e analítico.</p>
         <div class="use-cases">
           <div class="use-case">
@@ -1969,7 +2411,7 @@ footer {
             <p>Relacione segurados, terceiros, veículos, oficinas, sinistros e beneficiários. Identifique estruturas suspeitas de uso repetido e relações ocultas entre envolvidos.</p>
           </div>
           <div class="use-case">
-            <span class="use-case-badge">PLD / AML</span>
+            <span class="use-case-badge">PLD / FT</span>
             <h3>Lavagem de dinheiro e compliance</h3>
             <p>Explore empresas, sócios, contas, transações e entidades ponte entre clusters. Identifique padrões de movimentação e estruturas de ocultação de recursos.</p>
           </div>
@@ -1997,7 +2439,7 @@ footer {
       <div class="section-large">
         <span class="section-label">Demonstração</span>
         <h2 class="section-title">Veja o SEEAI EXPLORE em ação</h2>
-        <p class="section-sub">Do login à expansão de rede — como uma investigação se constrói em tempo real no grafo 3D/2D.</p>
+        <p class="section-sub">Do login à evidência — como uma investigação se constrói em tempo real, do grafo completo ao contexto que sustenta a decisão.</p>
         <!-- ★ SUBSTITUIR PELO VÍDEO DE DEMONSTRAÇÃO ★ -->
         <div class="media-slot video" style="margin-top:2rem;border-radius:1.4rem;">
           <div class="play-ring">
@@ -2022,11 +2464,11 @@ footer {
           </div>
           <div class="media-slot screenshot" style="border-radius:1rem;">
             <svg width="42" height="42" viewBox="0 0 42 42" fill="none"><circle cx="21" cy="21" r="5" stroke="#1ea4ff" stroke-width="1"/><circle cx="8" cy="10" r="3.5" stroke="#1ea4ff" stroke-width="0.8"/><circle cx="34" cy="10" r="3.5" stroke="#1ea4ff" stroke-width="0.8"/><circle cx="8" cy="32" r="3.5" stroke="#e6323a" stroke-width="0.8"/><circle cx="34" cy="32" r="3.5" stroke="#1ea4ff" stroke-width="0.8"/><line x1="21" y1="21" x2="8" y2="10" stroke="#1ea4ff" stroke-width="0.8"/><line x1="21" y1="21" x2="34" y2="10" stroke="#1ea4ff" stroke-width="0.8"/><line x1="21" y1="21" x2="8" y2="32" stroke="#e6323a" stroke-width="0.8"/><line x1="21" y1="21" x2="34" y2="32" stroke="#1ea4ff" stroke-width="0.8"/></svg>
-            <span class="media-slot-label">Casos e evidências</span>
+            <span class="media-slot-label">Evidência visual 2D · MiniGrafo</span>
           </div>
           <div class="media-slot screenshot" style="border-radius:1rem;">
             <svg width="42" height="42" viewBox="0 0 42 42" fill="none"><rect x="4" y="4" width="14" height="34" rx="2" stroke="#1ea4ff" stroke-width="1"/><rect x="22" y="4" width="16" height="34" rx="2" stroke="#1ea4ff" stroke-width="0.8"/><line x1="7" y1="12" x2="15" y2="12" stroke="#1ea4ff" stroke-width="0.8"/><line x1="7" y1="18" x2="15" y2="18" stroke="#1ea4ff" stroke-width="0.8"/><circle cx="30" cy="20" r="6" stroke="#e6323a" stroke-width="0.8"/></svg>
-            <span class="media-slot-label">Painel de detalhes e filtros</span>
+            <span class="media-slot-label">Painel de análise e detalhes</span>
           </div>
         </div>
       </div>
@@ -2061,9 +2503,16 @@ footer {
     <!-- ═══ IA ANALÍTICA ═════════════════════════════════════════════ -->
     <section class="section-block alt2" id="ia">
       <div class="section-large">
-        <span class="section-label">Inteligência Artificial</span>
-        <h2 class="section-title">A IA que apoia o analista, sem substituí-lo</h2>
-        <p class="section-sub">A abordagem prevista usa IA explicável baseada em fatos calculados, regras e evidências do grafo — não em conclusões automáticas. O analista permanece no centro da decisão.</p>
+        <span class="section-label">Understand · Inteligência Artificial</span>
+        <h2 class="section-title">Análise IA fundamentada no contexto investigativo</h2>
+        <p class="section-sub">
+          O SEEAI EXPLORE combina mecanismos analíticos <strong style="color:#fff">determinísticos</strong> com
+          inteligência artificial para interpretar estruturas, relações e padrões presentes no grafo. A IA trabalha
+          sobre fatos e resultados calculados pela plataforma, auxiliando o analista a compreender situações
+          relevantes sem substituir sua avaliação. Achados, hipóteses e interpretações podem ser relacionados aos
+          elementos do grafo que sustentam aquela análise.
+          <strong style="color:#fff">A IA auxilia o analista; a decisão permanece humana.</strong>
+        </p>
         <div class="ex-ia-grid">
           <ul class="ex-ia-list">
             <li class="ex-ia-item">
@@ -2073,7 +2522,7 @@ footer {
             </li>
             <li class="ex-ia-item">
               <span class="ex-ia-dot"></span>
-              <div><h4>Detecção de clusters e grupos</h4>
+              <div><h4>Detecção de comunidades e grupos</h4>
               <p>Agrupa entidades fortemente conectadas, revelando comunidades, organizações e estruturas de interesse investigativo que não são óbvias nos dados brutos.</p></div>
             </li>
             <li class="ex-ia-item">
@@ -2083,19 +2532,42 @@ footer {
             </li>
             <li class="ex-ia-item">
               <span class="ex-ia-dot"></span>
-              <div><h4>Sugestões de expansão</h4>
-              <p>Recomenda quais entidades expandir com base na topologia do grafo. Direção investigativa fundamentada matematicamente.</p></div>
+              <div><h4>Achados, hipóteses e contexto</h4>
+              <p>Apresenta achados investigativos, hipóteses e contextos relevantes — sempre relacionados aos elementos do grafo que os sustentam.</p></div>
             </li>
             <li class="ex-ia-item">
               <span class="ex-ia-dot"></span>
-              <div><h4>Narrativa investigativa</h4>
-              <p>Gera resumo analítico, achados, hipóteses e recomendações em texto estruturado — pronto para o relatório final.</p></div>
+              <div><h4>Evidência que sustenta a conclusão</h4>
+              <p>Cada resultado relevante pode ser materializado em um MiniGrafo 2D com as entidades e vínculos reais que o fundamentam — pronto para leitura investigativa.</p></div>
             </li>
           </ul>
           <!-- ★ SUBSTITUIR PELA IMAGEM DO PAINEL IA ★ -->
           <div class="media-slot" style="aspect-ratio:1;border-radius:1.2rem;">
             <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="20" stroke="#1ea4ff" stroke-width="1"/><path d="M18 30 Q23 18 30 30 Q37 42 42 30" stroke="#e6323a" stroke-width="1.2" fill="none"/><circle cx="18" cy="30" r="3" fill="#1ea4ff" opacity="0.5"/><circle cx="42" cy="30" r="3" fill="#1ea4ff" opacity="0.5"/><circle cx="30" cy="16" r="2.5" fill="#e6323a" opacity="0.6"/></svg>
             <span class="media-slot-label">Inserir imagem — painel IA analítica</span>
+          </div>
+        </div>
+
+        <!-- capacidades analíticas reais -->
+        <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);">
+          <p style="font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);opacity:0.7;margin-bottom:1rem;">Capacidades analíticas disponíveis</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+            <span class="ex-tag">Análise estrutural</span>
+            <span class="ex-tag">Entidades de maior conectividade</span>
+            <span class="ex-tag">Hubs</span>
+            <span class="ex-tag">Pontos de articulação</span>
+            <span class="ex-tag">Links críticos</span>
+            <span class="ex-tag">Entidades isoladas</span>
+            <span class="ex-tag">Caminhos</span>
+            <span class="ex-tag">Vizinhanças</span>
+            <span class="ex-tag">Comunidades</span>
+            <span class="ex-tag">Comparação de comunidades</span>
+            <span class="ex-tag">Temporal</span>
+            <span class="ex-tag">Geográfica</span>
+            <span class="ex-tag">Transacional</span>
+            <span class="ex-tag">Achados fundamentados</span>
+            <span class="ex-tag">Hipóteses investigativas</span>
+            <span class="ex-tag">Evidência Visual 2D</span>
           </div>
         </div>
       </div>
@@ -2105,58 +2577,65 @@ footer {
     <section class="section-block" id="roadmap">
       <div class="section-large">
         <span class="section-label">O que vem a seguir</span>
-        <h2 class="section-title">Plataforma em evolução contínua</h2>
-        <p class="section-sub">Recursos planejados para versões futuras — comunicados como evolução, não como disponíveis em produção hoje.</p>
+        <h2 class="section-title">A evolução do ciclo investigativo</h2>
+        <p class="section-sub">
+          O núcleo de Casos Investigativos já faz parte do produto. A evolução planejada aprofunda a gestão do
+          ciclo do caso — comunicada como roadmap, não como disponível hoje.
+        </p>
         <div class="roadmap-grid">
           <div class="roadmap-item">
             <span class="roadmap-dot"></span>
             <div>
-              <h4>IA de coincidências investigativas</h4>
-              <p>Nomes semelhantes, CPFs com atributos comuns, telefones, e-mails e endereços compartilhados detectados automaticamente.</p>
+              <h4>Evidências e anotações avançadas</h4>
+              <p>Registro estruturado de evidências e anotações mais rico, com evidência visual anexável diretamente ao caso.</p>
               <span class="roadmap-badge">Em desenvolvimento</span>
             </div>
           </div>
           <div class="roadmap-item">
             <span class="roadmap-dot"></span>
             <div>
-              <h4>Timeline investigativa</h4>
-              <p>Eventos, chamadas e transações organizados em régua temporal para análise cronológica de comportamentos e sequências suspeitas.</p>
+              <h4>Versionamento do caso</h4>
+              <p>Histórico de evolução da investigação, permitindo acompanhar como o contexto e as evidências mudaram ao longo do tempo.</p>
               <span class="roadmap-badge">Planejado</span>
             </div>
           </div>
           <div class="roadmap-item">
             <span class="roadmap-dot"></span>
             <div>
-              <h4>Score de risco</h4>
-              <p>Priorização de entidades, vínculos e clusters com base em indicadores de risco calculados sobre os dados do grafo.</p>
+              <h4>Comparação entre casos</h4>
+              <p>Identificação de entidades, vínculos e padrões comuns entre investigações distintas, revelando conexões entre casos.</p>
               <span class="roadmap-badge">Planejado</span>
             </div>
           </div>
           <div class="roadmap-item">
             <span class="roadmap-dot"></span>
             <div>
-              <h4>Padrões de fraude e lavagem</h4>
-              <p>Motor de regras configurável por domínio: seguros, PLD, telecom, OSINT e fraude cadastral — com regras explicáveis.</p>
+              <h4>Auditoria e ciclo de vida do caso</h4>
+              <p>Gestão avançada do ciclo do caso, com trilha de auditoria detalhada sobre ações, mudanças e responsáveis.</p>
+              <span class="roadmap-badge">Planejado</span>
+            </div>
+          </div>
+          <div class="roadmap-item">
+            <span class="roadmap-dot"></span>
+            <div>
+              <h4>Relatórios associados ao caso</h4>
+              <p>Geração de relatórios investigativos vinculados diretamente ao caso, consolidando achados, evidências e narrativa.</p>
               <span class="roadmap-badge">Em desenvolvimento</span>
             </div>
           </div>
           <div class="roadmap-item">
             <span class="roadmap-dot"></span>
             <div>
-              <h4>Resolução de entidades e aliases</h4>
-              <p>Identificação de possíveis duplicidades, variações de nomes e entidades que representam a mesma pessoa ou empresa em fontes distintas.</p>
-              <span class="roadmap-badge">Planejado</span>
-            </div>
-          </div>
-          <div class="roadmap-item">
-            <span class="roadmap-dot"></span>
-            <div>
-              <h4>Relatórios narrativos por IA</h4>
-              <p>Geração de sínteses investigativas a partir de grafos e seleções — texto estruturado pronto para entrega a gestores e autoridades.</p>
+              <h4>Colaboração investigativa</h4>
+              <p>Trabalho conjunto de múltiplos analistas sobre o mesmo caso, com coordenação de atividades e contribuições.</p>
               <span class="roadmap-badge">Planejado</span>
             </div>
           </div>
         </div>
+        <p style="margin-top:2rem;font-size:0.85rem;color:var(--muted);opacity:0.7;line-height:1.6;font-style:italic;">
+          Recursos de próxima geração — como resolução de identidade, watchlists e busca federada — fazem parte
+          da visão do SEEAI EXPLORE 2.0 e serão comunicados no momento apropriado.
+        </p>
       </div>
     </section>
 
@@ -2169,11 +2648,11 @@ footer {
         <div class="objections-grid">
           <div class="objection">
             <div class="objection-q">Já usamos planilhas para investigação.</div>
-            <div class="objection-a">Planilhas organizam dados, mas não revelam facilmente estruturas, hubs, pontes e padrões relacionais complexos. O grafo mostra o que a tabela esconde.</div>
+            <div class="objection-a">Planilhas organizam dados, mas não revelam facilmente estruturas, hubs, pontes e padrões relacionais. O grafo — e o contexto construído sobre ele — mostra o que a tabela esconde.</div>
           </div>
           <div class="objection">
             <div class="objection-q">Nossos dados vêm de várias fontes diferentes.</div>
-            <div class="objection-a">O SEEAI EXPLORE foi desenhado para trabalhar com conectores, importações, banco e schemas diferentes — reunindo tudo em um único ambiente visual.</div>
+            <div class="objection-a">O SEEAI EXPLORE foi desenhado para trabalhar com conectores, importações, banco e schemas diferentes — reunindo tudo em um único ambiente visual e analítico.</div>
           </div>
           <div class="objection">
             <div class="objection-q">Precisamos controlar acesso por equipe e cliente.</div>
@@ -2181,7 +2660,7 @@ footer {
           </div>
           <div class="objection">
             <div class="objection-q">Não quero uma IA que invente conclusões.</div>
-            <div class="objection-a">A abordagem prevista usa IA explicável baseada em fatos calculados e evidências do grafo. O analista mantém o controle e a decisão final.</div>
+            <div class="objection-a">A IA trabalha conectada aos fatos: interpreta análises e evidências do grafo, sem criar relações artificiais. O analista mantém o controle e a decisão final.</div>
           </div>
           <div class="objection">
             <div class="objection-q">Precisamos preservar o trabalho investigativo entre sessões.</div>
@@ -2189,7 +2668,7 @@ footer {
           </div>
           <div class="objection">
             <div class="objection-q">Isso substitui as plataformas que já usamos?</div>
-            <div class="objection-a">O posicionamento é complementar: o SEEAI EXPLORE integra, moderniza e amplia a exploração visual — sem exigir abandono de sistemas existentes.</div>
+            <div class="objection-a">O posicionamento é complementar: o SEEAI EXPLORE integra, moderniza e amplia a exploração visual e a construção de contexto — sem exigir abandono de sistemas existentes.</div>
           </div>
         </div>
       </div>
@@ -2200,7 +2679,12 @@ footer {
       <div class="section-large">
         <span class="section-label">Governança</span>
         <h2 class="section-title">Segurança e controle para ambientes corporativos</h2>
-        <p class="section-sub">Estruturado para ambientes multiusuário e multicliente, com separação real entre grupos, permissões, schemas e escopos de dados.</p>
+        <p class="section-sub">
+          Investigações diferentes podem exigir equipes e níveis de acesso diferentes. Usuários, grupos, permissões
+          e estruturas de dados preservam o isolamento entre clientes, equipes e contextos investigativos — e os
+          <strong style="color:#fff">Casos Investigativos herdam esse modelo</strong>, mantendo cada investigação
+          no escopo correto.
+        </p>
         <div class="ex-security">
           <div class="ex-sec-item"><h4>Sessão isolada</h4><p>Cada analista opera em sessão completamente isolada. Nenhum dado vaza entre usuários, mesmo em sessões simultâneas.</p></div>
           <div class="ex-sec-item"><h4>Grupos e permissões</h4><p>Grupos de trabalho para separar clientes, equipes ou áreas. Permissões configuráveis por perfil e schema de dados.</p></div>
@@ -2217,7 +2701,7 @@ footer {
         <h2 class="section-title">Agende uma apresentação técnica</h2>
         <p class="section-sub">
           Mostramos o SEEAI EXPLORE com dados do seu contexto investigativo —
-          fraude, PLD, seguros, OSINT ou segurança pública.
+          fraude, PLD/FT, seguros, OSINT ou segurança pública.
           Sem compromisso, sem script genérico.
         </p>
         <div class="ex-cta-btns">
@@ -2230,11 +2714,7 @@ footer {
     <!-- RODAPÉ -->
     <footer>
       <div class="footer-inner">
-        <span class="footer-copyright">© <span id="year"></span> SEEAI · SEEAI EXPLORE — Inteligência investigativa para revelar conexões ocultas</span>
-      </div>
-      <div class="footer-partner">
-        <img src="../img/Logoi2_2024_invertifo.png" alt="IBM i2" class="footer-i2-logo">
-        <span class="footer-partner-label">Parceiro Oficial</span>
+        <span class="footer-copyright">© <span id="year"></span> SEEAI · SEEAI EXPLORE — Inteligência investigativa para compreender relações, revelar contextos e apoiar decisões</span>
       </div>
     </footer>
   </div>
