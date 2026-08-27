@@ -1,0 +1,15 @@
+{
+  "version": "SEEAI-EMAIL-INTEGRITY-v4",
+  "id": "SE-20260827-5A14A183",
+  "canonicalization": "SEEAI-GMAIL-SEMANTIC-C14N-v2",
+  "algorithm": "SHA-256",
+  "sha256": "05C287A0C3C1F54C9290F5DCD41523006F3485C04C324A40C710D6FF5185946D",
+  "timestampLocal": "2026-08-27T18:17:27-03:00",
+  "displayLocal": "27/08/2026 18:17:27 (UTC-3)",
+  "timezone": "America/Sao_Paulo",
+  "timestampUtc": "2026-08-27T21:17:27Z",
+  "timestampAuthority": "FreeTSA",
+  "standard": "RFC3161",
+  "tsaSerial": "0x07505D59",
+  "verification": "OK"
+}
