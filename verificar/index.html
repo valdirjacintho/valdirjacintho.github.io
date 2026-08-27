@@ -18,39 +18,106 @@ label{display:block;font-weight:700;color:#163f56;margin-bottom:8px}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 input{flex:1;min-width:260px;border:1px solid #b9c7cf;padding:12px 13px;font:14px Consolas,monospace;text-transform:uppercase;outline:none}
 input:focus{border-color:#2b6681}
-button{border:0;background:#163f56;color:#fff;padding:12px 18px;font-weight:700;cursor:pointer}
-button:hover{background:#2b6681}
-.msg{margin-top:10px;font-size:12px;min-height:16px;color:#b3261e}
+button,.btn{border:0;background:#163f56;color:#fff;padding:12px 18px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+button:hover,.btn:hover{background:#2b6681}
+.msg{margin-top:16px;font-size:13px;line-height:20px}
+.ok{color:#2b6681;font-weight:700}
+.pending{color:#856404;font-weight:700}
+.err{color:#b3261e;font-weight:700}
+.grid{display:grid;grid-template-columns:190px 1fr;gap:10px 14px;margin-top:18px;font-size:13px;line-height:19px}
+.k{font-weight:700}
+.mono{font-family:Consolas,monospace;font-size:11px;word-break:break-all}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
 .help{font-size:12px;line-height:18px;color:#71899a}
-code{font-family:Consolas,monospace;color:#163f56}
+@media(max-width:600px){.grid{grid-template-columns:1fr;gap:3px}.k{margin-top:8px}}
 </style>
 </head>
 <body>
 <div class="wrap"><div class="card">
 <div class="brand">
 <img src="https://seeaidata.com.br/img/seeai-logo.png" alt="SEEAI">
-<div><h1>Verificar Integridade SEEAI</h1><div class="sub">Consulta de registro de integridade e existência temporal</div></div>
+<div><h1>Verificar Integridade SEEAI</h1><div class="sub">Integridade e existência temporal de mensagens SEEAI</div></div>
 </div>
 <hr>
 <label for="codigo">Código de integridade</label>
 <div class="row">
 <input id="codigo" autocomplete="off" spellcheck="false" placeholder="SE-AAAAMMDD-XXXXXXXX" maxlength="20">
-<button type="button" onclick="verificar()">Verificar código</button>
+<button onclick="verificar()">Verificar código</button>
 </div>
-<div id="msg" class="msg"></div>
+<div id="result" class="msg"></div>
 <hr>
-<div class="help">Digite o código exibido no rodapé do e-mail SEEAI. A consulta é realizada diretamente no domínio oficial <strong>seeaidata.com.br</strong>.</div>
+<div class="help">
+A consulta é feita no serviço SEEAI hospedado no Google. O conteúdo original do e-mail não é publicado.
+</div>
 </div></div>
+
 <script>
+// COLE AQUI, UMA ÚNICA VEZ, A URL /exec DO WEB APP DO APPS SCRIPT.
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbyPvE8agXRg8HRaCpHJ-M17BQ2IUujU_qtT_-XwmxZqUX1aH5DmtQBOXJ7HydNmAeEw/exec";
+
+function idValido(id){return /^SE-\d{8}-[A-F0-9]{8}$/.test(id);}
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
+
 function verificar(){
- const input=document.getElementById('codigo');
- const msg=document.getElementById('msg');
- const codigo=(input.value||'').trim().toUpperCase();
- const padrao=/^SE-\d{8}-[A-F0-9]{8}$/;
- if(!padrao.test(codigo)){msg.textContent='Código inválido. Use o formato SE-AAAAMMDD-XXXXXXXX.';return;}
- msg.textContent='';
- window.location.href='/verificar/'+encodeURIComponent(codigo)+'/';
+  const id=(document.getElementById("codigo").value||"").trim().toUpperCase();
+  const result=document.getElementById("result");
+  if(!idValido(id)){result.innerHTML='<span class="err">Código inválido.</span>';return;}
+  if(BACKEND_URL.indexOf("COLE_AQUI")>=0){result.innerHTML='<span class="err">Backend ainda não configurado.</span>';return;}
+
+  result.innerHTML='Consultando registro...';
+  const cb="seeai_cb_"+Date.now();
+  window[cb]=function(data){
+    try{render(data);}finally{delete window[cb];script.remove();}
+  };
+  const script=document.createElement("script");
+  script.src=BACKEND_URL+"?callback="+encodeURIComponent(cb)+"&id="+encodeURIComponent(id);
+  script.onerror=()=>{result.innerHTML='<span class="err">Não foi possível consultar o serviço SEEAI.</span>';};
+  document.body.appendChild(script);
 }
-document.getElementById('codigo').addEventListener('keydown',function(e){if(e.key==='Enter')verificar();});
+
+function render(d){
+  const r=document.getElementById("result");
+  if(!d || d.state==="NOT_FOUND"){r.innerHTML='<span class="err">Código não localizado.</span>';return;}
+  if(d.state==="PENDING"){
+    r.innerHTML='<span class="pending">Registro em processamento.</span><br>'+
+      'O e-mail já foi enviado. A prova RFC 3161 é finalizada automaticamente em aproximadamente um minuto.';
+    return;
+  }
+  if(d.state==="ERROR"){r.innerHTML='<span class="err">Não foi possível finalizar este registro.</span>';return;}
+
+  r.innerHTML='<div class="ok">✓ Registro íntegro e validado</div>'+
+    '<div class="grid">'+
+    '<div class="k">ID</div><div class="mono">'+esc(d.id)+'</div>'+
+    '<div class="k">Horário de Brasília</div><div>'+esc(d.timestampLocal)+'</div>'+
+    '<div class="k">Marca temporal UTC</div><div>'+esc(d.timestampUtc)+'</div>'+
+    '<div class="k">Autoridade</div><div>'+esc(d.authority)+'</div>'+
+    '<div class="k">Padrão</div><div>'+esc(d.standard)+'</div>'+
+    '<div class="k">Canonicalização</div><div>'+esc(d.canonicalization)+'</div>'+
+    '<div class="k">SHA-256</div><div class="mono">'+esc(d.sha256)+'</div>'+
+    '<div class="k">SHA-256 da prova</div><div class="mono">'+esc(d.proofSha256)+'</div>'+
+    '</div>'+
+    '<div class="actions"><button onclick="baixarProva()">Baixar prova RFC 3161</button></div>';
+
+  window.__seeaiProof=d;
+}
+
+function baixarProva(){
+  const d=window.__seeaiProof;
+  if(!d || !d.tsrBase64)return;
+  const bin=atob(d.tsrBase64);
+  const bytes=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  const blob=new Blob([bytes],{type:"application/timestamp-reply"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=(d.id||"seeai")+".tsr";
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+document.getElementById("codigo").addEventListener("keydown",e=>{if(e.key==="Enter")verificar();});
+const q=new URLSearchParams(location.search).get("id");
+if(q){document.getElementById("codigo").value=q.toUpperCase();verificar();}
 </script>
-</body></html>
+</body>
+</html>
