@@ -1,0 +1,11 @@
+{
+    "version":  "SEEAI-EMAIL-INTEGRITY-v1",
+    "id":  "SE-20260827-544939DF",
+    "algorithm":  "SHA-256",
+    "sha256":  "918E16480544C650B38A69BA8C32185A269304F29C72DA5E13F44D02895D4ABA",
+    "timestampUtc":  "2026-08-27T19:48:57Z",
+    "timestampAuthority":  "FreeTSA",
+    "standard":  "RFC3161",
+    "tsaSerial":  "0x074FF15B",
+    "verification":  "OK"
+}
