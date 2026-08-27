@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Verificar Integridade SEEAI</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#f5f7f8;font-family:Arial,Helvetica,sans-serif;color:#263238}
+  .wrap{max-width:820px;margin:52px auto;padding:0 20px}
+  .card{background:#fff;border:1px solid #d9e1e5;padding:30px}
+  .brand{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+  .brand img{width:68px;height:auto;display:block}
+  h1{margin:0;color:#163f56;font-size:25px}
+  .sub{color:#71899a;font-size:12px;margin-top:4px}
+  hr{border:0;border-top:1px solid #d9e1e5;margin:22px 0}
+  label{display:block;font-weight:700;color:#163f56;margin-bottom:8px}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  input{flex:1;min-width:260px;border:1px solid #b9c7cf;padding:12px 13px;font:14px Consolas,monospace;text-transform:uppercase;outline:none}
+  input:focus{border-color:#2b6681}
+  button{border:0;background:#163f56;color:#fff;padding:12px 18px;font-weight:700;cursor:pointer}
+  button:hover{background:#2b6681}
+  .msg{margin-top:10px;font-size:12px;min-height:16px;color:#b3261e}
+  .help{font-size:12px;line-height:18px;color:#71899a}
+  code{font-family:Consolas,monospace;color:#163f56}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="brand">
+      <img src="https://seeaidata.com.br/img/seeai-logo.png" alt="SEEAI">
+      <div>
+        <h1>Verificar Integridade SEEAI</h1>
+        <div class="sub">Consulta de registro de integridade e existência temporal</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <label for="codigo">Código de integridade</label>
+    <div class="row">
+      <input id="codigo" autocomplete="off" spellcheck="false"
+             placeholder="SE-AAAAMMDD-XXXXXXXX" maxlength="20">
+      <button type="button" onclick="verificar()">Verificar código</button>
+    </div>
+    <div id="msg" class="msg"></div>
+
+    <hr>
+
+    <div class="help">
+      Digite o código exibido no rodapé do e-mail SEEAI. Exemplo:
+      <code>SE-20260827-620BD0EC</code>.<br>
+      A consulta é realizada diretamente no domínio oficial <strong>seeaidata.com.br</strong>.
+    </div>
+  </div>
+</div>
+
+<script>
+function verificar(){
+  const input=document.getElementById('codigo');
+  const msg=document.getElementById('msg');
+  const codigo=(input.value||'').trim().toUpperCase();
+  const padrao=/^SE-\d{8}-[A-F0-9]{8}$/;
+
+  if(!padrao.test(codigo)){
+    msg.textContent='Código inválido. Use o formato SE-AAAAMMDD-XXXXXXXX.';
+    return;
+  }
+
+  msg.textContent='';
+  window.location.href='/verificar/'+encodeURIComponent(codigo)+'/';
+}
+
+document.getElementById('codigo').addEventListener('keydown',function(e){
+  if(e.key==='Enter') verificar();
+});
+</script>
+</body>
+</html>
