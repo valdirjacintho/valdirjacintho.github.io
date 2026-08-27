@@ -1,0 +1,12 @@
+{
+  "version": "SEEAI-EMAIL-INTEGRITY-v3",
+  "id": "SE-20260827-932D1115",
+  "algorithm": "SHA-256",
+  "sha256": "C6F017385D68AF14E46856926293DC4D2B4A4F3C87429B0FD1B1A68D1F112805",
+  "timestampUtc": "2026-08-27T20:54:20Z",
+  "timestampAuthority": "FreeTSA",
+  "standard": "RFC3161",
+  "tsaSerial": "0x07504173",
+  "canonicalization": "SEEAI-GMAIL-DRAFT-C14N-v1",
+  "verification": "OK"
+}
