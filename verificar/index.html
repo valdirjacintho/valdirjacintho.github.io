@@ -52,7 +52,8 @@ A consulta é feita no serviço SEEAI hospedado no Google. O conteúdo original 
 </div></div>
 
 <script>
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbyPvE8agXRg8HRaCpHJ-M17BQ2IUujU_qtT_-XwmxZqUX1aH5DmtQBOXJ7HydNmAeEw/exec';
+const BACKEND_GENERIC = 'https://script.google.com/macros/s/AKfycbyPvE8agXRg8HRaCpHJ-M17BQ2IUujU_qtT_-XwmxZqUX1aH5DmtQBOXJ7HydNmAeEw/exec';
+const BACKEND_DOMAIN  = 'https://script.google.com/a/seeaidata.com.br/macros/s/AKfycbyPvE8agXRg8HRaCpHJ-M17BQ2IUujU_qtT_-XwmxZqUX1aH5DmtQBOXJ7HydNmAeEw/exec';
 
 function idValido(id){return /^SE-\d{8}-[A-F0-9]{8}$/.test(id);}
 function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
@@ -60,90 +61,136 @@ function isMobile(){
   return /Android|iPhone|iPad|iPod|Mobile|wv/i.test(navigator.userAgent || "") ||
          (window.matchMedia && window.matchMedia("(max-width: 760px)").matches);
 }
-function directUrl(id){return BACKEND_URL+"?view=html&id="+encodeURIComponent(id);}
-function openDirect(id){location.href=directUrl(id);}
 
 function verificar(){
   const id=(document.getElementById("codigo").value||"").trim().toUpperCase();
   const result=document.getElementById("result");
-  if(!idValido(id)){result.innerHTML='<span class="err">Código inválido.</span>';return;}
-
-  // Mobile: evita JSONP/cross-origin e abre diretamente a página HTML do backend.
-  if(isMobile()){
-    result.innerHTML='Abrindo validação segura...';
-    openDirect(id);
+  if(!idValido(id)){
+    result.innerHTML='<span class="err">Código inválido.</span>';
     return;
   }
 
   result.innerHTML='Consultando registro...';
-  const cb="seeai_cb_"+Date.now();
+
+  // Em Android/mobile, o endpoint genérico script.google.com pode ser reescrito
+  // pelo roteamento de contas do Google e cair na tela "Google Drive - arquivo não encontrado".
+  // Por isso tentamos primeiro a URL qualificada pelo domínio Workspace.
+  const urls = isMobile()
+    ? [BACKEND_DOMAIN, BACKEND_GENERIC]
+    : [BACKEND_GENERIC, BACKEND_DOMAIN];
+
+  consultarJsonp(id, urls, 0);
+}
+
+function consultarJsonp(id, urls, idx){
+  const result=document.getElementById("result");
+
+  if(idx >= urls.length){
+    result.innerHTML=
+      '<span class="err">Não foi possível consultar o serviço SEEAI neste navegador.</span><br>'+
+      '<span style="font-size:12px;color:#71899a">Tente novamente em alguns segundos. O registro permanece preservado no serviço Google.</span>';
+    return;
+  }
+
+  const cb="seeai_cb_"+Date.now()+"_"+idx;
   let finished=false;
   const script=document.createElement("script");
-  let timer;
 
-  function fallback(){
+  function cleanup(){
+    try{delete window[cb];}catch(e){}
+    try{script.remove();}catch(e){}
+  }
+
+  function next(){
     if(finished)return;
     finished=true;
     clearTimeout(timer);
-    try{delete window[cb];}catch(e){}
-    try{script.remove();}catch(e){}
-    result.innerHTML=
-      '<span class="err">A consulta direta não respondeu neste navegador.</span><br>'+
-      '<button class="fallback" onclick="openDirect(\''+id+'\')">Abrir validação direta</button>';
+    cleanup();
+    consultarJsonp(id, urls, idx+1);
   }
 
   window[cb]=function(data){
     if(finished)return;
     finished=true;
     clearTimeout(timer);
-    try{render(data);}finally{
-      try{delete window[cb];}catch(e){}
-      try{script.remove();}catch(e){}
-    }
+    cleanup();
+    render(data);
   };
 
-  script.src=BACKEND_URL+"?callback="+encodeURIComponent(cb)+"&id="+encodeURIComponent(id);
-  script.onerror=fallback;
+  script.src=urls[idx]+"?callback="+encodeURIComponent(cb)+"&id="+encodeURIComponent(id)+"&_="+Date.now();
+  script.async=true;
+  script.onerror=next;
   document.body.appendChild(script);
-  timer=setTimeout(fallback,7000);
+
+  const timer=setTimeout(next,7000);
 }
 
 function render(d){
   const r=document.getElementById("result");
-  if(!d || d.state==="NOT_FOUND"){r.innerHTML='<span class="err">Código não localizado.</span>';return;}
+
+  if(!d || d.state==="NOT_FOUND"){
+    r.innerHTML='<span class="err">Código não localizado.</span>';
+    return;
+  }
+
   if(d.state==="PENDING"){
-    r.innerHTML='<span class="pending">Registro em processamento.</span><br>'+ 
+    r.innerHTML='<span class="pending">Registro em processamento.</span><br>'+
       'O e-mail já foi enviado. A prova RFC 3161 é finalizada automaticamente em aproximadamente um minuto.';
     return;
   }
-  if(d.state==="ERROR"){r.innerHTML='<span class="err">Não foi possível finalizar este registro.</span>';return;}
-  r.innerHTML='<div class="ok">✓ Registro íntegro e validado</div>'+ 
+
+  if(d.state==="ERROR"){
+    r.innerHTML='<span class="err">Não foi possível finalizar este registro.</span>';
+    return;
+  }
+
+  r.innerHTML='<div class="ok">✓ Registro íntegro e validado</div>'+
     '<div class="grid">'+
-    '<div class="k">ID</div><div class="mono">'+esc(d.id)+'</div>'+ 
-    '<div class="k">Horário de Brasília</div><div>'+esc(d.timestampLocal)+'</div>'+ 
-    '<div class="k">Marca temporal UTC</div><div>'+esc(d.timestampUtc)+'</div>'+ 
-    '<div class="k">Autoridade</div><div>'+esc(d.authority)+'</div>'+ 
-    '<div class="k">Padrão</div><div>'+esc(d.standard)+'</div>'+ 
-    '<div class="k">Canonicalização</div><div>'+esc(d.canonicalization)+'</div>'+ 
-    '<div class="k">SHA-256</div><div class="mono">'+esc(d.sha256)+'</div>'+ 
-    '<div class="k">SHA-256 da prova</div><div class="mono">'+esc(d.proofSha256)+'</div>'+ 
-    '</div>'+ 
+    '<div class="k">ID</div><div class="mono">'+esc(d.id)+'</div>'+
+    '<div class="k">Horário de Brasília</div><div>'+esc(d.timestampLocal)+'</div>'+
+    '<div class="k">Marca temporal UTC</div><div>'+esc(d.timestampUtc)+'</div>'+
+    '<div class="k">Autoridade</div><div>'+esc(d.authority)+'</div>'+
+    '<div class="k">Padrão</div><div>'+esc(d.standard)+'</div>'+
+    '<div class="k">Canonicalização</div><div>'+esc(d.canonicalization)+'</div>'+
+    '<div class="k">SHA-256</div><div class="mono">'+esc(d.sha256)+'</div>'+
+    '<div class="k">SHA-256 da prova</div><div class="mono">'+esc(d.proofSha256)+'</div>'+
+    '</div>'+
     '<div class="actions"><button onclick="baixarProva()">Baixar prova RFC 3161</button></div>';
+
   window.__seeaiProof=d;
 }
 
 function baixarProva(){
-  const d=window.__seeaiProof;if(!d||!d.tsrBase64)return;
-  const bin=atob(d.tsrBase64),bytes=new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
-  const blob=new Blob([bytes],{type:"application/timestamp-reply"}),a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);a.download=(d.id||"seeai")+".tsr";a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  const d=window.__seeaiProof;
+  if(!d || !d.tsrBase64)return;
+
+  try{
+    const bin=atob(d.tsrBase64);
+    const bytes=new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+
+    const blob=new Blob([bytes],{type:"application/timestamp-reply"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download=(d.id||"seeai")+".tsr";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  }catch(e){
+    alert("Não foi possível baixar a prova neste navegador.");
+  }
 }
 
-document.getElementById("codigo").addEventListener("keydown",e=>{if(e.key==="Enter")verificar();});
+document.getElementById("codigo").addEventListener("keydown",e=>{
+  if(e.key==="Enter")verificar();
+});
+
 const q=new URLSearchParams(location.search).get("id");
-if(q){document.getElementById("codigo").value=q.toUpperCase();verificar();}
+if(q){
+  document.getElementById("codigo").value=q.toUpperCase();
+  verificar();
+}
 </script>
 </body>
 </html>
