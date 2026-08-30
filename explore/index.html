@@ -5,12 +5,12 @@
   <title>SEEAI EXPLORE | Inteligência Investigativa para Compreender Relações e Apoiar Decisões</title>
   <meta name="description" content="Plataforma de inteligência investigativa que transforma dados conectados em contexto. Exploração de grafos 3D, analytics investigativo, IA com fundamento e evidências visuais 2D — para fraude, PLD/FT, OSINT, seguros, compliance e segurança pública." />
   <meta name="keywords" content="inteligência investigativa, análise de vínculos, contexto investigativo, grafo 3D investigativo, analytics de grafo, prevenção a fraudes, investigação de lavagem de dinheiro, PLD FT, OSINT e análise de redes, link analysis, fraude em seguros, crimes financeiros, evidência visual, IA investigativa explicável, SEEAI EXPLORE" />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://www.seeaidata.com.br/seeaiexplore" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="canonical" href="https://seeaidata.com.br/explore/" />
   <meta property="og:title" content="SEEAI EXPLORE | Inteligência investigativa para compreender relações e apoiar decisões" />
   <meta property="og:description" content="Dos dados ao contexto. Do contexto à decisão. Explore relações, entenda o que a rede revela e chegue às evidências que sustentam a análise." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.seeaidata.com.br/seeaiexplore" />
+  <meta property="og:url" content="https://seeaidata.com.br/explore/" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8H4KREJX27"></script>
@@ -1858,6 +1858,28 @@ footer {
   .flow-node { border-right: none; border-bottom: 1px solid var(--border); }
   .flow-node:last-child { border-bottom: none; }
 }
+
+/* ══ CTA ACESSAR APLICAÇÃO ══════════════════════════════════════ */
+.explore-cta{
+  display:inline-flex; align-items:center; gap:.55rem;
+  padding:.6rem 1.15rem; border-radius:999px;
+  font-size:.74rem; font-weight:800; letter-spacing:.12em;
+  text-transform:uppercase; color:#fff; white-space:nowrap;
+  border:1px solid rgba(30,164,255,.55);
+  background:linear-gradient(90deg, rgba(230,50,58,.22), rgba(30,164,255,.22));
+  box-shadow:0 10px 28px rgba(0,0,0,.35), 0 0 22px rgba(30,164,255,.20);
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.explore-cta:hover{
+  transform:translateY(-1px);
+  border-color:rgba(30,164,255,.9);
+  background:linear-gradient(90deg, rgba(230,50,58,.32), rgba(30,164,255,.32));
+  box-shadow:0 14px 34px rgba(0,0,0,.45), 0 0 32px rgba(30,164,255,.32);
+}
+.explore-cta__arrow{ font-size:.95rem; line-height:1; opacity:.85; }
+@media (max-width:520px){
+  .explore-cta{ padding:.5rem .8rem; font-size:.66rem; letter-spacing:.08em; }
+}
   </style>
 </head>
 
@@ -1874,12 +1896,19 @@ footer {
   <canvas id="network-bg"></canvas>
   <div class="content-wrapper">
 
-    <!-- HEADER — só logo -->
+    <!-- HEADER — logo + acesso à aplicação -->
     <header>
       <div class="nav-inner">
         <a href="../" class="brand">
           <img src="../img/seeai-logo.png" alt="Logotipo SEEAI" class="logo-small" />
           <span class="brand-name">SEEAI</span>
+        </a>
+
+        <a class="explore-cta"
+           href="https://explore.seeaidata.com.br"
+           target="_blank" rel="noopener noreferrer">
+          Acessar SEEAI EXPLORE
+          <span class="explore-cta__arrow" aria-hidden="true">→</span>
         </a>
       </div>
     </header>
@@ -1948,7 +1977,8 @@ footer {
         </p>
 
         <div class="hero-actions">
-          <a href="#contato" class="btn btn-primary">Solicitar demonstração</a>
+          <a href="https://explore.seeaidata.com.br" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Acessar SEEAI EXPLORE</a>
+          <a href="#contato" class="btn btn-secondary">Solicitar demonstração</a>
           <a href="#demo" class="btn btn-secondary">Ver como funciona</a>
         </div>
 
@@ -2723,7 +2753,8 @@ footer {
           Sem compromisso, sem script genérico.
         </p>
         <div class="ex-cta-btns">
-          <a href="../index.html#contato" class="btn btn-primary">Solicitar demonstração</a>
+          <a href="https://explore.seeaidata.com.br" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Acessar SEEAI EXPLORE</a>
+          <a href="../index.html#contato" class="btn btn-secondary">Solicitar demonstração</a>
           <a href="../index.html#contato" class="btn btn-secondary">Falar com um especialista</a>
         </div>
       </div>
