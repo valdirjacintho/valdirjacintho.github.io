@@ -64,11 +64,11 @@
     background:rgba(230,50,58,.16); border:1px solid rgba(230,50,58,.35);
   }
   @media (max-width:1280px){ .explore-cta__new{ display:none; } }
-  @media (max-width:1120px){
+  @media (max-width:1200px){
     .nav-inner .explore-cta{ padding:.36rem .6rem; font-size:.6rem; letter-spacing:.05em; }
   }
-  /* no mobile o atalho vai para o menu lateral, evitando aperto no header */
-  @media (max-width:900px){ .nav-inner .explore-cta{ display:none; } }
+  /* abaixo de 1100px o atalho vai para o menu lateral (mesmo corte do hamburguer) */
+  @media (max-width:1100px){ .nav-inner .explore-cta{ display:none; } }
   /* versão dentro do drawer: mantém tamanho confortável para toque */
   .nav-mobile .explore-cta{
     display:flex; justify-content:center; gap:.55rem;
@@ -83,6 +83,21 @@
   .nav-inner .lang-switch a{
     min-width:24px; height:20px; padding:0 5px;
     border-radius:6px; font-size:10px; letter-spacing:.05em; font-weight:700;
+  }
+
+  /* ── Garantias de comportamento mobile (não dependem do style.css) ── */
+  @media (max-width:1100px){
+    .nav-desktop{ display:none !important; }
+    .nav-toggle{ display:inline-flex !important; }
+    .nav-inner .lang-switch{ display:none !important; }
+    header{ position:sticky !important; }
+    .content-wrapper{ padding-top:0; }
+    html, body{ overflow-x:hidden; }
+  }
+  @media (max-width:600px){
+    .nav-inner{ flex-wrap:nowrap; gap:.75rem; padding:.85rem 1rem; }
+    .brand{ min-width:0; }
+    .brand-name{ font-size:.85rem; }
   }
   </style>
 </head>
@@ -703,7 +718,7 @@
       const drawer = document.getElementById("mobile-nav");
       const overlay = document.querySelector(".nav-overlay");
       const closeBtn = document.querySelector(".nav-close");
-      const links = document.querySelectorAll(".nav-mobile-link, .nav-mobile-sublink");
+      const links = document.querySelectorAll(".nav-mobile-link, .nav-mobile-sublink, .nav-mobile .explore-cta");
 
       if (!toggle || !drawer || !overlay || !closeBtn) return;
 
