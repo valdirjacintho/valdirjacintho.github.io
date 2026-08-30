@@ -31,6 +31,47 @@
   <link rel="alternate" hreflang="en" href="https://seeaidata.com.br/index-en.html" />
   <link rel="alternate" hreflang="es" href="https://seeaidata.com.br/index-es.html" />
   <link rel="alternate" hreflang="x-default" href="https://seeaidata.com.br/index.html" />
+
+  <!-- ===== ATALHO SEEAI EXPLORE (bloco isolado) ===== -->
+  <style>
+  .explore-cta{
+    display:inline-flex; align-items:center; gap:.55rem;
+    padding:.55rem 1.05rem; border-radius:999px;
+    font-size:.74rem; font-weight:800; letter-spacing:.12em;
+    text-transform:uppercase; color:#fff; white-space:nowrap;
+    border:1px solid rgba(30,164,255,.45);
+    background:linear-gradient(90deg, rgba(230,50,58,.18), rgba(30,164,255,.18));
+    box-shadow:0 0 0 1px rgba(255,255,255,.04) inset,
+               0 10px 28px rgba(0,0,0,.35),
+               0 0 22px rgba(30,164,255,.18);
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .explore-cta:hover{
+    transform:translateY(-1px);
+    border-color:rgba(30,164,255,.85);
+    background:linear-gradient(90deg, rgba(230,50,58,.28), rgba(30,164,255,.28));
+    box-shadow:0 14px 34px rgba(0,0,0,.45), 0 0 30px rgba(30,164,255,.30);
+  }
+  .explore-cta__dot{
+    width:7px; height:7px; border-radius:50%; flex-shrink:0;
+    background:#e6323a; box-shadow:0 0 10px rgba(230,50,58,.9);
+    animation:exctaBlink 2.2s infinite;
+  }
+  @keyframes exctaBlink{0%,100%{opacity:1}50%{opacity:.25}}
+  .explore-cta__new{
+    font-size:.6rem; letter-spacing:.14em; padding:.12rem .42rem;
+    border-radius:5px; color:#ff8a8f;
+    background:rgba(230,50,58,.16); border:1px solid rgba(230,50,58,.35);
+  }
+  @media (max-width:1180px){ .explore-cta__new{ display:none; } }
+  /* no mobile o atalho vai para o menu lateral, evitando aperto no header */
+  @media (max-width:900px){ .nav-inner .explore-cta{ display:none; } }
+  /* versão dentro do drawer */
+  .nav-mobile .explore-cta{
+    display:flex; justify-content:center;
+    padding:.95rem; font-size:.76rem; margin-top:.2rem;
+  }
+  </style>
 </head>
 
 
@@ -80,6 +121,13 @@
           </ul>
         </nav>
 
+        <!-- ATALHO SEEAI EXPLORE -->
+        <a href="explore/" class="explore-cta" aria-label="Discover SEEAI EXPLORE">
+          <span class="explore-cta__dot" aria-hidden="true"></span>
+          SEEAI EXPLORE
+          <span class="explore-cta__new">New</span>
+        </a>
+
         <!-- BOTÃO MOBILE -->
                 <div class="lang-switch" aria-label="Language selection">
           <a href="index.html" lang="pt-BR">PT</a>
@@ -116,6 +164,12 @@
           <a href="index-en.html#blog" class="nav-mobile-link">Blog</a>
           <a href="index-en.html#contato" class="nav-mobile-link">Contact</a>
 
+          <!-- ATALHO SEEAI EXPLORE (mobile) -->
+          <a href="explore/" class="explore-cta">
+            <span class="explore-cta__dot" aria-hidden="true"></span>
+            SEEAI EXPLORE
+          </a>
+
           <div class="nav-mobile-section">
             <div class="nav-mobile-section-title">Language</div>
             <a href="index.html" class="nav-mobile-sublink">Português</a>
@@ -148,6 +202,7 @@
 
         <div class="hero-actions">
           <a href="#contato" class="btn btn-primary">Schedule a call</a>
+          <a href="explore/" class="btn btn-secondary">SEEAI EXPLORE</a>
           <a href="consultoria-i2-en.html" class="btn btn-secondary">i2 Consulting</a>
           <a href="datahub-en.html" class="btn btn-secondary">SEEAI Data Hub</a>
         </div>
@@ -317,6 +372,7 @@
           <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="Hexcov"><img src="img/HEXCOV.png" alt="Hexcov"></a></div>
           <div class="partner-logo"><a href="#" target="_blank" rel="noopener" aria-label="i2"><img src="img/Logoi2_2024_invertifo.png" alt="IBM i2"></a></div>
         </div>
+        </div><!-- /partners-inner -->
       </div>
     </section>
     <script>
