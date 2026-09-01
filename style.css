@@ -1452,4 +1452,74 @@ footer {
   .partners-section::before,
   .partners-section::after { width: 48px; }
 }
+/* ==========================================================
+   AJUSTES MOBILE / TABLET  —  colar no FINAL do style.css
+   (apenas acréscimos: nenhuma regra acima precisa ser alterada)
+   ========================================================== */
+
+/* 1) .small-btn não existia: os botões do banner de cookies
+      herdavam o .btn cheio e ficavam enormes no celular. */
+.small-btn {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.78rem;
+}
+
+/* 2) Menu hambúrguer até 1280px (originalmente 900px).
+      Com os dois atalhos (DATA HUB e EXPLORE) o menu só cabe
+      confortavelmente acima disso. */
+@media (max-width: 1280px) {
+  .nav-desktop { display: none; }
+  .nav-toggle  { display: inline-flex; }
+  .lang-switch { display: none; }
+
+  /* header volta a ser sticky nesta faixa e o espaço extra some */
+  header { position: sticky !important; z-index: 30 !important; }
+  .content-wrapper { padding-top: 0; }
+}
+
+/* 3) Seletor de idioma compacto no desktop */
+@media (min-width: 1281px) {
+  .lang-switch { gap: 2px; padding: 3px 4px; border-radius: 9px; }
+  .lang-switch a {
+    min-width: 24px; height: 20px; padding: 0 5px;
+    border-radius: 6px; font-size: 10px; letter-spacing: .05em;
+  }
+}
+
+/* 3b) Itens do menu menores, para caber com os dois atalhos */
+@media (min-width: 1281px) {
+  .nav-desktop ul { gap: 1.1rem; }
+  .nav-desktop a  { font-size: .68rem; letter-spacing: .06em; }
+}
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .nav-desktop ul { gap: .85rem; }
+  .nav-desktop a  { font-size: .63rem; letter-spacing: .04em; }
+}
+
+/* 4) Header mais enxuto em telas pequenas */
+@media (max-width: 600px) {
+  .nav-inner { padding: 0.85rem 1rem; gap: 0.75rem; }
+  .brand { min-width: 0; }
+  .brand-name { font-size: 0.85rem; }
+}
+
+/* 5) Bloco Análise 3D: 600px fixos são altos demais no celular.
+      O height está inline no HTML, por isso o !important. */
+@media (max-width: 768px) {
+  #analise-3d > div { height: 380px !important; }
+}
+
+/* 6) Respiro vertical e tipografia das seções no celular */
+@media (max-width: 600px) {
+  .section-block  { padding: 3.5rem 1.1rem; }
+  .section-large  { padding: 3.5rem 1.1rem; }
+  .hero           { padding: 3rem 1.1rem 2.5rem; min-height: auto; }
+  .section-title  { font-size: 1.5rem; }
+  .card, .contact-form, .contact-card-panel, .institutional-panel { padding: 1.4rem; }
+  .btn { padding: 0.85rem 1.5rem; font-size: 0.8rem; }
+  .logo-hero { height: 100px; }
+  .partners-section::before,
+  .partners-section::after { width: 48px; }
+}
+
 
