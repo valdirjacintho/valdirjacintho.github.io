@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0b1220">
+<title>Sorteio de Brindes · i2 User Group SP 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1220; --card:#111827; --border:#1e293b;
+    --red:#dc2626; --red2:#ef4444; --blue:#2563eb; --blue2:#3b82f6;
+    --green:#16a34a; --green2:#22c55e; --amber:#f59e0b; --amber2:#fbbf24;
+    --white:#f1f5f9; --muted:#94a3b8; --dim:#64748b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family:'Barlow',system-ui,-apple-system,sans-serif;
+    background:var(--navy); color:var(--white); min-height:100dvh; line-height:1.5;
+    background-image:
+      radial-gradient(900px 520px at 78% -10%,rgba(37,99,235,.20),transparent 62%),
+      radial-gradient(700px 460px at 8% 108%,rgba(245,158,11,.09),transparent 60%);
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 1rem 3rem}
+
+  /* ── login ── */
+  .login{max-width:400px;margin:12vh auto 0;padding:0 1.2rem;text-align:center}
+  .badge-lock{display:inline-block;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.4);
+    color:var(--amber2);border-radius:999px;padding:.25rem .8rem;font-size:.7rem;font-weight:700;
+    letter-spacing:.12em;text-transform:uppercase}
+  .login .lg{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;margin:1rem 0 .2rem}
+  .login .sub{color:var(--muted);font-size:.88rem;margin-bottom:1.5rem}
+  .login input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;
+    color:var(--white);padding:.9rem;font-family:inherit;font-size:1rem;text-align:center;outline:none}
+  .login input:focus{border-color:var(--amber)}
+  .login button{width:100%;margin-top:.7rem;background:var(--amber);color:#0b1220;border:none;
+    border-radius:10px;padding:.95rem;font-family:inherit;font-weight:800;font-size:1rem;cursor:pointer}
+  .login .err{color:#fca5a5;font-size:.85rem;margin-top:.8rem;min-height:1.3rem}
+
+  /* ── topo ── */
+  header{position:sticky;top:0;z-index:20;background:rgba(11,18,32,.96);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);padding:.9rem 1rem .85rem;margin:0 -1rem}
+  .hd{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:.7rem}
+  .hd .t{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;line-height:1;letter-spacing:.02em}
+  .hd .t small{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.66rem;
+    letter-spacing:.16em;color:var(--amber2);text-transform:uppercase;margin-top:3px}
+  .hd-r{display:flex;align-items:center;gap:.5rem}
+  .net{font-size:.66rem;font-weight:700;padding:.24rem .55rem;border-radius:999px;white-space:nowrap}
+  .net.on{background:rgba(34,197,94,.15);color:#86efac}
+  .net.off{background:rgba(239,68,68,.15);color:#fca5a5}
+  .mini{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:8px;
+    padding:.42rem .7rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;
+    letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .mini:hover{color:var(--white);border-color:var(--blue)}
+
+  /* ── contadores ── */
+  .counts{display:flex;gap:.6rem;margin-top:1.2rem}
+  .cnt{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:.75rem .5rem;text-align:center}
+  .cnt .n{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;line-height:1.05}
+  .cnt .l{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .cnt.pool .n{color:var(--blue2)} .cnt.won .n{color:var(--amber2)}
+
+  /* ── palco ── */
+  .stage{margin-top:1.1rem;background:linear-gradient(165deg,#101a2e,#0c1424);
+    border:1px solid var(--border);border-radius:20px;padding:2.2rem 1.4rem;
+    min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;position:relative;overflow:hidden}
+  .stage::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(rgba(59,130,246,.07) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(59,130,246,.07) 1px,transparent 1px);
+    background-size:42px 42px;
+    -webkit-mask-image:radial-gradient(65% 60% at 50% 45%,#000,transparent 85%);
+            mask-image:radial-gradient(65% 60% at 50% 45%,#000,transparent 85%)}
+  .stage > *{position:relative;z-index:2}
+  .prize-tag{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--amber2);margin-bottom:.9rem;min-height:1.2rem}
+  .roll{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.02;
+    letter-spacing:.01em;word-break:break-word;max-width:100%}
+  .roll.spin{color:var(--blue2);opacity:.92}
+  .roll.idle{color:var(--dim)}
+  .roll.win{color:var(--white);text-shadow:0 0 40px rgba(245,158,11,.35)}
+  .org{color:var(--muted);font-size:1.05rem;margin-top:.5rem;min-height:1.6rem}
+  .winmark{display:inline-block;margin-top:1rem;background:rgba(245,158,11,.14);
+    border:1px solid rgba(245,158,11,.45);color:var(--amber2);border-radius:999px;
+    padding:.3rem .9rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+    font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+
+  /* ── controles ── */
+  .prize-in{width:100%;margin-top:1rem;background:var(--card);border:1px solid var(--border);
+    border-radius:10px;color:var(--white);padding:.8rem .9rem;font-family:inherit;font-size:.95rem;outline:none}
+  .prize-in:focus{border-color:var(--amber)}
+  .draw{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;margin-top:.7rem;
+    background:linear-gradient(135deg,var(--amber),var(--amber2));color:#0b1220;border:none;
+    border-radius:14px;padding:1.25rem;cursor:pointer;font-family:'Barlow',sans-serif;
+    font-size:1.2rem;font-weight:800;letter-spacing:.02em;box-shadow:0 12px 30px rgba(245,158,11,.28)}
+  .draw:active{transform:translateY(1px)}
+  .draw:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+  .after{display:none;gap:.6rem;margin-top:.7rem}
+  .after.show{display:flex}
+  .after button{flex:1;border-radius:12px;padding:.95rem;font-family:inherit;font-weight:700;
+    font-size:.98rem;cursor:pointer;border:1px solid}
+  .b-ok{background:rgba(34,197,94,.14);border-color:rgba(34,197,94,.5);color:#86efac}
+  .b-absent{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.45);color:#fca5a5}
+  .foot-actions{display:flex;gap:.6rem;margin-top:1.4rem;flex-wrap:wrap}
+  .foot-actions button{flex:1;min-width:150px;background:var(--card);border:1px solid var(--border);
+    color:var(--muted);border-radius:11px;padding:.8rem;font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+  .foot-actions button:hover{color:var(--white);border-color:var(--blue)}
+  .foot-actions button.danger:hover{color:#fca5a5;border-color:var(--red)}
+
+  /* ── modal ── */
+  .modal{position:fixed;inset:0;z-index:70;display:none;align-items:flex-start;justify-content:center;
+    background:rgba(2,6,15,.86);padding:1.2rem;overflow:auto}
+  .modal.open{display:flex}
+  .mbox{width:100%;max-width:560px;background:var(--card);border:1px solid var(--border);
+    border-radius:18px;overflow:hidden;margin:4vh 0}
+  .mtop{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:1.1rem 1.2rem;border-bottom:1px solid var(--border)}
+  .mtop h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;line-height:1;letter-spacing:.02em}
+  .mx{background:none;border:1px solid var(--border);color:var(--muted);border-radius:8px;
+    width:34px;height:34px;font-size:1.1rem;cursor:pointer}
+  .mlist{padding:.8rem;max-height:56vh;overflow:auto}
+  .wrow{display:flex;align-items:center;gap:.8rem;background:#0d1626;border:1px solid var(--border);
+    border-radius:11px;padding:.75rem .85rem;margin-bottom:.5rem}
+  .wnum{width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:rgba(245,158,11,.14);
+    color:var(--amber2);display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue',sans-serif;font-size:1.15rem}
+  .winfo{flex:1;min-width:0}
+  .winfo .n{font-weight:600;font-size:.98rem}
+  .winfo .s{font-size:.78rem;color:var(--muted)}
+  .winfo .p{font-size:.74rem;color:var(--amber2);font-weight:700}
+  .mfoot{padding:.9rem 1.2rem;border-top:1px solid var(--border);display:flex;gap:.6rem}
+  .mfoot button{flex:1;background:var(--card);border:1px solid var(--border);color:var(--muted);
+    border-radius:10px;padding:.7rem;font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer}
+  .empty{text-align:center;color:var(--dim);padding:2.2rem 1rem;font-size:.92rem}
+
+  .toast{position:fixed;left:50%;bottom:1.4rem;transform:translateX(-50%);z-index:90;
+    background:#0d1626;border:1px solid var(--border);color:var(--white);border-radius:11px;
+    padding:.75rem 1.1rem;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .25s}
+  .toast.on{opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login" class="login">
+  <span class="badge-lock">Organização · Acesso restrito</span>
+  <div class="lg">SORTEIO DE BRINDES</div>
+  <div class="sub">i2 User Group São Paulo 2026 · participam apenas quem fez check-in</div>
+  <input id="pwd" type="password" placeholder="Senha da recepção" autocomplete="off">
+  <button onclick="entrar()">ENTRAR</button>
+  <div class="err" id="lerr"></div>
+</div>
+
+<!-- APP -->
+<div id="app" class="wrap" style="display:none">
+  <header>
+    <div class="hd">
+      <div class="t">SORTEIO<small>i2 User Group SP 2026</small></div>
+      <div class="hd-r">
+        <span id="net" class="net on">online</span>
+        <button class="mini" onclick="atualizar()">Atualizar</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="counts">
+    <div class="cnt pool"><div class="n" id="c-pool">0</div><div class="l">No pote</div></div>
+    <div class="cnt won"><div class="n" id="c-won">0</div><div class="l">Já sorteados</div></div>
+    <div class="cnt"><div class="n" id="c-tot">0</div><div class="l">Presentes</div></div>
+  </div>
+
+  <div class="stage">
+    <div class="prize-tag" id="prizeTag"></div>
+    <div class="roll idle" id="roll">PRONTO PARA SORTEAR</div>
+    <div class="org" id="org"></div>
+    <div id="winmark"></div>
+  </div>
+
+  <input class="prize-in" id="prize" placeholder="Brinde deste sorteio (opcional) — ex.: Caneca i2">
+  <button class="draw" id="btn" onclick="sortear()">🎁 SORTEAR</button>
+
+  <div class="after" id="after">
+    <button class="b-ok" onclick="confirmar()">Confirmar entrega</button>
+    <button class="b-absent" onclick="ausente()">Não está presente</button>
+  </div>
+
+  <div class="foot-actions">
+    <button onclick="verSorteados()">Ver sorteados</button>
+    <button onclick="copiar()">Copiar lista</button>
+    <button class="danger" onclick="resetar()">Resetar sorteio</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="mbox">
+    <div class="mtop"><h2 id="mtitle">Sorteados</h2>
+      <button class="mx" onclick="fecharModal()">✕</button></div>
+    <div class="mlist" id="mlist"></div>
+    <div class="mfoot"><button onclick="fecharModal()">Fechar</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+//  SORTEIO DE BRINDES — i2 User Group SP 2026
+//  • Participam APENAS quem tem check-in registrado.
+//  • Lê a mesma lista do app de recepção (action=stafflist).
+//  • NÃO altera nada no Apps Script nem na planilha.
+//  • Sorteados ficam salvos no aparelho (sobrevive a recarregar).
+// ══════════════════════════════════════════════════════════════
+var GAS_URL='https://script.google.com/macros/s/AKfycbxVargPWMpmh-TF3Toq-jF11XKwzeSNi2bfbEZ7eTGhue5ZnBEVZecRxFMasXLWi8tJ/exec';
+
+// chaves próprias, para não colidir com o app de check-in no mesmo domínio
+var K_KEY='i2ug_sorteio_chave', K_WON='i2ug_sorteio_ganhadores', K_CACHE='i2ug_sorteio_lista';
+var K_CHECKIN_CACHE='i2ug_lista';   // cache deixado pelo app de check-in (mesmo domínio)
+
+var KEY='', LIST=[], WON=[], girando=false, pendente=null;
+
+function save(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+function load(k,d){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } }
+function $(id){ return document.getElementById(id); }
+
+/* ── quem participa: só quem fez check-in ── */
+function presentes(){
+  return LIST.filter(function(p){ return String(p.checkin||'').trim() !== ''; });
+}
+function ganhou(code){
+  for(var i=0;i<WON.length;i++) if(WON[i].code===code) return true;
+  return false;
+}
+function pote(){
+  return presentes().filter(function(p){ return !ganhou(p.code); });
+}
+function nomeDe(p){ return ((p.nome||'')+' '+(p.sobrenome||'')).trim(); }
+
+/* ── login ── */
+function entrar(){
+  var p=$('pwd').value.trim(), err=$('lerr');
+  if(!p) return;
+  err.style.color='var(--muted)'; err.textContent='Verificando…';
+  KEY=p;
+  baixar(function(ok,msg){
+    if(ok){
+      save(K_KEY,KEY);
+      $('login').style.display='none';
+      $('app').style.display='block';
+      render();
+    }else{ KEY=''; err.style.color='#fca5a5'; err.textContent=msg||'Senha incorreta.'; }
+  });
+}
+$('pwd').addEventListener('keydown',function(e){ if(e.key==='Enter') entrar(); });
+
+/* ── lista ── */
+function baixar(cb){
+  fetch(GAS_URL+'?action=stafflist&key='+encodeURIComponent(KEY))
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(j && j.ok && j.data){ LIST=j.data; save(K_CACHE,LIST); cb(true); }
+      else cb(false, (j&&j.error==='nao_autorizado')?'Senha incorreta.':'Não consegui carregar a lista.');
+    })
+    .catch(function(){
+      // sem internet: usa o cache do próprio app ou o do check-in (mesmo domínio)
+      var c=load(K_CACHE,null);
+      if(!c || !c.length) c=load(K_CHECKIN_CACHE,null);
+      if(c && c.length){ LIST=c; cb(true); }
+      else cb(false,'Sem internet e sem lista salva neste aparelho.');
+    });
+}
+function atualizar(){
+  if(!KEY) return;
+  baixar(function(ok,msg){ render(); toast(ok?'Lista atualizada.':(msg||'Falhou.')); });
+}
+
+/* ── rede ── */
+function online(){ return navigator.onLine!==false; }
+function pintarRede(){
+  var el=$('net'); if(!el) return;
+  el.className='net '+(online()?'on':'off');
+  el.textContent=online()?'online':'offline';
+}
+addEventListener('online',pintarRede); addEventListener('offline',pintarRede);
+
+/* ── sorteio ── */
+function aleatorio(n){
+  // sorteio justo, sem viés de módulo
+  if(window.crypto && crypto.getRandomValues){
+    var lim=Math.floor(4294967296/n)*n, a=new Uint32Array(1);
+    do{ crypto.getRandomValues(a); }while(a[0]>=lim);
+    return a[0]%n;
+  }
+  return Math.floor(Math.random()*n);
+}
+
+function sortear(){
+  if(girando) return;
+  var p=pote();
+  if(!p.length){ toast('Não há mais ninguém no pote.'); return; }
+
+  var premio=$('prize').value.trim();
+  $('prizeTag').textContent = premio ? ('Brinde: '+premio) : '';
+  $('winmark').innerHTML=''; $('org').textContent='';
+  $('after').className='after';
+  $('btn').disabled=true; girando=true;
+
+  var vencedor=p[aleatorio(p.length)];
+  var roll=$('roll');
+  roll.className='roll spin';
+
+  // embaralhamento: rápido no início, desacelerando até parar
+  var t=0, atraso=55, total=2600, gasto=0;
+  (function passo(){
+    roll.textContent = nomeDe(p[aleatorio(p.length)]).toUpperCase();
+    gasto+=atraso; t++;
+    if(gasto<total){ atraso=55+Math.pow(gasto/total,3)*260; setTimeout(passo,atraso); }
+    else revelar(vencedor,premio);
+  })();
+}
+
+function revelar(v,premio){
+  var roll=$('roll');
+  roll.className='roll win';
+  roll.textContent=nomeDe(v).toUpperCase();
+  $('org').textContent=v.orgao||'';
+  $('winmark').innerHTML='<span class="winmark">Ganhador</span>';
+  pendente={p:v,premio:premio};
+  $('after').className='after show';
+  girando=false;
+  bip(); vibrar([90,60,140]);
+}
+
+function confirmar(){
+  if(!pendente) return;
+  WON.push({
+    code:pendente.p.code, nome:nomeDe(pendente.p), orgao:pendente.p.orgao||'',
+    premio:pendente.premio||'', hora:agora()
+  });
+  save(K_WON,WON);
+  pendente=null;
+  $('after').className='after';
+  $('btn').disabled=false;
+  $('prize').value='';
+  render();
+  toast('Ganhador registrado.');
+}
+
+function ausente(){
+  if(!pendente) return;
+  var nome=nomeDe(pendente.p);
+  pendente=null;
+  $('after').className='after';
+  $('btn').disabled=false;
+  $('roll').className='roll idle';
+  $('roll').textContent='PRONTO PARA SORTEAR';
+  $('org').textContent=''; $('winmark').innerHTML='';
+  toast(nome+' voltou para o pote.');
+}
+
+/* ── sorteados ── */
+function verSorteados(){
+  $('mtitle').textContent='Sorteados ('+WON.length+')';
+  var el=$('mlist');
+  if(!WON.length){ el.innerHTML='<div class="empty">Nenhum sorteio realizado ainda.</div>'; }
+  else{
+    el.innerHTML=WON.map(function(w,i){
+      return '<div class="wrow"><div class="wnum">'+(i+1)+'</div><div class="winfo">'
+        +'<div class="n">'+w.nome+'</div>'
+        +'<div class="s">'+(w.orgao||'—')+' · '+w.hora+'</div>'
+        +(w.premio?'<div class="p">'+w.premio+'</div>':'')
+        +'</div></div>';
+    }).join('');
+  }
+  $('modal').className='modal open';
+}
+function fecharModal(){ $('modal').className='modal'; }
+
+function copiar(){
+  if(!WON.length){ toast('Nada para copiar.'); return; }
+  var txt=WON.map(function(w,i){
+    return (i+1)+'. '+w.nome+(w.orgao?' — '+w.orgao:'')+(w.premio?' · '+w.premio:'')+' ('+w.hora+')';
+  }).join('\n');
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ toast('Lista copiada.'); },
+                                           function(){ fallbackCopy(txt); });
+  } else fallbackCopy(txt);
+}
+function fallbackCopy(txt){
+  var ta=document.createElement('textarea');
+  ta.value=txt; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); toast('Lista copiada.'); }catch(e){ toast('Não consegui copiar.'); }
+  document.body.removeChild(ta);
+}
+
+function resetar(){
+  if(!WON.length){ toast('Não há sorteios para apagar.'); return; }
+  if(!confirm('Apagar os '+WON.length+' sorteio(s) já realizados?\n\nTodos voltam para o pote.')) return;
+  if(!confirm('Confirma? Esta ação não pode ser desfeita.')) return;
+  WON=[]; save(K_WON,WON);
+  pendente=null;
+  $('after').className='after';
+  $('btn').disabled=false;
+  $('roll').className='roll idle'; $('roll').textContent='PRONTO PARA SORTEAR';
+  $('org').textContent=''; $('winmark').innerHTML=''; $('prizeTag').textContent='';
+  render();
+  toast('Sorteio reiniciado.');
+}
+
+/* ── util ── */
+function agora(){
+  var d=new Date(), z=function(n){return (n<10?'0':'')+n;};
+  return z(d.getDate())+'/'+z(d.getMonth()+1)+' '+z(d.getHours())+':'+z(d.getMinutes());
+}
+function toast(m){
+  var t=$('toast'); t.textContent=m; t.className='toast on';
+  clearTimeout(t._h); t._h=setTimeout(function(){ t.className='toast'; },2400);
+}
+function vibrar(p){ try{ if(navigator.vibrate) navigator.vibrate(p); }catch(e){} }
+function bip(){
+  try{
+    var C=window.AudioContext||window.webkitAudioContext; if(!C) return;
+    var a=new C();
+    [660,880,1180].forEach(function(f,i){
+      var o=a.createOscillator(), g=a.createGain();
+      o.connect(g); g.connect(a.destination); o.type='sine'; o.frequency.value=f;
+      var t0=a.currentTime+i*.11;
+      g.gain.setValueAtTime(.001,t0);
+      g.gain.exponentialRampToValueAtTime(.25,t0+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t0+.22);
+      o.start(t0); o.stop(t0+.24);
+    });
+  }catch(e){}
+}
+
+function render(){
+  var pres=presentes().length, w=WON.length;
+  $('c-pool').textContent=pote().length;
+  $('c-won').textContent=w;
+  $('c-tot').textContent=pres;
+  $('btn').disabled = girando || !!pendente || pote().length===0;
+  if(pote().length===0 && !pendente && !girando && pres>0){
+    $('roll').className='roll idle';
+    $('roll').textContent='TODOS JÁ FORAM SORTEADOS';
+  }
+  pintarRede();
+}
+
+/* ── início ── */
+(function(){
+  WON=load(K_WON,[]);
+  var k=load(K_KEY,''), c=load(K_CACHE,null);
+  if(k && c && c.length){
+    KEY=k; LIST=c;
+    $('login').style.display='none'; $('app').style.display='block';
+    render();
+    if(online()) baixar(function(){ render(); });
+  }
+  pintarRede();
+})();
+</script>
+</body>
+</html>
