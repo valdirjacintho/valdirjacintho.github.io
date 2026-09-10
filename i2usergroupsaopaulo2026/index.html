@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>i2 User Group São Paulo 2026 — Retrospectiva</title>
+<meta name="description" content="Retrospectiva do i2 User Group São Paulo 2026, realizado em 9 de setembro no Estádio do Morumbi. Fotos, agradecimento aos participantes e o 1º Prêmio SEEAI i2.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://seeaidata.com.br/i2usergroupsaopaulo2026/">
+<meta property="og:title" content="i2 User Group São Paulo 2026 — Retrospectiva">
+<meta property="og:description" content="Fotos do encontro, agradecimento aos participantes e o 1º Prêmio SEEAI i2.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seeaidata.com.br/i2usergroupsaopaulo2026/">
+<meta property="og:image" content="https://seeaidata.com.br/i2usergroupsaopaulo2026/img/full/geral-13.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#070c16; --navy:#0b1220; --panel:#111827; --panel2:#0e1524;
+  --blue:#2563eb; --sky:#3b82f6; --gold:#f59e0b; --gold2:#fbbf24;
+  --paper:#f1f5f9; --muted:#94a3b8; --line:#1e293b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);font-family:'Barlow',system-ui,sans-serif;
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* header */
+header{position:fixed;inset:0 0 auto;height:62px;z-index:70;display:flex;align-items:center;
+  background:rgba(7,12,22,.72);backdrop-filter:blur(14px);border-bottom:1px solid transparent;
+  transition:background .25s,border-color .25s}
+header.on{background:rgba(7,12,22,.95);border-bottom-color:var(--line)}
+.bar{display:flex;align-items:center;gap:26px;width:100%}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;
+  font-family:'Bebas Neue';font-size:20px;letter-spacing:.06em}
+.brand b{color:var(--gold);font-weight:400}
+nav.top{display:flex;gap:20px}
+nav.top a{font-family:'Barlow Condensed';font-weight:600;font-size:14.5px;letter-spacing:.05em;
+  color:var(--muted);transition:color .18s}
+nav.top a:hover,nav.top a.on{color:var(--paper)}
+@media(max-width:820px){nav.top{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;
+  padding:120px 0 56px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.34}
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(7,12,22,.72),rgba(7,12,22,.86) 55%,var(--ink)),
+             radial-gradient(700px 420px at 78% 18%,rgba(37,99,235,.28),transparent 65%)}
+.hero .wrap{position:relative;z-index:2}
+.kicker{font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.hero h1{font-family:'Bebas Neue';font-size:clamp(48px,7vw,92px);line-height:.92;letter-spacing:.01em}
+.hero h1 em{font-style:normal;color:var(--sky)}
+.hero p{font-size:19px;color:#cbd5e1;font-weight:300;max-width:58ch;margin-top:18px}
+.facts{display:flex;gap:34px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line);flex-wrap:wrap}
+.fact b{display:block;font-family:'Bebas Neue';font-size:26px;line-height:1.1}
+.fact span{font-size:13.5px;color:var(--muted)}
+
+section{padding:84px 0;border-bottom:1px solid rgba(30,41,59,.5)}
+h2{font-family:'Bebas Neue';font-size:clamp(32px,4vw,48px);line-height:1.02;margin-bottom:16px}
+.intro{color:#b6c2d4;font-weight:300;max-width:66ch;margin-bottom:40px}
+
+/* agradecimento */
+.thanks p{color:#cbd5e1;font-weight:300;font-size:18.5px;max-width:70ch}
+.thanks p+p{margin-top:18px}
+.thanks strong{color:var(--paper);font-weight:600}
+
+/* homenageados */
+.award{background:linear-gradient(160deg,#141a1c,#0c1424)}
+.award-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+@media(max-width:900px){.award-grid{grid-template-columns:1fr;gap:32px}}
+.award-photo{border:1px solid rgba(245,158,11,.28);border-radius:16px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.honorees{display:grid;gap:12px;margin-top:28px}
+.honoree{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:13px;
+  background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25)}
+.honoree .n{width:36px;height:36px;flex:none;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;font-family:'Bebas Neue';font-size:18px;color:var(--gold2);
+  background:rgba(245,158,11,.14);border:1px solid rgba(245,158,11,.35)}
+.honoree .t{font-family:'Barlow Condensed';font-weight:700;font-size:22px;letter-spacing:.04em}
+.award-quote{margin-top:24px;padding-left:18px;border-left:2px solid rgba(245,158,11,.5);
+  color:#cbd5e1;font-weight:300;font-style:italic}
+
+/* carrossel */
+.car{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);
+  background:#000;aspect-ratio:16/9}
+.car-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.car-track figure{flex:0 0 100%;height:100%;position:relative}
+.car-track img{width:100%;height:100%;object-fit:cover}
+.car-cap{position:absolute;left:0;right:0;bottom:0;padding:44px 24px 18px;
+  background:linear-gradient(transparent,rgba(0,0,0,.82));font-size:15px;color:#e2e8f0}
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;
+  border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(7,12,22,.6);
+  backdrop-filter:blur(6px);color:#fff;font-size:20px;cursor:pointer;z-index:3}
+.car-btn:hover{background:rgba(37,99,235,.7)}
+.car-btn.prev{left:14px}.car-btn.next{right:14px}
+.car-dots{display:flex;gap:7px;justify-content:center;margin-top:16px}
+.car-dots button{width:8px;height:8px;border-radius:50%;border:0;background:var(--line);cursor:pointer}
+.car-dots button.on{background:var(--gold);width:22px;border-radius:4px}
+
+/* grade */
+.grid{columns:4 240px;column-gap:12px}
+.grid figure{break-inside:avoid;margin:0 0 12px;border-radius:11px;overflow:hidden;
+  border:1px solid var(--line);cursor:zoom-in;position:relative;background:var(--panel2)}
+.grid img{width:100%;transition:transform .35s,opacity .35s;opacity:0}
+.grid img.ready{opacity:1}
+.grid figure:hover img{transform:scale(1.04)}
+.grid figure::after{content:"";position:absolute;inset:0;background:rgba(37,99,235,0);transition:background .25s}
+.grid figure:hover::after{background:rgba(37,99,235,.14)}
+
+/* linha do tempo */
+.tl{position:relative;padding-left:30px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;
+  background:linear-gradient(var(--gold),var(--blue),transparent)}
+.tl-item{position:relative;padding:0 0 26px}
+.tl-item::before{content:"";position:absolute;left:-30px;top:7px;width:16px;height:16px;
+  border-radius:50%;background:var(--ink);border:2px solid var(--sky)}
+.tl-item.hl::before{border-color:var(--gold);background:rgba(245,158,11,.2)}
+.tl-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.tl-time{font-family:'Bebas Neue';font-size:23px;color:var(--gold);letter-spacing:.03em}
+.tl-title{font-family:'Barlow Condensed';font-weight:700;font-size:19px}
+.tl-who{font-size:15px;color:var(--muted);font-weight:300;margin-top:2px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:120;display:none;background:rgba(3,6,12,.95);
+  align-items:center;justify-content:center}
+.lb.on{display:flex}
+.lb img{max-width:94vw;max-height:82vh;border-radius:8px}
+.lb-x,.lb-p,.lb-n{position:absolute;border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.07);color:#fff;border-radius:50%;width:48px;height:48px;
+  font-size:22px;cursor:pointer}
+.lb-x{top:20px;right:20px}
+.lb-p{left:18px;top:50%;transform:translateY(-50%)}
+.lb-n{right:18px;top:50%;transform:translateY(-50%)}
+.lb-x:hover,.lb-p:hover,.lb-n:hover{background:rgba(37,99,235,.65)}
+.lb-c{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:#cbd5e1;font-size:14.5px}
+
+footer{padding:44px 0;color:var(--muted);font-size:14.5px;font-weight:300}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.foot a{color:var(--sky)}
+@media(max-width:680px){
+  .wrap{padding:0 18px} body{font-size:16px}
+  section{padding:56px 0} .grid{columns:2 140px}
+  .car{aspect-ratio:4/3} .facts{gap:20px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header id="hd"><div class="wrap bar">
+  <a class="brand" href="#topo">i2 USER GROUP <b>SP 2026</b></a>
+  <nav class="top" id="topnav">
+    <a href="#agradecimento">Agradecimento</a>
+    <a href="#premio">1º Prêmio SEEAI i2</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#dia">O dia</a>
+  </nav>
+</div></header>
+
+<main id="topo">
+
+<section class="hero" style="border:0">
+  <div class="hero-bg"><img src="img/full/geral-13.jpg" alt="" fetchpriority="high"></div>
+  <div class="wrap">
+    <div class="kicker">09 de setembro de 2026 · Estádio do Morumbi</div>
+    <h1>Obrigado por<br><em>estarem juntos.</em></h1>
+    <p>O i2 User Group São Paulo 2026 reuniu profissionais de inteligência investigativa,
+       antifraude, compliance e segurança pública para um dia inteiro de troca real.</p>
+    <div class="facts">
+      <div class="fact"><b>7 palestras</b><span>i2 Group, SEEAI e convidados</span></div>
+      <div class="fact"><b>3 homenageadas</b><span>1º Prêmio SEEAI i2</span></div>
+      <div class="fact"><b>1 dia</b><span>Das 9h ao almoço no RAÇA</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="agradecimento" class="thanks"><div class="wrap">
+  <h2>A todos que estiveram lá</h2>
+  <p>O encontro só existiu porque cada um de vocês decidiu reservar um dia inteiro da agenda
+     para trocar experiências com quem enfrenta os mesmos problemas. <strong>Obrigado.</strong></p>
+  <p>Obrigado aos palestrantes, que abriram seus casos e métodos sem reservas. Ao time do
+     <strong>i2 Group</strong>, pela parceria de sempre. E ao pessoal do RAÇA e do Morumbi,
+     que cuidaram para que tudo funcionasse.</p>
+  <p>Levamos daqui muita conversa boa, algumas ideias novas e a certeza de que essa comunidade
+     tem muito a construir junta. Até a próxima edição.</p>
+</div></section>
+
+<section id="premio" class="award"><div class="wrap">
+  <div class="kicker">Momento especial</div>
+  <h2>1º Prêmio SEEAI i2</h2>
+  <p class="intro">Um reconhecimento às organizações que se destacaram no combate a crimes e fraudes.
+     Nesta primeira edição, três empresas receberam a homenagem.</p>
+  <div class="award-grid">
+    <div class="award-photo"><img src="img/full/geral-30.jpg" alt="Troféu do 1º Prêmio SEEAI i2" loading="lazy"></div>
+    <div>
+      <div class="honorees">
+        <div class="honoree"><span class="n">01</span><span class="t">MAPFRE</span></div>
+        <div class="honoree"><span class="n">02</span><span class="t">PagBank</span></div>
+        <div class="honoree"><span class="n">03</span><span class="t">Bayer</span></div>
+      </div>
+      <p class="award-quote">"Por seu compromisso com a investigação, a segurança e a justiça."</p>
+      <p style="color:#b6c2d4;font-weight:300;margin-top:20px;font-size:16px">
+        Nossos parabéns às equipes premiadas — o trabalho de vocês, quase sempre invisível,
+        protege pessoas todos os dias.</p>
+    </div>
+  </div>
+  <div id="premiacao-car" style="margin-top:40px"></div>
+</div></section>
+
+<section id="galeria"><div class="wrap">
+  <div class="kicker">Registro do dia</div>
+  <h2>Galeria</h2>
+  <p class="intro">Clique em qualquer foto para ampliar. Navegue com as setas do teclado,
+     ou deslizando no celular.</p>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="dia"><div class="wrap">
+  <div class="kicker">Como foi</div>
+  <h2>A linha do tempo do dia</h2>
+  <p class="intro">Da chegada ao almoço, na ordem em que aconteceu.</p>
+  <div class="tl" id="tl"></div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap foot">
+  <span>© <span id="yr"></span> SEEAI · i2 User Group São Paulo 2026</span>
+  <span>Apareceu em alguma foto e prefere não constar?
+    <a href="mailto:comercial@seeaidata.com.br?subject=Remo%C3%A7%C3%A3o%20de%20foto%20-%20i2%20User%20Group%20SP%202026">Fale conosco</a>
+    e retiramos.</span>
+</div></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="lb-x" id="lbx" aria-label="Fechar">✕</button>
+  <button class="lb-p" id="lbp" aria-label="Anterior">‹</button>
+  <img id="lbi" src="" alt="">
+  <button class="lb-n" id="lbn" aria-label="Próxima">›</button>
+  <div class="lb-c" id="lbc"></div>
+</div>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ── acervo ─────────────────────────────────────────────────
+   Para acrescentar fotos depois, basta somar ao total abaixo
+   e jogar os arquivos em img/full e img/thumb com o mesmo nome. */
+const N_PREMIACAO = 10, N_GERAL = 30;
+const pad = n => String(n).padStart(2,'0');
+const PREMIACAO = Array.from({length:N_PREMIACAO},(_,i)=>({
+  f:'premiacao-'+pad(i+1)+'.jpg', c:'Entrega do 1º Prêmio SEEAI i2'
+}));
+const GERAL = Array.from({length:N_GERAL},(_,i)=>({
+  f:'geral-'+pad(i+1)+'.jpg', c:'i2 User Group São Paulo 2026'
+}));
+const TODAS = [...PREMIACAO, ...GERAL];
+
+/* ── carrossel da premiação ── */
+(function(){
+  const box=document.getElementById('premiacao-car'); if(!box) return;
+  box.innerHTML='<div class="car"><div class="car-track" id="ct"></div>'
+    +'<button class="car-btn prev" id="cp" aria-label="Anterior">‹</button>'
+    +'<button class="car-btn next" id="cn" aria-label="Próxima">›</button></div>'
+    +'<div class="car-dots" id="cd"></div>';
+  const track=document.getElementById('ct'), dots=document.getElementById('cd');
+  PREMIACAO.forEach((p,i)=>{
+    track.insertAdjacentHTML('beforeend',
+      '<figure><img src="img/full/'+p.f+'" alt="'+p.c+'" loading="'+(i?'lazy':'eager')+'">'
+      +'<figcaption class="car-cap">'+p.c+'</figcaption></figure>');
+    const b=document.createElement('button'); b.setAttribute('aria-label','Foto '+(i+1));
+    b.onclick=()=>go(i); dots.appendChild(b);
+  });
+  let i=0, timer;
+  function go(n){
+    i=(n+PREMIACAO.length)%PREMIACAO.length;
+    track.style.transform='translateX(-'+(i*100)+'%)';
+    [...dots.children].forEach((d,k)=>d.className=k===i?'on':'');
+    clearInterval(timer); timer=setInterval(()=>go(i+1),6000);
+  }
+  document.getElementById('cp').onclick=()=>go(i-1);
+  document.getElementById('cn').onclick=()=>go(i+1);
+  go(0);
+  /* toque */
+  let x0=null;
+  track.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  track.addEventListener('touchend',e=>{
+    if(x0===null) return; const dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>45) go(i+(dx<0?1:-1)); x0=null;
+  });
+})();
+
+/* ── grade com carregamento sob demanda ── */
+(function(){
+  const g=document.getElementById('grid');
+  TODAS.forEach((p,i)=>{
+    const fig=document.createElement('figure');
+    fig.innerHTML='<img data-src="img/thumb/'+p.f+'" alt="'+p.c+'">';
+    fig.onclick=()=>abrir(i);
+    g.appendChild(fig);
+  });
+  const io=new IntersectionObserver((es,ob)=>{
+    es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const img=e.target;
+      img.src=img.dataset.src;
+      img.onload=()=>img.classList.add('ready');
+      ob.unobserve(img);
+    });
+  },{rootMargin:'250px'});
+  g.querySelectorAll('img').forEach(img=>io.observe(img));
+})();
+
+/* ── lightbox ── */
+const lb=document.getElementById('lb'), lbi=document.getElementById('lbi'),
+      lbc=document.getElementById('lbc');
+let cur=0;
+function abrir(i){
+  cur=(i+TODAS.length)%TODAS.length;
+  lbi.src='img/full/'+TODAS[cur].f;
+  lbi.alt=TODAS[cur].c;
+  lbc.textContent=TODAS[cur].c+'  ·  '+(cur+1)+' de '+TODAS.length;
+  lb.classList.add('on'); document.body.style.overflow='hidden';
+}
+function fechar(){ lb.classList.remove('on'); document.body.style.overflow=''; }
+document.getElementById('lbx').onclick=fechar;
+document.getElementById('lbp').onclick=()=>abrir(cur-1);
+document.getElementById('lbn').onclick=()=>abrir(cur+1);
+lb.onclick=e=>{ if(e.target===lb) fechar(); };
+addEventListener('keydown',e=>{
+  if(!lb.classList.contains('on')) return;
+  if(e.key==='Escape') fechar();
+  if(e.key==='ArrowRight') abrir(cur+1);
+  if(e.key==='ArrowLeft') abrir(cur-1);
+});
+let tx=null;
+lb.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+lb.addEventListener('touchend',e=>{
+  if(tx===null) return; const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>45) abrir(cur+(dx<0?1:-1)); tx=null;
+});
+
+/* ── linha do tempo ── */
+const DIA=[
+ ['09:00','Credenciamento e coffee','Recepção dos participantes e networking inicial',0],
+ ['09:30','Abertura oficial · Palavra institucional','Guillermo Vallejo Baumann — i2 Group',0],
+ ['09:45','Novidades da Suíte i2 — Release Junho/2026','Marcelo Bandeira — i2 Group',0],
+ ['10:30','Demo i2 Insight','Daniel Guzman — i2 Group',0],
+ ['11:00','Suíte i2 em Inteligência em Segurança Pública','Everton Barbosa e Sidnei Berberich — SEEAI',0],
+ ['11:45','Da transparência à inteligência: dados com origem, contexto e confiança','Toni Meneses — OALAI',0],
+ ['12:05','Inteligência de Dados — do onboarding ao transacional','Heraldo Rodrigues — MT Pagamentos',0],
+ ['12:25','Modus operandi de fraudes em cosméticos','Rogerio Monteiro — Natura / EmanaPay',0],
+ ['12:45','1º Prêmio SEEAI i2','Homenagem a MAPFRE, PagBank e Bayer',1],
+ ['13:00','Almoço no RAÇA','Encerramento e networking',0]
+];
+document.getElementById('tl').innerHTML = DIA.map(([h,t,q,hl])=>
+ '<div class="tl-item'+(hl?' hl':'')+'"><div class="tl-h">'
+ +'<span class="tl-time">'+h+'</span><span class="tl-title">'+t+'</span></div>'
+ +'<div class="tl-who">'+q+'</div></div>').join('');
+
+/* ── header e menu ativo ── */
+const hd=document.getElementById('hd');
+addEventListener('scroll',()=>hd.classList.toggle('on',scrollY>30),{passive:true});
+const links=[...document.querySelectorAll('#topnav a')];
+document.querySelectorAll('section[id]').forEach(s=>{
+  new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));
+  }),{rootMargin:'-45% 0px -50% 0px'}).observe(s);
+});
+</script>
+</body>
+</html>
