@@ -109,7 +109,8 @@ h2{font-family:'Bebas Neue';font-size:clamp(32px,4vw,48px);line-height:1.02;marg
 .grid{columns:4 240px;column-gap:12px}
 .grid figure{break-inside:avoid;margin:0 0 12px;border-radius:11px;overflow:hidden;
   border:1px solid var(--line);cursor:zoom-in;position:relative;background:var(--panel2)}
-.grid img{width:100%;transition:transform .35s,opacity .35s;opacity:0}
+.grid img{width:100%;max-height:340px;object-fit:cover;object-position:center 30%;
+  transition:transform .35s,opacity .35s;opacity:0}
 .grid img.ready{opacity:1}
 .grid figure:hover img{transform:scale(1.04)}
 .grid figure::after{content:"";position:absolute;inset:0;background:rgba(37,99,235,0);transition:background .25s}
@@ -294,6 +295,9 @@ const GERAL = Array.from({length:N_GERAL},(_,i)=>({
   f:'geral-'+pad(i+1)+'.jpg', c:'i2 User Group São Paulo 2026'
 }));
 const TODAS = [...PREMIACAO, ...GERAL];
+/* fotos que ficam fora da grade (quase idênticas a outra já exibida) */
+const FORA = ['premiacao-02.jpg'];
+const GALERIA = TODAS.filter(p => !FORA.includes(p.f));
 
 /* ── carrossel da premiação ── */
 (function(){
@@ -332,7 +336,7 @@ const TODAS = [...PREMIACAO, ...GERAL];
 /* ── grade com carregamento sob demanda ── */
 (function(){
   const g=document.getElementById('grid');
-  TODAS.forEach((p,i)=>{
+  GALERIA.forEach((p,i)=>{
     const fig=document.createElement('figure');
     fig.innerHTML='<img data-src="img/thumb/'+p.f+'" alt="'+p.c+'">';
     fig.onclick=()=>abrir(i);
@@ -355,10 +359,10 @@ const lb=document.getElementById('lb'), lbi=document.getElementById('lbi'),
       lbc=document.getElementById('lbc');
 let cur=0;
 function abrir(i){
-  cur=(i+TODAS.length)%TODAS.length;
-  lbi.src='img/full/'+TODAS[cur].f;
-  lbi.alt=TODAS[cur].c;
-  lbc.textContent=TODAS[cur].c+'  ·  '+(cur+1)+' de '+TODAS.length;
+  cur=(i+GALERIA.length)%GALERIA.length;
+  lbi.src='img/full/'+GALERIA[cur].f;
+  lbi.alt=GALERIA[cur].c;
+  lbc.textContent=GALERIA[cur].c+'  ·  '+(cur+1)+' de '+GALERIA.length;
   lb.classList.add('on'); document.body.style.overflow='hidden';
 }
 function fechar(){ lb.classList.remove('on'); document.body.style.overflow=''; }
