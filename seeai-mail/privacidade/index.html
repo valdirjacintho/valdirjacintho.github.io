@@ -200,7 +200,7 @@
         <h1 class="sm-hero-title" style="font-size:clamp(1.8rem,4vw,2.5rem);">Pol&iacute;tica de Privacidade</h1>
         <p class="sm-updated">&Uacute;ltima atualiza&ccedil;&atilde;o: <strong>21 de outubro de 2026</strong></p>
 
-        <p class="sm-confirm"><strong>Nota de revis&atilde;o:</strong> este documento foi preparado com base nas informa&ccedil;&otilde;es fornecidas pela respons&aacute;vel pelo produto e descreve o funcionamento do SEEAI Mail. Trechos marcados como <strong>[A CONFIRMAR]</strong> dependem de valida&ccedil;&atilde;o t&eacute;cnica ou jur&iacute;dica final antes da publica&ccedil;&atilde;o definitiva.</p>
+        <p class="sm-confirm"><strong>Documento em revis&atilde;o:</strong> esta vers&atilde;o foi preparada para valida&ccedil;&atilde;o. Os trechos destacados dependem de confirma&ccedil;&atilde;o t&eacute;cnica (auditoria da vers&atilde;o RC4 do aplicativo) e de revis&atilde;o jur&iacute;dica antes da publica&ccedil;&atilde;o definitiva.</p>
 
         <div class="sm-toc">
           <h2>Conte&uacute;do</h2>
@@ -242,7 +242,7 @@
           <li>Pastas, marcadores e estados de leitura;</li>
           <li>Contatos autorizados;</li>
           <li>Eventos e informa&ccedil;&otilde;es de calend&aacute;rio autorizados;</li>
-          <li>Dados necess&aacute;rios &agrave; manuten&ccedil;&atilde;o da sess&atilde;o de autentica&ccedil;&atilde;o;</li>
+          <li>Tokens e dados necess&aacute;rios &agrave; manuten&ccedil;&atilde;o da sess&atilde;o de autentica&ccedil;&atilde;o;</li>
           <li>Dados locais importados pelo usu&aacute;rio, incluindo arquivos do Outlook (PST).</li>
         </ul>
         <p>&Eacute; importante distinguir as origens:</p>
@@ -260,25 +260,35 @@
           <li><strong>Agenda (Google Calendar):</strong> consultar e trabalhar com eventos autorizados;</li>
           <li><strong>Contatos (Google Contacts):</strong> acessar contatos autorizados para composi&ccedil;&atilde;o e organiza&ccedil;&atilde;o das mensagens.</li>
         </ul>
-        <span class="sm-confirm"><strong>[A CONFIRMAR]</strong> A rela&ccedil;&atilde;o t&eacute;cnica exata de escopos OAuth solicitados corresponde &agrave; configurada na tela de consentimento do Google e deve ser mantida em sincronia com ela.</span>
+        <p>De acordo com a documenta&ccedil;&atilde;o t&eacute;cnica do produto, os escopos OAuth previstos s&atilde;o:</p>
+        <table class="sm-data-table">
+          <tr><td>openid, email, profile</td><td>Identifica&ccedil;&atilde;o b&aacute;sica da conta (nome, e-mail e identificador) para login e exibi&ccedil;&atilde;o da conta conectada.</td></tr>
+          <tr><td>https://mail.google.com/</td><td>Acesso ao Gmail para ler, enviar, responder, encaminhar e organizar mensagens dentro do aplicativo.</td></tr>
+          <tr><td>.../auth/calendar.events</td><td>Consultar e trabalhar com eventos da agenda autorizados.</td></tr>
+          <tr><td>.../auth/calendar.calendarlist.readonly</td><td>Leitura da lista de calend&aacute;rios da conta.</td></tr>
+          <tr><td>.../auth/contacts</td><td>Acesso aos contatos para composi&ccedil;&atilde;o e organiza&ccedil;&atilde;o das mensagens.</td></tr>
+        </table>
+        <span class="sm-confirm"><strong>A CONFIRMAR &mdash; auditoria t&eacute;cnica (RC4):</strong> esta rela&ccedil;&atilde;o de escopos ainda ser&aacute; confrontada com o c&oacute;digo publicado da vers&atilde;o RC4 e com o cliente OAuth Externo configurado no Google Cloud. A lista s&oacute; ser&aacute; considerada definitiva ap&oacute;s essa confer&ecirc;ncia e deve permanecer em sincronia com a tela de consentimento do Google.</span>
 
         <h2 class="sm-sec" id="p5">5. Finalidades do tratamento</h2>
         <p>Os dados s&atilde;o utilizados exclusivamente para viabilizar as funcionalidades solicitadas pelo usu&aacute;rio, tais como: leitura, envio, resposta e encaminhamento de mensagens; busca e organiza&ccedil;&atilde;o; sincroniza&ccedil;&atilde;o com os provedores; consulta de agenda; e uso de contatos na composi&ccedil;&atilde;o de mensagens.</p>
 
         <h2 class="sm-sec" id="p6">6. Armazenamento e prote&ccedil;&atilde;o</h2>
-        <p>O SEEAI Mail &eacute; um aplicativo <strong>desktop</strong>. Os dados das contas e os conte&uacute;dos sincronizados ficam <strong>armazenados localmente no computador do usu&aacute;rio</strong>, em cache local, para permitir o funcionamento do aplicativo.</p>
+        <p>O SEEAI Mail &eacute; um aplicativo <strong>desktop</strong>. Os dados das contas e os conte&uacute;dos sincronizados ficam <strong>armazenados localmente no computador do usu&aacute;rio</strong>, para permitir o funcionamento do aplicativo.</p>
         <ul>
-          <li>Os dados em cache local <strong>n&atilde;o s&atilde;o criptografados</strong> pelo aplicativo;</li>
-          <li>O aplicativo <strong>n&atilde;o mant&eacute;m tokens de autentica&ccedil;&atilde;o persistidos</strong> ap&oacute;s o encerramento, cabendo nova autentica&ccedil;&atilde;o quando necess&aacute;rio;</li>
-          <li>A prote&ccedil;&atilde;o do computador e do ambiente onde os dados ficam armazenados &eacute; de <strong>responsabilidade do usu&aacute;rio</strong> (por exemplo, controle de acesso ao equipamento e ao sistema operacional).</li>
+          <li>O <strong>armazenamento interno do aplicativo</strong> (banco de dados local em formato SQLite) &eacute; protegido por <strong>criptografia AES-256</strong> (modo AES-GCM), e as chaves de criptografia s&atilde;o protegidas pelo mecanismo <strong>DPAPI (CurrentUser) do Windows</strong>, vinculando o acesso &agrave; conta de usu&aacute;rio do sistema operacional;</li>
+          <li>Para evitar nova autentica&ccedil;&atilde;o a cada abertura, o aplicativo <strong>mant&eacute;m localmente, de forma protegida, as credenciais de autoriza&ccedil;&atilde;o</strong> (sess&atilde;o/tokens OAuth), pelos mesmos mecanismos de prote&ccedil;&atilde;o descritos acima. O usu&aacute;rio pode desconectar a conta no aplicativo ou revogar a autoriza&ccedil;&atilde;o na Conta Google a qualquer momento (ver se&ccedil;&atilde;o 9);</li>
+          <li><strong>Arquivos exportados ou salvos pelo usu&aacute;rio fora do aplicativo</strong> &mdash; por exemplo, anexos salvos manualmente em pastas do Windows &mdash; n&atilde;o recebem necessariamente a mesma prote&ccedil;&atilde;o e ficam sujeitos aos controles do sistema operacional e do pr&oacute;prio usu&aacute;rio;</li>
+          <li>A prote&ccedil;&atilde;o do computador e do ambiente onde os dados ficam armazenados &eacute; tamb&eacute;m de <strong>responsabilidade do usu&aacute;rio</strong> (por exemplo, controle de acesso ao equipamento e ao sistema operacional).</li>
         </ul>
-        <p>Parte dos dados &eacute; transmitida aos provedores (como o Google) apenas para executar as opera&ccedil;&otilde;es solicitadas pelo usu&aacute;rio &mdash; por exemplo, enviar uma mensagem ou sincronizar uma pasta. Fora essas opera&ccedil;&otilde;es, os dados permanecem no computador do usu&aacute;rio.</p>
-        <span class="sm-confirm"><strong>[A CONFIRMAR]</strong> Os mecanismos de cache, tratamento de anexos e a aus&ecirc;ncia de criptografia/persist&ecirc;ncia de tokens devem ser confirmados tecnicamente contra a implementa&ccedil;&atilde;o final antes da publica&ccedil;&atilde;o.</span>
+        <p>Parte dos dados &eacute; transmitida aos provedores (como o Google) apenas para executar as opera&ccedil;&otilde;es solicitadas pelo usu&aacute;rio &mdash; por exemplo, enviar uma mensagem ou sincronizar uma pasta.</p>
+        <span class="sm-confirm"><strong>A CONFIRMAR &mdash; auditoria t&eacute;cnica (RC4):</strong> os mecanismos exatos de criptografia (AES-256/AES-GCM e prote&ccedil;&atilde;o de chaves via DPAPI), o tratamento de cache e de anexos e a persist&ecirc;ncia protegida de credenciais ser&atilde;o confrontados com a implementa&ccedil;&atilde;o da vers&atilde;o RC4 antes da publica&ccedil;&atilde;o definitiva.</span>
 
         <h2 class="sm-sec" id="p7">7. Compartilhamento e uso de dados</h2>
         <p>Os dados s&atilde;o transmitidos aos respectivos provedores (Google e outros provedores configurados pelo usu&aacute;rio) estritamente para executar as opera&ccedil;&otilde;es de correio, agenda e contatos solicitadas.</p>
         <p>O SEEAI Mail declara que o uso das informa&ccedil;&otilde;es obtidas por meio das APIs do Google observa as exig&ecirc;ncias de <strong>Uso Limitado</strong> (<em>Limited Use</em>) da <strong>Pol&iacute;tica de Dados do Usu&aacute;rio dos Servi&ccedil;os de API do Google</strong>. Os dados do Gmail <strong>n&atilde;o s&atilde;o vendidos</strong> nem utilizados para <strong>publicidade direcionada</strong>, e n&atilde;o s&atilde;o utilizados para finalidades alheias ao funcionamento solicitado pelo usu&aacute;rio.</p>
-        <span class="sm-confirm"><strong>[A CONFIRMAR]</strong> Caso existam servi&ccedil;os de telemetria, subprocessadores ou quaisquer servi&ccedil;os externos, eles devem ser aqui divulgados. Pela arquitetura informada, o aplicativo n&atilde;o envia dados de e-mail, agenda ou contatos a servidores da SEEAI nem a terceiros al&eacute;m dos provedores autorizados.</span>
+        <p>Para funcionar, o aplicativo utiliza componentes e servi&ccedil;os de terceiros &mdash; por exemplo, o <strong>Microsoft WebView2</strong> (renderiza&ccedil;&atilde;o de conte&uacute;do), as <strong>APIs do Google</strong> e os provedores de e-mail configurados. O uso desses componentes para prover as funcionalidades <strong>n&atilde;o se confunde</strong> com coleta ou compartilhamento de dados para finalidades pr&oacute;prias da SEEAI.</p>
+        <span class="sm-confirm"><strong>A CONFIRMAR &mdash; auditoria t&eacute;cnica (RC4):</strong> antes da publica&ccedil;&atilde;o definitiva ser&atilde;o mapeados e, se existirem, divulgados aqui os fluxos externos efetivos &mdash; telemetria/diagn&oacute;sticos, verifica&ccedil;&otilde;es de atualiza&ccedil;&atilde;o, recursos externos referenciados nas pr&oacute;prias mensagens (como imagens remotas) e eventuais subprocessadores. Enquanto esse mapeamento n&atilde;o for conclu&iacute;do, n&atilde;o se afirma de forma absoluta a aus&ecirc;ncia de qualquer transmiss&atilde;o a terceiros al&eacute;m dos provedores autorizados.</span>
 
         <h2 class="sm-sec" id="p8">8. Reten&ccedil;&atilde;o e exclus&atilde;o</h2>
         <ul>
