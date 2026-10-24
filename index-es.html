@@ -32,6 +32,20 @@
   <link rel="alternate" hreflang="es" href="https://seeaidata.com.br/index-es.html" />
   <link rel="alternate" hreflang="x-default" href="https://seeaidata.com.br/index.html" />
 
+  <!-- Favicon SEEAI -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#080d18">
+  <!-- Previa de link (Open Graph / Twitter) -->
+  <meta property="og:image" content="https://seeaidata.com.br/img/og-seeai.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="SEEAI">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://seeaidata.com.br/img/og-seeai.png">
 </head>
 
 
@@ -250,7 +264,7 @@
     </section>
 
     <!-- BLOCO 2 - SERVIÇOS -->
-    <section id="servicos" class="section-large section-block section-light">
+    <section id="servicos" class="section-large section-block alt2">
       <h2 class="section-title">Servicios</h2>
       <p class="section-sub">
         Integración de la suite i2, Data Hub, consultoría investigativa, capacitación,
@@ -346,48 +360,7 @@
         </div><!-- /partners-inner -->
       </div>
     </section>
-    <script>
-    (function(){
-      const wrapper = document.getElementById('partnersWrapper');
-      const inner   = document.getElementById('partnersInner');
-      const track   = document.getElementById('partnersTrack');
-      if(!wrapper || !inner || !track) return;
-      const clone = track.cloneNode(true);
-      clone.setAttribute('aria-hidden','true');
-      inner.appendChild(clone);
-      let x = 0;
-      const speed = 1.8;
-      let currentSpeed = speed;
-      let dragging = false;
-      let dragStartX = 0;
-      let dragStartOffset = 0;
-      let dragVelocity = 0;
-      let lastDragX = 0;
-      let paused = false;
-      function getTrackWidth() { return track.offsetWidth; }
-      function tick() {
-        if (!dragging) {
-          if (!paused) x -= currentSpeed;
-          if (Math.abs(currentSpeed - speed) > 0.01) currentSpeed += (speed - currentSpeed) * 0.04;
-          else currentSpeed = speed;
-        }
-        const w = getTrackWidth();
-        if (x <= -w) x += w;
-        if (x > 0)   x -= w;
-        inner.style.transform = 'translateX(' + x + 'px)';
-        requestAnimationFrame(tick);
-      }
-      wrapper.addEventListener('mouseenter', () => { paused = true; });
-      wrapper.addEventListener('mouseleave', () => { if (!dragging) paused = false; });
-      wrapper.addEventListener('mousedown', e => { dragging = true; paused = true; dragStartX = e.clientX; dragStartOffset = x; lastDragX = e.clientX; wrapper.classList.add('dragging'); e.preventDefault(); });
-      window.addEventListener('mousemove', e => { if (!dragging) return; dragVelocity = e.clientX - lastDragX; lastDragX = e.clientX; x = dragStartOffset + (e.clientX - dragStartX); });
-      window.addEventListener('mouseup', () => { if (!dragging) return; dragging = false; paused = false; wrapper.classList.remove('dragging'); currentSpeed = -dragVelocity * 0.4 || speed; if (Math.abs(currentSpeed) < 0.1) currentSpeed = speed; });
-      wrapper.addEventListener('touchstart', e => { dragging = true; paused = true; dragStartX = e.touches[0].clientX; dragStartOffset = x; lastDragX = e.touches[0].clientX; }, { passive: true });
-      wrapper.addEventListener('touchmove', e => { if (!dragging) return; dragVelocity = e.touches[0].clientX - lastDragX; lastDragX = e.touches[0].clientX; x = dragStartOffset + (e.touches[0].clientX - dragStartX); }, { passive: true });
-      wrapper.addEventListener('touchend', () => { dragging = false; paused = false; currentSpeed = -dragVelocity * 0.4 || speed; if (Math.abs(currentSpeed) < 0.1) currentSpeed = speed; });
-      requestAnimationFrame(tick);
-    })();
-    </script>
+    
 
     <!-- BLOCO 3 - BLOG -->
     <section id="blog" class="section-large section-block alt2">
