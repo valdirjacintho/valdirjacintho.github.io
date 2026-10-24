@@ -1671,6 +1671,21 @@ footer {
 .ex-cta-strip .section-sub   { margin: 0 auto 2rem; text-align: center; }
 .ex-cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
   </style>
+  <link rel="stylesheet" href="style.css">
+  <style>
+  /* ===== EXPLORE: alinhar ao padrao visual do site ===== */
+  /* cantos retos nos componentes proprios do EXPLORE */
+  .ex-feature, .ex-artifact, .ex-ia-item, .ex-sec-item, .use-case, .roadmap-item,
+  .product-card, .product-hero-panel, .tall-card, .ex-security, .ex-target,
+  .product-screenshot, .product-screenshot img, .ex-cta-strip, .explore-badge,
+  .badge-new, .ex-tag, .use-case-badge, .roadmap-badge, .ex-stat-row,
+  .embed-3d, .embed-3d-wrap, .ex-screens > * { border-radius:0 !important; }
+  /* titulos dos cards proprios em Oswald */
+  .ex-feat-title, .ex-artifact h3, .ex-ia-item h4, .ex-sec-item h4, .use-case h3,
+  .roadmap-item h4, .product-card h3, .ex-target h3 { font-family:var(--fd); font-weight:600; letter-spacing:.01em; }
+  /* acento no padrao da marca (sem roxo) */
+  .ex-artifact.purple::before { background:var(--blue) !important; }
+  </style>
   <!-- Favicon SEEAI -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -1697,7 +1712,6 @@ footer {
 </div>
 
 <body>
-  <canvas id="network-bg"></canvas>
   <div class="content-wrapper">
 
     <!-- HEADER — só logo -->
@@ -1749,6 +1763,8 @@ footer {
 
     <!-- ═══ HERO ═══════════════════════════════════════════════════ -->
     <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true"><svg id="graph3d" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g id="g3d-links"></g><g id="g3d-nodes"></g></svg></div>
+      <div class="hero-scrim" aria-hidden="true"></div>
       <div class="hero-left">
         <div class="explore-badge">
           <span class="explore-badge-dot"></span>
@@ -2269,29 +2285,63 @@ footer {
 
   document.getElementById("year").textContent=new Date().getFullYear();
 
-  const canvas=document.getElementById("network-bg"),ctx=canvas.getContext("2d");
-  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-  resize();window.addEventListener("resize",resize);
-  let nodes=[];const N=90,D=150;
-  function init(){nodes=[];for(let i=0;i<N;i++)nodes.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6});}
-  init();
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="rgba(5,13,31,1)";ctx.fillRect(0,0,canvas.width,canvas.height);
-    nodes.forEach(n=>{
-      n.x+=n.vx;n.y+=n.vy;
-      if(n.x<0||n.x>canvas.width)n.vx*=-1;
-      if(n.y<0||n.y>canvas.height)n.vy*=-1;
-      ctx.beginPath();ctx.arc(n.x,n.y,3,0,Math.PI*2);ctx.fillStyle="#1ea4ff";ctx.fill();
-      if(Math.random()<.003){ctx.beginPath();ctx.arc(n.x,n.y,4,0,Math.PI*2);ctx.fillStyle="#e6323a";ctx.fill();}
-    });
-    for(let a=0;a<N;a++)for(let b=a+1;b<N;b++){
-      const dx=nodes[a].x-nodes[b].x,dy=nodes[a].y-nodes[b].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<D){ctx.strokeStyle="rgba(30,164,255,"+(1-d/D)+")";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(nodes[a].x,nodes[a].y);ctx.lineTo(nodes[b].x,nodes[b].y);ctx.stroke();}
+  /* ===== grafo 3D de entidades (ícones) girando + orgânico (SVG) ===== */
+  (function(){
+    var svg=document.getElementById("graph3d"); if(!svg) return;
+    var gL=document.getElementById("g3d-links"), gN=document.getElementById("g3d-nodes"), NS="http://www.w3.org/2000/svg";
+    var IC={
+      person:'<circle cx="12" cy="8" r="3.1"/><path d="M5.9 19.4c0-3.3 2.7-5.7 6.1-5.7s6.1 2.4 6.1 5.7"/>',
+      phone:'<rect x="7.6" y="3.5" width="8.8" height="17" rx="1.4"/><path d="M10.5 17.8h3"/>',
+      vehicle:'<path d="M4 14.3l1.7-4A2 2 0 0 1 7.5 9h9a2 2 0 0 1 1.8 1.3l1.7 4V18H4z"/><circle cx="8" cy="18" r="1.5"/><circle cx="16" cy="18" r="1.5"/>',
+      house:'<path d="M4.5 11.3 12 5.2l7.5 6.1"/><path d="M6.5 10.2V19h11v-8.8"/><path d="M10.3 19v-4.2h3.4V19"/>',
+      industry:'<path d="M4 19.5V11l4 2.5V11l4 2.5V11l4 2.5V19.5Z"/><path d="M16.5 13.5V7h2.2v6.5"/>',
+      email:'<text x="12" y="16.6" text-anchor="middle" font-size="17" font-family="IBM Plex Mono, monospace">@</text>'
+    };
+    var TYPES=["person","phone","vehicle","house","industry","email"];
+    var n=20, ga=Math.PI*(3-Math.sqrt(5)), N=[], i, j;
+    for(i=0;i<n;i++){
+      var y=1-(i/(n-1))*2, r=Math.sqrt(Math.max(0,1-y*y)), th=i*ga, jig=0.86+Math.random()*0.26;
+      N.push({x:Math.cos(th)*r*jig, y:y*jig, z:Math.sin(th)*r*jig, type:TYPES[i%TYPES.length], t:0,
+        ax:0.05+Math.random()*0.06, ay:0.05+Math.random()*0.06, az:0.05+Math.random()*0.06,
+        fx:0.3+Math.random()*0.5, fy:0.3+Math.random()*0.5, fz:0.3+Math.random()*0.5,
+        px:Math.random()*6.28, py:Math.random()*6.28, pz:Math.random()*6.28});
     }
-    requestAnimationFrame(draw);
-  }
-  draw();
+    var ti=5; N[ti].t=1; N[ti].type="person";
+    var Eset={}, E=[];
+    function addE(a,b){var k=a<b?a+"-"+b:b+"-"+a; if(a!==b&&!Eset[k]){Eset[k]=1;E.push([a,b]);}}
+    for(i=0;i<n;i++){var ds=[];
+      for(j=0;j<n;j++) if(j!==i) ds.push([j,(N[i].x-N[j].x)*(N[i].x-N[j].x)+(N[i].y-N[j].y)*(N[i].y-N[j].y)+(N[i].z-N[j].z)*(N[i].z-N[j].z)]);
+      ds.sort(function(p,q){return p[1]-q[1];}); addE(i,ds[0][0]); addE(i,ds[1][0]);
+    }
+    [2,8,11,14].forEach(function(jj){addE(ti,jj);});
+    var L=E.map(function(){var e=document.createElementNS(NS,"line");gL.appendChild(e);return e;});
+    var G=N.map(function(nd){var g=document.createElementNS(NS,"g");g.setAttribute("class","node"+(nd.t?" t":""));
+      g.innerHTML='<g transform="translate(-12,-12)">'+IC[nd.type]+'</g>';gN.appendChild(g);return g;});
+    var cx=600,cy=310,cam=3.2,xspread=300,yspread=215,tilt=0.42,ct=Math.cos(tilt),st=Math.sin(tilt),t0=0;
+    function cl(v,a,b){return v<a?a:(v>b?b:v);}
+    function frame(now){
+      if(!t0)t0=now; var t=(now-t0)/1000, ang=t*0.2, ca=Math.cos(ang),sa=Math.sin(ang), P=[], i, order=[];
+      for(i=0;i<n;i++){var o=N[i];
+        var x=o.x+o.ax*Math.sin(t*o.fx+o.px), y=o.y+o.ay*Math.sin(t*o.fy+o.py), z=o.z+o.az*Math.sin(t*o.fz+o.pz);
+        var x1=x*ca-z*sa, z1=x*sa+z*ca, y1=y*ct-z1*st, z2=y*st+z1*ct, sc=cam/(cam-z2);
+        P.push([cx+x1*xspread*sc, cy+y1*yspread*sc, sc, z2]); order.push(i);
+      }
+      for(i=0;i<E.length;i++){var a=P[E[i][0]],b=P[E[i][1]],ln=L[i],ms=(a[2]+b[2])/2;
+        ln.setAttribute("x1",a[0].toFixed(1));ln.setAttribute("y1",a[1].toFixed(1));
+        ln.setAttribute("x2",b[0].toFixed(1));ln.setAttribute("y2",b[1].toFixed(1));
+        ln.setAttribute("stroke-opacity",cl((ms-0.7)*0.8,0.05,0.42).toFixed(3));
+        ln.setAttribute("stroke-width",(0.8*ms).toFixed(2));
+      }
+      order.sort(function(p,q){return P[p][3]-P[q][3];});
+      for(i=0;i<n;i++){var idx=order[i], p=P[idx], g=G[idx], k=(N[idx].t?1.25:1.0)*p[2];
+        g.setAttribute("transform","translate("+p[0].toFixed(1)+" "+p[1].toFixed(1)+") scale("+k.toFixed(3)+")");
+        g.setAttribute("opacity",cl((p[2]-0.6)*1.3,0.2,1).toFixed(3));
+        gN.appendChild(g);
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
   </script>
 </body>
 </html>
