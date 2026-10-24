@@ -163,10 +163,11 @@
           <canvas id="hub-canvas"></canvas>
         </div>
         <script>
-        (function(){
-          const canvas = document.getElementById('hub-canvas');
+        function initHub(CID, WID){
+          const canvas = document.getElementById(CID);
+          if(!canvas) return;
           const ctx    = canvas.getContext('2d');
-          const wrap   = document.getElementById('datahub-network');
+          const wrap   = document.getElementById(WID);
 
           // ── Parceiros ──────────────────────────────────────────────────
           const PARTNERS = [
@@ -373,7 +374,8 @@
             }
           }, { threshold: 0.1 });
           obs.observe(wrap);
-        })();
+        }
+        initHub('hub-canvas','datahub-network');
         </script>
       </aside>
     </section>
@@ -437,13 +439,10 @@
         SEEAI Data Hub conecta las principales fuentes de datos del mercado al ecosistema i2,
         entregando inteligencia unificada y accionable para investigación, antifraude y cumplimiento normativo.
       </p>
-      <div class="bases-img-wrap">
-        <img
-          src="img/06_hub_parceiros_hd.png"
-          alt="Principales bases de datos integradas al SEEAI Data Hub"
-          loading="lazy"
-        />
+            <div class="bases-net-wrap">
+        <div class="network bases-network" id="bases-network"><canvas id="bases-canvas"></canvas></div>
       </div>
+      <script>initHub('bases-canvas','bases-network');</script>
       <p class="bases-caption">Fuentes integradas · Datos unificados · Inteligencia accionable</p>
     </section>
 
