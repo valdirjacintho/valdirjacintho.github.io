@@ -305,8 +305,9 @@ header {
 .badge-new { background:transparent; color:var(--alert); border-color:var(--line-2); }
 .product-screenshot { margin-top:2.6rem; text-align:center; }
 .product-screenshot img { display:block; width:100%; max-width:860px; height:auto; margin:0 auto; border-radius:0; border:1px solid var(--line-2); box-shadow:none; }
-.bases-img-wrap { margin:2.2rem auto 0; max-width:680px; text-align:center; }
-.bases-img-wrap img { width:100%; height:auto; border-radius:0; border:1px solid var(--line-2); box-shadow:none; display:block; margin:0 auto; }
+.bases-net-wrap { margin:2.2rem auto 0; max-width:720px; }
+.bases-network { margin:0 auto; width:100%; aspect-ratio:16/11; min-height:440px; max-height:560px; }
+@media (max-width:540px){ .bases-network { aspect-ratio:1/1; min-height:360px; } }
 .bases-caption { margin-top:1rem; font-family:var(--fm); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); text-align:center; }
 @media (max-width:1024px){ .product-hero-inner, .product-band-inner{ grid-template-columns:1fr; } }
 
