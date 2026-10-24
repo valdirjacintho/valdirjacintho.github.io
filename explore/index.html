@@ -1892,6 +1892,12 @@ footer {
   .ex-feat-title, .ex-artifact h3, .ex-ia-item h4, .ex-sec-item h4, .use-case h3,
   .roadmap-item h4, .product-card h3, .ex-target h3 { font-family:var(--fd); font-weight:600; letter-spacing:.01em; }
   .ex-artifact.purple::before { background:var(--blue) !important; }
+  /* botao "Acessar SEEAI EXPLORE": padrao do site + lado oposto ao logo */
+  .explore-cta { margin-left:auto; padding:.62rem 1.15rem; border-radius:0; clip-path:var(--notch);
+    font-family:var(--fm); font-weight:500; letter-spacing:.06em; font-size:.72rem; text-transform:uppercase;
+    color:var(--accent-ink); background:var(--accent); border:1px solid var(--accent); box-shadow:none; white-space:nowrap; }
+  .explore-cta:hover { transform:none; background:var(--accent); border-color:var(--accent); box-shadow:none; filter:brightness(1.1); }
+  .explore-cta__arrow { opacity:1; }
   </style>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
