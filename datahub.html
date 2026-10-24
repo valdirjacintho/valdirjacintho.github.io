@@ -170,16 +170,16 @@
 
           // ── Parceiros ──────────────────────────────────────────────────
           const PARTNERS = [
-            { src: 'img/NOVAVIDA_TI.png',                    label: 'Nova Vida TI'  },
-            { src: 'img/SHADOWDRAGON.png',                    label: 'ShadowDragon' },
-            { src: 'img/Sherlockeye.png',                     label: 'Sherlockeye'  },
-            { src: 'img/Logo_OALAI_bom.png',                  label: 'OALAI'        },
-            { src: 'img/PH3A.png',                            label: 'PH3A'         },
-            { src: 'img/HEXCOV.png',                          label: 'Hexcov'       },
-            { src: 'img/Aimart-Credilink-logo-transparente.png', label: 'Credilink' },
-            { src: 'img/BIGDATA_CORP.png',                    label: 'BigDataCorp'  },
+            { src: 'img/hub/NOVAVIDA_TI.png',                    label: 'Nova Vida TI'  },
+            { src: 'img/hub/SHADOWDRAGON.png',                    label: 'ShadowDragon' },
+            { src: 'img/hub/Sherlockeye.png',                     label: 'Sherlockeye'  },
+            { src: 'img/hub/Logo_OALAI_bom.png',                  label: 'OALAI'        },
+            { src: 'img/hub/PH3A.png',                            label: 'PH3A'         },
+            { src: 'img/hub/HEXCOV.png',                          label: 'Hexcov'       },
+            { src: 'img/hub/Aimart-Credilink-logo-transparente.png', label: 'Credilink' },
+            { src: 'img/hub/BIGDATA_CORP.png',                    label: 'BigDataCorp'  },
           ];
-          const CENTER_SRC = 'img/seeai-logo.png';
+          const CENTER_SRC = 'img/seeai-eye.png';
 
           // ── Carregar imagens ───────────────────────────────────────────
           let loaded = 0;
@@ -225,9 +225,18 @@
           let orbitAngle = 0;
           let raf;
 
+          let DPR = 1, cssW = 560, cssH = 315;
           function resize() {
-            canvas.width  = wrap.clientWidth  || 560;
-            canvas.height = wrap.clientHeight || 315;
+            DPR  = Math.min(window.devicePixelRatio || 1, 2.5);
+            cssW = wrap.clientWidth  || 560;
+            cssH = wrap.clientHeight || 315;
+            canvas.width  = Math.round(cssW * DPR);
+            canvas.height = Math.round(cssH * DPR);
+            canvas.style.width  = cssW + 'px';
+            canvas.style.height = cssH + 'px';
+            ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
           }
 
           function startAnim() {
@@ -237,7 +246,7 @@
           }
 
           function draw() {
-            const W = canvas.width, H = canvas.height;
+            const W = cssW, H = cssH;
             const cx = W / 2, cy = H / 2;
             const rx = Math.min(W, H) * 0.396;  // raio X da órbita (+10%)
             const ry = Math.min(W, H) * 0.33;   // raio Y da órbita (+10%)
@@ -311,6 +320,7 @@
                 ctx.beginPath();
                 ctx.arc(pos.x, pos.y, pLogoR + 4, 0, Math.PI * 2);
                 ctx.clip();
+                ctx.filter = 'brightness(0) invert(1)';
                 ctx.drawImage(p.img, pos.x - dw/2, pos.y - dh/2, dw, dh);
                 ctx.restore();
               }
