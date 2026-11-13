@@ -1933,6 +1933,20 @@ footer {
 .ex-hero-chips li{ display:inline-flex; align-items:center; gap:7px; padding:6px 12px; border-radius:999px; font-size:.82rem; color:#eef4fc; background:rgba(47,155,255,.08); border:1px solid rgba(88,180,255,.20); }
 .ex-hero-chips li::before{ content:""; width:6px; height:6px; border-radius:50%; background:#58b4ff; }
 .ex-hero-chips li.is-red::before{ background:#ff3047; }
+.ex-logo-animado{ display:flex; justify-content:center; }
+.logo-lockup{ display:flex; align-items:center; gap:clamp(16px,2.6vw,30px); }
+.logo-lockup .auth-v2-emblem{ width:clamp(120px,15vw,188px); margin:0; }
+.wordmark{ display:flex; flex-direction:column; justify-content:center; text-align:left; }
+.wm-main{ font-weight:800; font-size:clamp(34px,5.2vw,60px); letter-spacing:-.02em; line-height:1; color:#fff; }
+.wm-main span{ color:#1ea4ff; }
+.wm-rule{ height:1px; width:min(320px,52vw); background:linear-gradient(90deg,rgba(30,164,255,.5),transparent); margin:.5rem 0 .45rem; }
+.wm-explore{ font-weight:300; font-size:clamp(14px,2.2vw,25px); letter-spacing:.5em; color:#7aafce; }
+.wm-tag{ font-size:clamp(9px,1.3vw,12px); letter-spacing:.26em; text-transform:lowercase; color:#3a5570; margin-top:.5rem; }
+@media(max-width:620px){ .logo-lockup{ flex-direction:column; text-align:center; gap:14px; } .wordmark{ text-align:center; align-items:center; } .wm-rule{ margin-inline:auto; } }
+.hero.hero-solo{ grid-template-columns:1fr; justify-items:center; text-align:center; padding-top:2rem; }
+.hero.hero-solo .hero-left{ max-width:860px; display:flex; flex-direction:column; align-items:center; }
+.hero.hero-solo .ex-hero-chips{ justify-content:center; }
+.hero.hero-solo .hero-actions{ justify-content:center; }
 @media (max-width:1024px){
   .hero .hero-emblem-panel{ order:-1; }
   .hero .hero-emblem-panel .auth-v2-emblem{ width:min(300px,72%); }
@@ -1970,45 +1984,26 @@ footer {
       </div>
     </header>
 
-    <!-- LOGO SEEAI EXPLORE centralizado -->
-    <div style="text-align:center;padding:2.2rem 2rem 0.8rem;position:relative;z-index:1;">
-      <svg width="480" height="160" viewBox="0 0 480 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SEEAI EXPLORE" style="max-width:100%;height:auto;">
-  <circle cx="80" cy="80" r="68" stroke="#1ea4ff" stroke-width="0.8" stroke-dasharray="4 9" opacity="0.18"/>
-  <circle cx="80" cy="80" r="50" stroke="#1ea4ff" stroke-width="0.7" stroke-dasharray="2 6" opacity="0.25"/>
-  <line x1="80" y1="80" x2="36"  y2="36"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.50"/>
-  <line x1="80" y1="80" x2="80"  y2="14"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.50"/>
-  <line x1="80" y1="80" x2="124" y2="36"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.45"/>
-  <line x1="80" y1="80" x2="144" y2="80"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.45"/>
-  <line x1="80" y1="80" x2="124" y2="124" stroke="#1ea4ff" stroke-width="1.2" opacity="0.38"/>
-  <line x1="80" y1="80" x2="80"  y2="148" stroke="#e6323a" stroke-width="1.2" opacity="0.60"/>
-  <line x1="80" y1="80" x2="36"  y2="124" stroke="#e6323a" stroke-width="1.2" opacity="0.50"/>
-  <line x1="80" y1="80" x2="16"  y2="80"  stroke="#1ea4ff" stroke-width="1.2" opacity="0.42"/>
-  <circle cx="36"  cy="36"  r="11" fill="#1ea4ff" opacity="0.08"/><circle cx="80"  cy="14"  r="10" fill="#1ea4ff" opacity="0.08"/>
-  <circle cx="124" cy="36"  r="11" fill="#1ea4ff" opacity="0.08"/><circle cx="144" cy="80"  r="10" fill="#1ea4ff" opacity="0.07"/>
-  <circle cx="124" cy="124" r="11" fill="#3a88cc" opacity="0.07"/><circle cx="80"  cy="148" r="13" fill="#e6323a" opacity="0.10"/>
-  <circle cx="36"  cy="124" r="10" fill="#e6323a" opacity="0.09"/><circle cx="16"  cy="80"  r="10" fill="#1ea4ff" opacity="0.07"/>
-  <circle cx="36"  cy="36"  r="7"   fill="#1ea4ff" opacity="0.72"/>
-  <circle cx="80"  cy="14"  r="6"   fill="#1ea4ff" opacity="0.65"/>
-  <circle cx="124" cy="36"  r="7"   fill="#1ea4ff" opacity="0.65"/>
-  <circle cx="144" cy="80"  r="6"   fill="#1ea4ff" opacity="0.55"/>
-  <circle cx="124" cy="124" r="7"   fill="#3a88cc" opacity="0.55"/>
-  <circle cx="80"  cy="148" r="8.5" fill="#e6323a" opacity="0.82"/>
-  <circle cx="36"  cy="124" r="6"   fill="#e6323a" opacity="0.70"/>
-  <circle cx="16"  cy="80"  r="6"   fill="#1ea4ff" opacity="0.55"/>
-  <circle cx="80" cy="80" r="30" fill="#0a1628" stroke="#1ea4ff" stroke-width="1.8" opacity="0.95"/>
-  <circle cx="80" cy="80" r="20" fill="#050d1f" stroke="#1ea4ff" stroke-width="1"   opacity="0.55"/>
-  <circle cx="80" cy="80" r="9"  fill="#e6323a"/>
-  <circle cx="84" cy="76" r="3"  fill="white" opacity="0.45"/>
-  <text x="170" y="65" font-family="system-ui,-apple-system,sans-serif" font-size="52" font-weight="800" letter-spacing="-1" fill="white">SEE<tspan fill="#1ea4ff">AI</tspan></text>
-  <line x1="170" y1="78" x2="475" y2="78" stroke="#1ea4ff" stroke-width="0.8" opacity="0.25"/>
-  <text x="171" y="112" font-family="system-ui,-apple-system,sans-serif" font-size="26" font-weight="300" letter-spacing="16" fill="#7aafce">EXPLORE</text>
-  <text x="172" y="140" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="400" letter-spacing="3.5" fill="#3a5570">inteligência investigativa</text>
-</svg>
-      <div style="width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(30,164,255,0.3),transparent);margin:0.8rem auto 0;"></div>
+    <!-- LOGO ANIMADO SEEAI EXPLORE -->
+    <div class="ex-logo-animado" style="padding:2.4rem 2rem 1rem;position:relative;z-index:1;">
+      <div class="logo-lockup">
+        <div class="auth-v2-emblem" aria-hidden="true" data-auth-hero>
+          <canvas class="auth-v2-hero-canvas"></canvas>
+          <span class="auth-v2-ring"></span>
+          <span class="auth-v2-tick t"></span><span class="auth-v2-tick b"></span><span class="auth-v2-tick l"></span><span class="auth-v2-tick r"></span>
+          <img src="img/seeai-icon-512.svg" alt="SEEAI EXPLORE">
+        </div>
+        <div class="wordmark">
+          <div class="wm-main">SEE<span>AI</span></div>
+          <div class="wm-rule"></div>
+          <div class="wm-explore">EXPLORE</div>
+          <div class="wm-tag">inteligência investigativa</div>
+        </div>
+      </div>
     </div>
 
     <!-- ═══ HERO ═══════════════════════════════════════════════════ -->
-    <section class="hero" id="top">
+    <section class="hero hero-solo" id="top">
       <div class="hero-bg" aria-hidden="true"><svg id="graph3d" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g id="g3d-links"></g><g id="g3d-nodes"></g></svg></div>
       <div class="hero-scrim" aria-hidden="true"></div>
       <div class="hero-left">
@@ -2040,14 +2035,7 @@ footer {
         </div>
       </div>
 
-      <aside class="hero-panel hero-emblem-panel">
-        <div class="auth-v2-emblem" aria-hidden="true" data-auth-hero>
-          <canvas class="auth-v2-hero-canvas"></canvas>
-          <span class="auth-v2-ring"></span>
-          <span class="auth-v2-tick t"></span><span class="auth-v2-tick b"></span><span class="auth-v2-tick l"></span><span class="auth-v2-tick r"></span>
-          <img src="img/seeai-icon-512.svg" alt="SEEAI EXPLORE">
-        </div>
-      </aside>
+
     </section>
 
     <!-- ═══ PILARES: EXPLORE → CONNECT → ANALYZE → UNDERSTAND → INVESTIGATE → EVIDENCE ═══ -->
