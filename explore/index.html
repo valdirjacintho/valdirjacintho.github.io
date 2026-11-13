@@ -1936,13 +1936,14 @@ footer {
 .ex-logo-animado{ display:flex; justify-content:center; }
 .logo-lockup{ display:flex; align-items:center; gap:clamp(16px,2.6vw,30px); }
 .logo-lockup .auth-v2-emblem{ width:clamp(120px,15vw,188px); margin:0; }
-.wordmark{ display:flex; flex-direction:column; justify-content:center; text-align:left; }
-.wm-main{ font-weight:800; font-size:clamp(34px,5.2vw,60px); letter-spacing:-.02em; line-height:1; color:#fff; }
+.wordmark{ display:grid; grid-template-rows:1fr auto 1fr; justify-items:start; height:clamp(120px,15vw,188px); text-align:left; }
+.wm-sub{ align-self:start; display:flex; flex-direction:column; }
+.wm-main{ align-self:end; font-weight:800; font-size:clamp(34px,5.2vw,60px); letter-spacing:-.02em; line-height:1; color:#fff; }
 .wm-main span{ color:#1ea4ff; }
-.wm-rule{ height:1px; width:min(320px,52vw); background:linear-gradient(90deg,rgba(30,164,255,.5),transparent); margin:.5rem 0 .45rem; }
+.wm-rule{ height:1px; width:min(320px,52vw); background:linear-gradient(90deg,rgba(30,164,255,.5),transparent); align-self:center; margin:0; }
 .wm-explore{ font-weight:300; font-size:clamp(14px,2.2vw,25px); letter-spacing:.5em; color:#7aafce; }
 .wm-tag{ font-size:clamp(9px,1.3vw,12px); letter-spacing:.26em; text-transform:lowercase; color:#3a5570; margin-top:.5rem; }
-@media(max-width:620px){ .logo-lockup{ flex-direction:column; text-align:center; gap:14px; } .wordmark{ text-align:center; align-items:center; } .wm-rule{ margin-inline:auto; } }
+@media(max-width:620px){ .logo-lockup{ flex-direction:column; text-align:center; gap:14px; } .wordmark{ height:auto; display:flex; flex-direction:column; align-items:center; text-align:center; } .wm-sub{ align-items:center; } .wm-rule{ margin:.5rem auto; } }
 .hero.hero-solo{ grid-template-columns:1fr; justify-items:center; text-align:center; padding-top:2rem; }
 .hero.hero-solo .hero-left{ max-width:860px; display:flex; flex-direction:column; align-items:center; }
 .hero.hero-solo .ex-hero-chips{ justify-content:center; }
@@ -2010,8 +2011,10 @@ footer {
         <div class="wordmark">
           <div class="wm-main">SEE<span>AI</span></div>
           <div class="wm-rule"></div>
-          <div class="wm-explore">EXPLORE</div>
-          <div class="wm-tag">inteligência investigativa</div>
+          <div class="wm-sub">
+            <div class="wm-explore">EXPLORE</div>
+            <div class="wm-tag">inteligência investigativa</div>
+          </div>
         </div>
       </div>
     </div>
@@ -2907,5 +2910,6 @@ footer {
 
   /* grafo de entidades do hero removido — hero limpo, emblema flutuante */
   </script>
+  <script src="js/seeai-auth-hero.js" defer></script>
 </body>
 </html>
