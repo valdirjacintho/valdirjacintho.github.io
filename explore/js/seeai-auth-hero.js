@@ -2,13 +2,13 @@
    Logo em movimento 3D: o olho/alvo central com pupila vermelha, os 8 nós do logo
    orbitando em anel inclinado e uma esfera de rede girando ao fundo.
    Canvas 2D puro (sem three.js), sem rede, sem dados. Pausa quando a aba fica oculta
-   e respeita prefers-reduced-motion (nesse caso mantém a imagem estática do logo). */
+   Anima sempre (logo da marca), mesmo com "reduzir movimento" ligado no SO. */
 (() => {
   const host = document.querySelector('[data-auth-hero]');
   if (!host) return;
   const canvas = host.querySelector('canvas');
-  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!canvas || reduce || !canvas.getContext) return;
+  // Logo da marca: anima sempre (não é suprimido pelo "reduzir movimento" do SO).
+  if (!canvas || !canvas.getContext) return;
   const ctx = canvas.getContext('2d');
   const BLUE = [47, 155, 255], BLUE2 = [88, 180, 255], RED = [255, 48, 71];
   const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
